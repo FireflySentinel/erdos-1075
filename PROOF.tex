@@ -1,0 +1,500 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{needspace}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={A counterexample to Erdos Problem 1075},
+  pdfauthor={Qiyuan Gu}
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\numberwithin{equation}{section}
+\newcommand{\W}{\mathcal W}
+\newcommand{\D}{\mathcal D}
+
+\title{A counterexample to Erd\H{o}s Problem 1075}
+\author{Qiyuan Gu\\
+University of Chicago\\
+\href{mailto:phoenix1203@uchicago.edu}{\texttt{phoenix1203@uchicago.edu}}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Erd\H{o}s asked whether, for every fixed \(r\ge3\), there is a constant
+\(c_r>r^{-r}\) such that, for every \(\varepsilon>0\), every
+sufficiently large \(r\)-uniform hypergraph on \(N\) vertices with
+at least \((1+\varepsilon)(N/r)^r\) edges contains
+a subgraph on \(m\to\infty\) vertices with at least \(c_rm^r\) edges.
+We give a counterexample for \(r=16\). We construct explicit finite
+hypergraphs \(G_n\) whose unnormalized Lagrangians satisfy
+\[
+ 16^{-16}\left(1+\frac1{4(14n)^{14}}\right)
+ \le\lambda(G_n)\le16^{-16}+\frac1{15!n}.
+\]
+Blow-ups of these hypergraphs disprove the asserted density increase.
+The construction uses two families of bipartite links arranged around
+a cycle. A quantitative inequality for the corresponding open paths
+gives the upper bound.
+\end{abstract}
+
+\section{Introduction}
+
+All hypergraphs in this paper are finite and simple. For a hypergraph
+\(H\), write \(v(H)=|V(H)|\), \(e(H)=|E(H)|\), and let \(H[S]\)
+denote the subgraph induced by \(S\subseteq V(H)\).
+
+Erd\H{o}s proved that, for every fixed \(r\ge2\) and \(\varepsilon>0\),
+an \(r\)-uniform hypergraph on \(N\) vertices with at least
+\(\varepsilon N^r\) edges contains a complete \(r\)-partite
+\(r\)-uniform hypergraph with equal part sizes tending to infinity
+with \(N\) \cite{Erdos64}. In particular, it contains a subgraph
+on \(m\to\infty\) vertices with \((m/r)^r\) edges.
+Erd\H{o}s subsequently conjectured that, for each fixed \(r\ge3\),
+there is a constant \(c_r>r^{-r}\) such that, for every
+\(\varepsilon>0\) and all sufficiently large \(N\), the assumption
+\[
+ e(H)\ge(1+\varepsilon)(N/r)^r
+\]
+forces a subgraph on \(m=m(N)\to\infty\) vertices with at least
+\(c_rm^r\) edges \cite[p.~80]{Erdos74}.
+This is Problem~1075 in Bloom's collection \cite{Bloom}.
+
+\begin{theorem}\label{thm:main}
+For every \(\gamma>16^{-16}\), there is an \(\varepsilon>0\) and
+there are arbitrarily large \(16\)-uniform hypergraphs \(H\) such that
+\[
+ e(H)\ge(1+\varepsilon)\bigl(v(H)/16\bigr)^{16},
+ \qquad
+ e(H[S])<\gamma|S|^{16}
+ \quad\text{for every nonempty }S\subseteq V(H).
+\]
+\end{theorem}
+
+The theorem disproves the conjecture at the fixed uniformity \(r=16\).
+It follows from a sequence of explicit finite hypergraphs with
+Lagrangians approaching \(16^{-16}\) from above. We use the convention
+\begin{equation}\label{eq:lagrangian}
+ P_H(x)=\sum_{e\in E(H)}\prod_{v\in e}x_v,
+ \qquad
+ \lambda(H)=\max_{\substack{x_v\ge0\\\sum_vx_v=1}}P_H(x),
+\end{equation}
+without the factor \(r!\).
+
+\begin{proposition}\label{prop:sequence}
+For every integer \(n\ge2\), the \(16\)-uniform hypergraph \(G_n\)
+defined in Section~\ref{sec:construction} has \(2n+29\) vertices and
+satisfies
+\begin{equation}\label{eq:bounds}
+ 16^{-16}\left(1+\frac1{4(14n)^{14}}\right)
+ \le\lambda(G_n)\le16^{-16}+\frac1{15!n}.
+\end{equation}
+\end{proposition}
+
+The construction couples two three-uniform hypergraphs by a cyclic
+shift of their bipartite links. A prescribed weighting makes both
+cubic forms attain their separate upper bounds, and one additional
+edge gives a strict increase. When the additional edge has positive
+weight, cutting the cycle prevents simultaneous equality in the two
+cubic bounds. We quantify the resulting loss and use it to bound
+every open path.
+Deleting a pair of vertices of least total weight then gives the
+upper bound in \eqref{eq:bounds}.
+
+\section{The cyclic construction}\label{sec:construction}
+
+Fix \(n\ge2\). Take pairwise distinct vertices
+\[
+ A_i,B_i\quad(i\in\mathbb Z/n\mathbb Z),\qquad C,U,V,
+ \qquad W_1,\ldots,W_{12},\qquad D_1,\ldots,D_{14}.
+\]
+Put \(\W=\{W_1,\ldots,W_{12}\}\) and
+\(\D=\{D_1,\ldots,D_{14}\}\).
+On the vertex set \(\{A_i,B_i:i\in\mathbb Z/n\mathbb Z\}\cup
+\{C\}\cup\D\), define two three-uniform hypergraphs by
+\begin{align*}
+ E(H_1)&=\bigcup_i
+ \bigl\{\{A_i,X,Y\}:X\in\{B_i,C\},\
+ Y\in\{B_j:j\ne i\}\cup\D\bigr\},\\
+ E(H_2)&=\bigcup_i
+ \bigl\{\{B_i,X,Y\}:X\in\{A_{i+1},C\},\
+ Y\in\{A_j:j\ne i+1\}\cup\D\bigr\}.
+\end{align*}
+All subscripts are read modulo \(n\). Define
+\begin{equation}\label{eq:edges}
+ \begin{split}
+ E(G_n)={}&\bigl\{\W\cup\{U\}\cup e:e\in E(H_1)\bigr\}\\
+ &\cup\bigl\{\W\cup\{V\}\cup e:e\in E(H_2)\bigr\}
+ \cup\bigl\{\{U,V\}\cup\D\bigr\}.
+ \end{split}
+\end{equation}
+Each edge has sixteen vertices. The three displayed families are
+disjoint, and the apex \(A_i\) or \(B_i\) determines the index within
+each link family, so the construction has no repeated edges.
+
+Use lower-case letters for the weights of the corresponding vertices,
+and write
+\[
+ A=\sum_i a_i,\qquad B=\sum_i b_i,\qquad
+ D=\sum_{j=1}^{14}d_j,\qquad \omega=\prod_{j=1}^{12}w_j.
+\]
+The two cubic forms and the polynomial of \(G_n\) are
+\begin{align}
+ P_1&=\sum_i a_i(b_i+c)(B-b_i+D),\label{eq:p1}\\
+ P_2&=\sum_i b_i(a_{i+1}+c)(A-a_{i+1}+D),\label{eq:p2}\\
+ P_{G_n}&=\omega(uP_1+vP_2)+uv\prod_{j=1}^{14}d_j.
+ \label{eq:polynomial}
+\end{align}
+
+\Needspace{8\baselineskip}
+\begin{lemma}\label{lem:lower}
+The lower bound in \eqref{eq:bounds} holds.
+\end{lemma}
+
+\begin{proof}
+Assign the weights
+\begin{equation}\label{eq:weights}
+ \begin{gathered}
+ w_j=\frac1{16},\qquad u=v=\frac1{32},\qquad
+ a_i=b_i=\frac1{16n},\\
+ d_j=\frac1{224n},\qquad c=\frac{n-1}{16n}.
+ \end{gathered}
+\end{equation}
+Their sum is one. Moreover,
+\[
+ A=B=c+D=\frac1{16},\qquad
+ b_i+c=B-b_i+D=a_{i+1}+c=A-a_{i+1}+D=\frac1{16}.
+\]
+Thus \(P_1=P_2=16^{-3}\). The first term in
+\eqref{eq:polynomial} is \(16^{-16}\), and the second is
+\[
+ \frac1{1024(224n)^{14}}
+ =\frac{16^{-16}}{4(14n)^{14}}.\qedhere
+\]
+\end{proof}
+
+\section{A bound for open paths}\label{sec:paths}
+
+We first prove an inequality for the cubic forms obtained by opening
+the cycle. The parameter \(D\) in the following lemma is a single
+nonnegative number; its division among fourteen vertices will be
+used only in Lemma~\ref{lem:path}.
+
+\begin{lemma}\label{lem:cubic}
+Let \(L\ge1\), and let \(a_1,\ldots,a_L,b_1,\ldots,b_L,c,D\)
+be nonnegative numbers. Put
+\[
+ A=\sum_{i=1}^L a_i,\qquad B=\sum_{i=1}^L b_i,
+ \qquad a_{L+1}=0,
+\]
+and suppose that \(A+B+c+D=1\). Define \(P_1,P_2\) by
+\eqref{eq:p1} and \eqref{eq:p2}, with sums over \(1\le i\le L\).
+Then, for every \(s\in[0,1]\),
+\begin{equation}\label{eq:cubic-loss}
+ sP_1+(1-s)P_2\le\frac1{27}-\frac{s(1-s)D^3}{1200}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Set
+\[
+ \delta_A=A-\frac13,\qquad\delta_B=B-\frac13,
+\]
+and
+\begin{align*}
+ \beta&=\frac{B+D-c}{2}=D+\frac{\delta_A}{2}+\delta_B,\\
+ \alpha&=\frac{A+D-c}{2}=D+\delta_A+\frac{\delta_B}{2}.
+\end{align*}
+Completing the square gives
+\begin{align}
+ P_1&=\frac{A(1-A)^2}{4}-\sum_i a_i(b_i-\beta)^2,
+ \label{eq:square1}\\
+ P_2&=\frac{B(1-B)^2}{4}-\sum_i b_i(a_{i+1}-\alpha)^2.
+ \label{eq:square2}
+\end{align}
+For \(0\le x\le1\),
+\[
+ \frac1{27}-\frac{x(1-x)^2}{4}
+ =\frac{(x-1/3)^2(4/3-x)}4\ge\frac{(x-1/3)^2}{12}.
+\]
+Consequently, if
+\[
+ E=s\sum_i a_i(b_i-\beta)^2
+ +(1-s)\sum_i b_i(a_{i+1}-\alpha)^2,
+\]
+then
+\begin{equation}\label{eq:loss}
+ \frac1{27}-sP_1-(1-s)P_2
+ \ge\frac{s\delta_A^2+(1-s)\delta_B^2}{12}+E.
+\end{equation}
+This proves the assertion when \(D=0\) or \(s\in\{0,1\}\).
+Assume henceforth that \(D>0\) and \(0<s<1\).
+
+If \(|\delta_A|\ge D/10\), the right side of \eqref{eq:loss}
+is at least
+\[
+ \frac{sD^2}{1200}\ge\frac{s(1-s)D^3}{1200},
+\]
+since \(D\le1\). The case \(|\delta_B|\ge D/10\) is analogous.
+It remains to consider
+\( |\delta_A|,|\delta_B|<D/10\).
+In this case
+\[
+ D\le c+D=\frac13-\delta_A-\delta_B\le\frac13+\frac D5,
+\]
+so \(D\le5/12\). It follows that
+\begin{equation}\label{eq:alpha-beta}
+ \frac{17D}{20}\le\alpha,\beta\le\frac{23D}{20}\le\frac{23}{48},
+ \qquad A,B\ge\frac13-\frac D{10}\ge\frac7{24}.
+\end{equation}
+In particular, \(\alpha,\beta>0\), \(A\ge\alpha/3\), and
+\(B\ge\beta/3\).
+
+Consider the finite sequence
+\begin{equation}\label{eq:sequence}
+ \frac{a_1}{\alpha},\frac{b_1}{\beta},\ldots,
+ \frac{a_L}{\alpha},\frac{b_L}{\beta},0.
+\end{equation}
+Each successive pair \(z,z'\) contributes to \(E\) a term
+\[
+ s\alpha\beta^2 z(z'-1)^2
+ \quad\text{or}\quad
+ (1-s)\beta\alpha^2 z(z'-1)^2,
+\]
+according as the first entry comes from an \(a_i\) or a \(b_i\).
+If some entry of \eqref{eq:sequence} is at least \(1/3\), then,
+because the last entry is zero, some successive pair satisfies
+\(z\ge1/3\) and \(z'<1/3\). Hence
+\begin{equation}\label{eq:transition}
+ E\ge\frac4{27}\min\{s\alpha\beta^2,(1-s)\beta\alpha^2\}.
+\end{equation}
+If all entries are less than \(1/3\), then instead
+\begin{align*}
+ E&\ge\frac49\bigl(s\beta^2A+(1-s)\alpha^2B\bigr)\\
+ &\ge\frac4{27}\bigl(s\alpha\beta^2+(1-s)\beta\alpha^2\bigr),
+\end{align*}
+which also implies \eqref{eq:transition}. Using
+\eqref{eq:alpha-beta}, we obtain in either case
+\[
+ E\ge\frac4{27}\left(\frac{17}{20}\right)^3
+       \min\{s,1-s\}D^3
+ \ge\frac{s(1-s)D^3}{1200}.
+\]
+The last inequality follows from
+\(\frac4{27}(\frac{17}{20})^3=4913/54000>1/1200\).
+Together with \eqref{eq:loss}, this proves the lemma.
+\end{proof}
+
+For \(L\ge1\), define the \(16\)-uniform hypergraph \(T_L\)
+as in \eqref{eq:edges}, with each index ranging over \(1,\ldots,L\)
+and with the last link in \(H_2\) replaced by the triples
+\[
+ \{B_L,C,Y\},\qquad Y\in\{A_1,\ldots,A_L\}\cup\D.
+\]
+The edge \(\{U,V\}\cup\D\) is retained.
+Its polynomial is \eqref{eq:polynomial} with \(a_{L+1}=0\).
+
+\begin{lemma}\label{lem:path}
+For every \(L\ge1\), we have \(\lambda(T_L)\le16^{-16}\).
+\end{lemma}
+
+\begin{proof}
+Take nonnegative vertex weights of total mass one, and put
+\[
+ h=\sum_{j=1}^{12}w_j,\qquad q=u+v,\qquad t=A+B+c+D.
+\]
+Thus \(h+q+t=1\). If \(q=0\) or \(t=0\), then \(P_{T_L}=0\).
+Otherwise put
+\[
+ s=u/q,\qquad d=D/t,\qquad z=s(1-s)d^3\in[0,1/4].
+\]
+Applying Lemma~\ref{lem:cubic} to the bottom weights divided by
+\(t\), and then using homogeneity, gives
+\[
+ uP_1+vP_2\le qt^3\left(\frac1{27}-\frac z{1200}\right).
+\]
+The arithmetic--geometric mean inequality now yields
+\begin{equation}\label{eq:path-first}
+ P_{T_L}\le
+ \left(\frac h{12}\right)^{12}qt^3
+       \left(\frac1{27}-\frac z{1200}\right)
+ +q^2s(1-s)\left(\frac{td}{14}\right)^{14}.
+\end{equation}
+Also,
+\begin{equation}\label{eq:amgm}
+ \frac{qt^3}{27}\le\left(\frac{q+t}{4}\right)^4,
+ \qquad
+ \frac{q^2t^{14}}{14^{14}}\le4\left(\frac{q+t}{16}\right)^{16}.
+\end{equation}
+The second inequality applies the same inequality to two copies of
+\(q/2\) and fourteen copies of \(t/14\).
+
+Define
+\[
+ F(h)=\left(\frac{4h}{3}\right)^{12}[4(1-h)]^4.
+\]
+We have \(F(h)\le1\), with equality at \(h=3/4\).
+Since \(1-27z/1200>0\), we may substitute \eqref{eq:amgm}
+into \eqref{eq:path-first}. Using \(d^{14}\le d^3\), we get
+\begin{align}
+ \frac{P_{T_L}}{16^{-16}}
+ &\le F(h)\left(1-\frac9{400}z\right)
+        +4s(1-s)d^{14}(1-h)^{16}\notag\\
+ &\le F(h)+z\left[4(1-h)^{16}-\frac9{400}F(h)\right].
+ \label{eq:scalar}
+\end{align}
+
+Suppose first that \(1/2\le h<1\). Then
+\[
+ \frac{(1-h)^{16}}{F(h)}
+ =\frac{(3/4)^{12}}{256}\left(\frac{1-h}{h}\right)^{12}
+ \le\frac1{256}.
+\]
+Since \(1/64<9/400\), the expression in brackets in
+\eqref{eq:scalar} is nonpositive. Thus the right side is at most
+\(F(h)\le1\). If \(h=1\), the polynomial is zero.
+
+Suppose next that \(0\le h\le1/2\). Discarding the negative term
+in \eqref{eq:scalar} and using \(z\le1/4\), we obtain
+\begin{equation}\label{eq:small-h}
+ \frac{P_{T_L}}{16^{-16}}\le F(h)+(1-h)^{16}.
+\end{equation}
+For \(0<h\le1/2\), the function \(F(h)/h\) is increasing, since
+its logarithmic derivative is
+\[
+ \frac{11}{h}-\frac4{1-h}=\frac{11-15h}{h(1-h)}>0.
+\]
+Moreover,
+\[
+ \frac{F(1/2)}{1/2}=32\left(\frac23\right)^{12}
+ =\frac{131072}{531441}<1.
+\]
+It follows that \(F(h)\le h\) throughout \([0,1/2]\).
+The right side of \eqref{eq:small-h} is therefore at most
+\(h+(1-h)^{16}\le1\), as required.
+\end{proof}
+
+\section{The Lagrangian bound and the blow-ups}\label{sec:conclusion}
+
+\begin{proof}[Proof of Proposition~\ref{prop:sequence}]
+The lower bound was proved in Lemma~\ref{lem:lower}.
+For the upper bound, take any nonnegative weights on \(G_n\) of
+total mass one. Choose an index \(k\) with
+\[
+ a_k+b_k\le\frac{A+B}{n}\le\frac1n.
+\]
+Deleting \(A_k,B_k\) leaves an induced copy of \(T_{n-1}\): order
+the remaining indices as \(k+1,\ldots,k+n-1\) modulo \(n\).
+The last \(B\)-vertex loses its successor \(A_k\), giving precisely
+the terminal link in the definition of \(T_{n-1}\).
+By Lemma~\ref{lem:path} and homogeneity, the total weight of the
+edges that remain is at most
+\[
+ 16^{-16}(1-a_k-b_k)^{16}\le16^{-16}.
+\]
+
+For any simple \(16\)-uniform hypergraph and weights of total
+mass one,
+\begin{equation}\label{eq:derivative}
+ \frac{\partial P_H}{\partial x_v}
+ \le\sum_{\substack{S\subseteq V(H)\setminus\{v\}\\|S|=15}}
+        \prod_{w\in S}x_w
+ \le\frac{(\sum_{w\ne v}x_w)^{15}}{15!}
+ \le\frac1{15!}.
+\end{equation}
+Indeed, each product of fifteen distinct weights occurs \(15!\)
+times in the power expansion, and all other terms are nonnegative.
+The deleted edges consequently have total weight at most
+\[
+ a_k\frac{\partial P_{G_n}}{\partial a_k}
+ +b_k\frac{\partial P_{G_n}}{\partial b_k}
+ \le\frac{a_k+b_k}{15!}\le\frac1{15!n}.
+\]
+Edges containing both deleted vertices are counted twice, which
+does not affect the upper bound. This proves \eqref{eq:bounds}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Fix \(\gamma>16^{-16}\), and choose an integer \(n\ge2\) such that
+\[
+ 16^{-16}+\frac1{15!n}<\gamma.
+\]
+Keep \(n\) fixed, and set
+\[
+ \varepsilon=\frac1{4(14n)^{14}}>0.
+\]
+\Needspace{9\baselineskip}
+For each positive integer \(M\), form a blow-up \(B_{n,M}\) of
+\(G_n\): replace each vertex by an independent class, and each
+edge by all transversal edges across its sixteen classes.
+Use the following class sizes, with one class for each listed vertex:
+\[
+ \begin{array}{c|ccccc}
+ \text{vertex}&W_j&U,V&A_i,B_i&C&D_j\\ \hline
+ \text{class size}&14nM&7nM&14M&14(n-1)M&M
+ \end{array}.
+\]
+There are \(N=224nM\) vertices. These class sizes are proportional
+to the weights in \eqref{eq:weights}, so Lemma~\ref{lem:lower}
+gives the exact edge count
+\begin{equation}\label{eq:blowup-count}
+ e(B_{n,M})=\bigl[(14n)^{16}+49n^2\bigr]M^{16}
+ =(1+\varepsilon)(N/16)^{16}.
+\end{equation}
+
+Let \(S\) be any nonempty set of \(m\) vertices of \(B_{n,M}\),
+and let \(k_v\) be the number of its vertices in the class
+corresponding to \(v\in V(G_n)\). Then
+\[
+ e(B_{n,M}[S])
+ =\sum_{e\in E(G_n)}\prod_{v\in e}k_v
+ =m^{16}P_{G_n}\bigl((k_v/m)_v\bigr)
+ \le m^{16}\lambda(G_n)<\gamma m^{16}.
+\]
+Together with \eqref{eq:blowup-count} and \(M\to\infty\), this
+proves the theorem. A non-induced subgraph has no more edges than
+the induced subgraph on the same vertex set.
+\end{proof}
+
+\section*{AI tool disclosure}
+
+OpenAI Codex (GPT-6) was used substantially in developing this work.
+It proposed the cyclic construction, derived the quantitative path
+inequality and the Lagrangian estimates, and drafted the manuscript.
+It also assisted with literature searches and exact algebraic checks.
+The author specified the research problem and directed the preparation
+of the paper, and is responsible for its mathematical content.
+
+\begin{thebibliography}{9}
+
+\bibitem{Erdos64}
+P.~Erd\H{o}s,
+\href{https://users.renyi.hu/~p_erdos/1964-13.pdf}
+{On extremal problems of graphs and generalized graphs},
+\emph{Israel J. Math.} \textbf{2} (1964), 183--190.
+
+\bibitem{Erdos74}
+P.~Erd\H{o}s,
+\href{https://users.renyi.hu/~p_erdos/1974-10.pdf}
+{Extremal problems on graphs and hypergraphs},
+in \emph{Hypergraph Seminar} (Columbus, Ohio, 1972),
+Lecture Notes in Mathematics, vol.~411,
+Springer, Berlin, 1974, pp.~75--84.
+
+\bibitem{Bloom}
+T.~F. Bloom,
+\emph{Erd\H{o}s Problem \#1075},
+\url{https://www.erdosproblems.com/1075}.
+Accessed 5 September 2026.
+
+\end{thebibliography}
+
+\end{document}
