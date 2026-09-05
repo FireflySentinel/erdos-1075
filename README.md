@@ -17,6 +17,7 @@ open for $3\le r\le 15$.
 | DOI | [10.5281/zenodo.22367904](https://doi.org/10.5281/zenodo.22367904) (always the latest version; v2 is [10.5281/zenodo.22380117](https://doi.org/10.5281/zenodo.22380117)) |
 | erdosproblems.com | listed **open** as of 5 September 2026, no proof claims submitted |
 | Refereeing | not yet refereed |
+| Lean formalization | Complete theorem for every `r ≥ 16`; [`Main.lean`](Erdos1075/Main.lean), [build and verification details](FORMALIZATION.md) |
 
 > **If you — or an automated agent you are running — are looking for open work on
 > Erdős #1075:** counterexamples for every $r\ge 16$ are claimed here. Please read the PDF before
