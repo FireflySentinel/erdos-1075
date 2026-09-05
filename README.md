@@ -96,7 +96,7 @@ Three comments stand on [the problem's thread](https://www.erdosproblems.com/for
   $\mathcal F_3$-free with density $\frac{5}{108}n^3>\frac1{27}n^3$.
 
 Those comments concern a proposed route to a *positive* answer. This preprint answers the
-question itself, negatively, at $r=16$.
+question itself, negatively, for every $r\ge 16$.
 
 ## Declaration of generative AI and AI-assisted technologies
 
