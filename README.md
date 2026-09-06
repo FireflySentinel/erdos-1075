@@ -61,7 +61,7 @@ defining the Lagrangian as a supremum. The scalar estimate uses the same binomia
 expansion as the manuscript. Setting one
 `A_i` weight to zero opens the cycle and gives the same `1 / (4! n)` error bound.
 
-## AI use disclosure
+## Use of generative AI
 
 GPT-6 Astra was used to generate the mathematical proofs, draft the manuscript,
 and perform the lean formalization. GPT-5.6 Sol and Claude Opus 5 were used only
