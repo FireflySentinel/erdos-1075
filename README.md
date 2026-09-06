@@ -47,10 +47,6 @@ edges, so the induced-subgraph bound implies the bound in the original problem.
 
 ## Use of generative AI
 
-GPT-6 Astra was used to generate the mathematical proofs, draft the manuscript,
-and perform the lean formalization. GPT-5.6 Sol and Claude Opus 5 were used only
-for editorial review of the exposition. GPT-6 Astra was run in a research
-environment containing earlier results produced by GPT-5.6 Sol and Claude Opus 5,
-but those earlier results did not contribute to the final mathematical arguments.
-The author reviewed the final manuscript and takes full responsibility for its
-content.
+The proofs, the first draft, and the Lean formalization were generated
+with GPT-6 Astra; GPT-5.6 Sol and Claude Opus 5 were used for editorial
+review. The author checked the arguments and is responsible for the content.
