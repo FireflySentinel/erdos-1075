@@ -1,8 +1,5 @@
 # Erdős Problem #1075: counterexamples for every $r\ge 5$
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22367904.svg)](https://doi.org/10.5281/zenodo.22367904)
-[![Lean](https://github.com/FireflySentinel/erdos-1075/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/FireflySentinel/erdos-1075/actions/workflows/lean.yml)
-
 Preprint giving **counterexamples** to
 [Erdős Problem #1075](https://www.erdosproblems.com/1075) for every $r\ge 5$, so the
 problem as stated for all $r\ge 3$ has a negative answer. The endpoint question remains
