@@ -8,7 +8,7 @@
 \usepackage{needspace}
 \usepackage[hidelinks]{hyperref}
 \hypersetup{
-  pdftitle={A counterexample to Erdos Problem 1075},
+  pdftitle={Counterexamples to Erdos Problem 1075},
   pdfauthor={Qiyuan Gu}
 }
 
@@ -17,10 +17,9 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \numberwithin{equation}{section}
-\newcommand{\W}{\mathcal W}
 \newcommand{\D}{\mathcal D}
 
-\title{A counterexample to Erd\H{o}s Problem 1075}
+\title{Counterexamples to Erd\H{o}s Problem 1075}
 \author{Qiyuan Gu\\
 University of Chicago\\
 \href{mailto:phoenix1203@uchicago.edu}{\texttt{phoenix1203@uchicago.edu}}}
@@ -71,8 +70,13 @@ forces a subgraph on \(m=m(N)\to\infty\) vertices with at least
 \(c_rm^r\) edges \cite[p.~80]{Erdos74}.
 This is Problem~1075 in Bloom's collection \cite{Bloom}.
 
-With the usual density \(d(H)=e(H)/\binom{v(H)}r\), the threshold
-\((N/r)^r\) corresponds asymptotically to
+Use the density \(d(H)=e(H)/\binom{v(H)}r\). A number
+\(\alpha\in[0,1)\) is a \emph{jump} for \(r\)-graphs if there is a
+\(c>0\) such that, for every \(\varepsilon>0\) and integer \(m\ge r\),
+all sufficiently large \(r\)-graphs of density at least
+\(\alpha+\varepsilon\) contain an \(m\)-vertex subgraph of density
+at least \(\alpha+c\); otherwise it is a \emph{non-jump}
+\cite{FranklRodl84}. The threshold \((N/r)^r\) corresponds asymptotically to
 \(\alpha_r=r!/r^r\). Erd\H{o}s proved that every number in
 \([0,\alpha_r)\) is a jump for \(r\)-graphs \cite{Erdos71}. Thus
 Problem~1075 is the endpoint question at \(\alpha_r\).
@@ -89,8 +93,9 @@ Shaw recently proved that \(2r!/r^r\) is a non-jump for every
 \(r\ge4\), and that for \(r\ge4\) no smaller non-jump can be obtained
 from his finite-pattern formulation of the Frankl--R\"odl method
 \cite[Theorems~4.2 and~4.3]{Shaw26}. Liu and Mubayi subsequently proved
-that \(4/9\) is a non-jump for \(3\)-graphs by a construction outside
-that finite-pattern framework \cite{LiuMubayi26}. The endpoint
+that \(4/9\) is a non-jump for \(3\)-graphs \cite{LiuMubayi26}; this
+lies below the threshold \(6(5\sqrt5-2)/121\) in Shaw's
+Theorem~4.3(i). The endpoint
 \(2/9\) for \(3\)-graphs remains open; Baber and Talbot proved, using
 flag algebras, the first jump intervals immediately above it
 \cite{BaberTalbot11}. The result below shows that the endpoint is a non-jump for
@@ -100,8 +105,7 @@ The construction below is not an instance of Shaw's
 finite-pattern criterion. Its distinguished links between the two
 vertex families follow the matching \(A_iB_i\) and the shifted matching
 \(B_iA_{i+1}\) around a cycle, and the proof controls the full
-Lagrangian of a growing sequence \(G_n\). Hence Shaw's
-Theorem~4.3 does not apply.
+Lagrangian of a growing sequence \(G_n\).
 
 \begin{theorem}\label{thm:main}
 For every \(\gamma>5^{-5}\), there is an \(\varepsilon>0\) and
@@ -115,7 +119,8 @@ there are arbitrarily large \(5\)-uniform hypergraphs \(H\) such that
 \end{theorem}
 
 The conclusion is stronger than the formulation of Problem~1075,
-since the bound holds for every nonempty vertex subset.
+since the bound holds for every nonempty vertex subset, and any
+subgraph on that vertex set has at most as many edges as the induced subgraph.
 Taking \(5^{-5}<\gamma<c_{5}\) in Theorem~\ref{thm:main}
 rules out any \(c_{5}>5^{-5}\). In the usual density normalization,
 it also implies that \(5!/5^{5}\) is a non-jump. The proof uses
@@ -147,7 +152,7 @@ has
 \]
 so both cubic forms attain \(1/27\) even with \(D>0\), while the
 additional edge \(\{U,V\}\cup\D\) contributes a gain of order
-\(D^{3}\). Deleting one pair \(A_k,B_k\) opens the cycle; the
+\(D^{3}\). Deleting one vertex \(A_k\) opens the cycle; the
 terminal mismatch forces a loss of order \(D^3\) with a coefficient
 large enough to absorb that gain. Consequently every open path \(T_L\) has Lagrangian
 exactly \(5^{-5}\), whereas the closed cycle has Lagrangian slightly
@@ -158,10 +163,9 @@ above \(5^{-5}\).
 Fix \(n\ge2\). Take pairwise distinct vertices
 \[
  A_i,B_i\quad(i\in\mathbb Z/n\mathbb Z),\qquad C,U,V,
- \qquad W_1,\qquad D_1,\ldots,D_{3}.
+ \qquad W,\qquad D_1,D_2,D_3.
 \]
-Put \(\W=\{W_1\}\) and
-\(\D=\{D_1,\ldots,D_{3}\}\).
+Put \(\D=\{D_1,D_2,D_3\}\).
 On the vertex set \(\{A_i,B_i:i\in\mathbb Z/n\mathbb Z\}\cup
 \{C\}\cup\D\), define two three-uniform hypergraphs by
 \begin{align*}
@@ -175,24 +179,27 @@ On the vertex set \(\{A_i,B_i:i\in\mathbb Z/n\mathbb Z\}\cup
 All subscripts are read modulo \(n\). Define
 \begin{equation}\label{eq:edges}
  \begin{split}
- E(G_n)={}&\bigl\{\W\cup\{U\}\cup e:e\in E(H_1)\bigr\}\\
- &\cup\bigl\{\W\cup\{V\}\cup e:e\in E(H_2)\bigr\}
+ E(G_n)={}&\bigl\{\{W,U\}\cup e:e\in E(H_1)\bigr\}\\
+ &\cup\bigl\{\{W,V\}\cup e:e\in E(H_2)\bigr\}
  \cup\bigl\{\{U,V\}\cup\D\bigr\}.
  \end{split}
 \end{equation}
-Thus \(G_n\) is a simple \(5\)-uniform hypergraph.
+Every edge has five distinct vertices. The three families are
+distinguished by their intersections with \(\{U,V\}\), and within
+each of the first two families the triple \(e\) determines the edge
+uniquely. Thus \(G_n\) is a simple \(5\)-uniform hypergraph.
 
 Use lower-case letters for the weights of the corresponding vertices,
 and write
 \[
  A=\sum_i a_i,\qquad B=\sum_i b_i,\qquad
- D=\sum_{j=1}^{3}d_j,\qquad \omega=w_1.
+ D=\sum_{j=1}^{3}d_j.
 \]
 The two cubic forms and the polynomial of \(G_n\) are
 \begin{align}
  P_1&=\sum_i a_i(b_i+c)(B-b_i+D),\label{eq:p1}\\
  P_2&=\sum_i b_i(a_{i+1}+c)(A-a_{i+1}+D),\label{eq:p2}\\
- P_{G_n}&=\omega(uP_1+vP_2)+uv\prod_{j=1}^{3}d_j.
+ P_{G_n}&=w(uP_1+vP_2)+uv\prod_{j=1}^{3}d_j.
  \label{eq:polynomial}
 \end{align}
 
@@ -205,7 +212,7 @@ The lower bound in \eqref{eq:bounds} holds.
 Assign the weights
 \begin{equation}\label{eq:weights}
  \begin{gathered}
- w_1=\frac1{5},\qquad u=v=\frac1{10},\qquad
+ w=\frac1{5},\qquad u=v=\frac1{10},\qquad
  a_i=b_i=\frac1{5n},\\
  d_j=\frac1{15n},\qquad c=\frac{n-1}{5n}.
  \end{gathered}
@@ -349,7 +356,7 @@ Each successive pair \(x,y\) contributes to \(E\) a term
  \ge\frac29s(1-s)(D-S)^3.
 \end{equation}
 
-For completeness, for all \(S,m\ge0\) we have
+For all \(S,m\ge0\) we have
 \begin{equation}\label{eq:absorption}
  \frac{(S+m)S^2}{3}+\frac{2m^3}{9}\ge\frac{(S+m)^3}{10}.
 \end{equation}
@@ -381,7 +388,7 @@ The lower bound follows by assigning weight \(1/5\) to the vertices
 of any one edge and zero elsewhere. For the upper bound, take
 nonnegative vertex weights of total mass one, and put
 \[
- h=w_1,\qquad q=u+v,\qquad t=A+B+c+D.
+ h=w,\qquad q=u+v,\qquad t=A+B+c+D.
 \]
 Thus \(h+q+t=1\). If \(q=0\) or \(t=0\), then \(P_{T_L}=0\).
 Otherwise put
@@ -449,26 +456,27 @@ The lower bound was proved in Lemma~\ref{lem:lower}.
 For the upper bound, take any nonnegative weights on \(G_n\) of
 total mass one. Choose an index \(k\) with
 \[
- a_k+b_k\le\frac{A+B}{n}\le\frac1n.
+ a_k\le\frac{A}{n}\le\frac1n.
 \]
-Put \(a'_j=a_{k+j}\), \(b'_j=b_{k+j}\) for
-\(1\le j\le n-1\), with indices modulo \(n\), and set
-\(A'=\sum_j a'_j\), \(B'=\sum_j b'_j\), \(a'_n=0\).
-After deleting \(A_k,B_k\), the remaining polynomial is
+After deleting \(A_k\), put \(a'_1=a'_{n+1}=0\),
+\(a'_j=a_{k+j-1}\) for \(2\le j\le n\), and
+\(b'_j=b_{k+j-1}\) for \(1\le j\le n\), with indices modulo \(n\).
+Writing \(A'=\sum_j a'_j\), \(B'=\sum_j b'_j\),
+the remaining polynomial is
 \begin{align}
- P_{G_n-\{A_k,B_k\}}
- ={}&\omega u\sum_{j=1}^{n-1}
+ P_{G_n-\{A_k\}}
+ ={}&wu\sum_{j=1}^{n}
  a'_j(b'_j+c)(B'-b'_j+D) \notag\\
- &+\omega v\sum_{j=1}^{n-1}
+ &+wv\sum_{j=1}^{n}
  b'_j(a'_{j+1}+c)(A'-a'_{j+1}+D)
  +uv\prod_{\ell=1}^{3}d_\ell \notag\\
- ={}&P_{T_{n-1}}.
+ ={}&P_{T_n}\big|_{a'_1=0}.
  \label{eq:deletion-identity}
 \end{align}
 Thus Lemma~\ref{lem:path} and homogeneity bound the total weight of the
 edges that remain by
 \[
- 5^{-5}(1-a_k-b_k)^{5}\le5^{-5}.
+ 5^{-5}(1-a_k)^{5}\le5^{-5}.
 \]
 
 For any simple \(5\)-uniform hypergraph and weights of total
@@ -485,8 +493,7 @@ times in the power expansion, and all other terms are nonnegative.
 The deleted edges consequently have total weight at most
 \[
  a_k\frac{\partial P_{G_n}}{\partial a_k}
- +b_k\frac{\partial P_{G_n}}{\partial b_k}
- \le\frac{a_k+b_k}{4!}\le\frac1{4!n}.
+ \le\frac{a_k}{4!}\le\frac1{4!n}.
 \]
 This proves \eqref{eq:bounds}.
 \end{proof}
@@ -507,7 +514,7 @@ edge by all transversal edges across its five classes.
 Use the following class sizes, with one class for each listed vertex:
 \[
  \begin{array}{c|ccccc}
- \text{vertex}&W_j&U,V&A_i,B_i&C&D_j\\ \hline
+ \text{vertex}&W&U,V&A_i,B_i&C&D_j\\ \hline
  \text{class size}&6nM&3nM&6M&6(n-1)M&2M
  \end{array}.
 \]
@@ -529,8 +536,7 @@ corresponding to \(v\in V(G_n)\). Then
  \le m^{5}\lambda(G_n)<\gamma m^{5}.
 \]
 Together with \eqref{eq:blowup-count} and \(M\to\infty\), this
-proves the theorem. A non-induced subgraph has no more edges than
-the induced subgraph on the same vertex set.
+proves the theorem.
 \end{proof}
 
 \begin{corollary}\label{cor:all-r}
@@ -669,7 +675,7 @@ Cambridge Univ. Press, Cambridge, 2011, pp.~83--140.
 T.~F. Bloom,
 \emph{Erd\H{o}s Problem \#1075},
 \url{https://www.erdosproblems.com/1075}.
-Accessed 5 September 2026.
+Accessed 6 September 2026.
 
 \end{thebibliography}
 

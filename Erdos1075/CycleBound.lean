@@ -40,9 +40,9 @@ lemma cycle_zero_bound {n : ℕ} [NeZero n] (x : CycleVertex n → ℝ) (k : Fin
     simp only [hnext]
     exact sum_range_rotate k (fun i => x (B i) * (x (A (finRotate n i)) + x C) *
       ((∑ j, x (A j)) - x (A (finRotate n i)) + (∑ j, x (D j))))
-  have hpath := path_bound n a b (x C) (x U) (x V) (fun i => x (W i)) (fun i => x (D i))
+  have hpath := path_bound n a b (x C) (x U) (x V) (x W) (fun i => x (D i))
     (fun i hi => hx _) (fun i hi => hx _) (hx _) (hx _) (hx _)
-    (fun i => hx _) (fun i => hx _) (by simpa [a] using hk)
+    (hx _) (fun i => hx _) (by simpa [a] using hk)
     (by rw [hasum, hbsum, ← sum_weights]; exact hmass)
   rw [hp1, hp2] at hpath
   simpa only [cycleGraph_polynomial] using hpath

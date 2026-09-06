@@ -7,7 +7,7 @@ open Finset
 
 /-- The seven named types of vertices in the manuscript. -/
 abbrev CycleVertex (n : ℕ) :=
-  Fin n ⊕ (Fin n ⊕ (Unit ⊕ (Unit ⊕ (Unit ⊕ (Fin 1 ⊕ Fin 3)))))
+  Fin n ⊕ (Fin n ⊕ (Unit ⊕ (Unit ⊕ (Unit ⊕ (Unit ⊕ Fin 3)))))
 
 instance (n : ℕ) : DecidableEq (CycleVertex n) := instDecidableEqSum
 
@@ -22,30 +22,20 @@ def B (i : Fin n) : CycleVertex n := Sum.inr (Sum.inl i)
 def C : CycleVertex n := Sum.inr (Sum.inr (Sum.inl ()))
 def U : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inl ())))
 def V : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl ()))))
-def W (i : Fin 1) : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl i)))))
+def W : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl ())))))
 def D (i : Fin 3) : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr i)))))
 
 lemma sum_weights (x : CycleVertex n → ℝ) :
     (∑ v, x v) = (∑ i, x (A i)) + (∑ i, x (B i)) + x C + x U + x V +
-      (∑ i, x (W i)) + (∑ i, x (D i)) := by
+      x W + (∑ i, x (D i)) := by
   simp only [Fintype.sum_sum_type, Fintype.sum_unique]
   unfold A B C U V W D
   ring
 
-def commonW : Finset (CycleVertex n) := univ.image W
 def commonD : Finset (CycleVertex n) := univ.image D
-
-@[simp] lemma mem_commonW (v : CycleVertex n) : v ∈ commonW ↔ ∃ i, W i = v := by
-  simp [commonW, eq_comm]
 
 @[simp] lemma mem_commonD (v : CycleVertex n) : v ∈ commonD ↔ ∃ i, D i = v := by
   simp [commonD]
-
-lemma card_commonW : (commonW : Finset (CycleVertex n)).card = 1 := by
-  rw [commonW, card_image_of_injective]
-  · simp
-  · intro i j h
-    simpa [W] using h
 
 lemma card_commonD : (commonD : Finset (CycleVertex n)).card = 3 := by
   rw [commonD, card_image_of_injective]
@@ -141,7 +131,7 @@ lemma sum_firstTriple_prod (x : CycleVertex n → ℝ) :
   simp [firstChoice]
   ring
 
-def firstCommon : Finset (CycleVertex n) := insert U commonW
+def firstCommon : Finset (CycleVertex n) := {W, U}
 
 lemma firstTriple_disjoint_common (f : TripleCode n) :
     Disjoint firstCommon (firstTriple f) := by
@@ -156,9 +146,7 @@ lemma firstTriple_disjoint_common (f : TripleCode n) :
 def firstEdge (f : TripleCode n) : Finset (CycleVertex n) := firstCommon ∪ firstTriple f
 
 lemma firstCommon_card : (firstCommon : Finset (CycleVertex n)).card = 2 := by
-  rw [firstCommon, card_insert_of_notMem]
-  · rw [card_commonW]
-  · simp [U, W]
+  simp [firstCommon, W, U]
 
 lemma firstEdge_card (f : TripleCode n) : (firstEdge f).card = 5 := by
   rw [firstEdge, card_union_of_disjoint (firstTriple_disjoint_common f), firstCommon_card, firstTriple_card]
@@ -171,13 +159,9 @@ lemma firstEdge_injective : Function.Injective (firstEdge (n := n)) := by
     union_sdiff_cancel_left (firstTriple_disjoint_common g)] using he
 
 lemma firstEdge_prod (f : TripleCode n) (x : CycleVertex n → ℝ) :
-    (∏ v ∈ firstEdge f, x v) = (∏ i, x (W i)) * x U * (∏ v ∈ firstTriple f, x v) := by
-  rw [firstEdge, prod_union (firstTriple_disjoint_common f), firstCommon, prod_insert]
-  · rw [commonW, prod_image]
-    · ring
-    · intro i hi j hj h
-      simpa [W] using h
-  · simp [U, W]
+    (∏ v ∈ firstEdge f, x v) = x W * x U * (∏ v ∈ firstTriple f, x v) := by
+  rw [firstEdge, prod_union (firstTriple_disjoint_common f)]
+  simp [firstCommon, W, U]
 
 def firstFamily : UniformHypergraph (CycleVertex n) 5 where
   edges := univ.image firstEdge
@@ -187,7 +171,7 @@ def firstFamily : UniformHypergraph (CycleVertex n) 5 where
     exact firstEdge_card f
 
 lemma firstFamily_polynomial (x : CycleVertex n → ℝ) :
-    firstFamily.polynomial x = (∏ i, x (W i)) * x U *
+    firstFamily.polynomial x = x W * x U *
       (∑ i, x (A i) * (x (B i) + x C) * ((∑ j, x (B j)) - x (B i) + (∑ j, x (D j)))) := by
   unfold UniformHypergraph.polynomial firstFamily
   rw [sum_image (fun f hf g hg h => firstEdge_injective h)]
@@ -200,7 +184,7 @@ def flipVertex (σ : Equiv.Perm (Fin n)) : Equiv.Perm (CycleVertex n) where
     | Sum.inr (Sum.inr (Sum.inl _)) => C
     | Sum.inr (Sum.inr (Sum.inr (Sum.inl _))) => V
     | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl _)))) => U
-    | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl i))))) => W i
+    | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl _))))) => W
     | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr i))))) => D i
   invFun
     | Sum.inl i => B i
@@ -208,26 +192,26 @@ def flipVertex (σ : Equiv.Perm (Fin n)) : Equiv.Perm (CycleVertex n) where
     | Sum.inr (Sum.inr (Sum.inl _)) => C
     | Sum.inr (Sum.inr (Sum.inr (Sum.inl _))) => V
     | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl _)))) => U
-    | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl i))))) => W i
+    | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl _))))) => W
     | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr i))))) => D i
   left_inv := by
-    rintro (i | i | ⟨⟩ | ⟨⟩ | ⟨⟩ | i | i) <;> simp [A, B, C, U, V, W, D]
+    rintro (i | i | ⟨⟩ | ⟨⟩ | ⟨⟩ | ⟨⟩ | i) <;> simp [A, B, C, U, V, W, D]
   right_inv := by
-    rintro (i | i | ⟨⟩ | ⟨⟩ | ⟨⟩ | i | i) <;> simp [A, B, C, U, V, W, D]
+    rintro (i | i | ⟨⟩ | ⟨⟩ | ⟨⟩ | ⟨⟩ | i) <;> simp [A, B, C, U, V, W, D]
 
 @[simp] lemma flip_A (σ : Equiv.Perm (Fin n)) (i : Fin n) : flipVertex σ (A i) = B (σ.symm i) := rfl
 @[simp] lemma flip_B (σ : Equiv.Perm (Fin n)) (i : Fin n) : flipVertex σ (B i) = A i := rfl
 @[simp] lemma flip_C (σ : Equiv.Perm (Fin n)) : flipVertex σ C = C := rfl
 @[simp] lemma flip_U (σ : Equiv.Perm (Fin n)) : flipVertex σ U = V := rfl
 @[simp] lemma flip_V (σ : Equiv.Perm (Fin n)) : flipVertex σ V = U := rfl
-@[simp] lemma flip_W (σ : Equiv.Perm (Fin n)) (i : Fin 1) : flipVertex σ (W i) = W i := rfl
+@[simp] lemma flip_W (σ : Equiv.Perm (Fin n)) : flipVertex σ W = W := rfl
 @[simp] lemma flip_D (σ : Equiv.Perm (Fin n)) (i : Fin 3) : flipVertex σ (D i) = D i := rfl
 
 def secondFamily (σ : Equiv.Perm (Fin n)) : UniformHypergraph (CycleVertex n) 5 :=
   firstFamily.map (flipVertex σ).toEmbedding
 
 lemma secondFamily_polynomial (σ : Equiv.Perm (Fin n)) (x : CycleVertex n → ℝ) :
-    (secondFamily σ).polynomial x = (∏ i, x (W i)) * x V *
+    (secondFamily σ).polynomial x = x W * x V *
       (∑ i, x (B i) * (x (A (σ i)) + x C) * ((∑ j, x (A j)) - x (A (σ i)) + (∑ j, x (D j)))) := by
   rw [secondFamily, UniformHypergraph.map_polynomial, firstFamily_polynomial]
   simp only [Equiv.coe_toEmbedding, flip_W, flip_U, flip_A, flip_B, flip_C, flip_D]
@@ -241,7 +225,7 @@ lemma V_not_mem_firstEdge (f : TripleCode n) : V ∉ firstEdge f := by
   rcases f with ⟨i, b, y⟩
   cases b <;> cases y <;> simp [firstEdge, firstCommon, firstTriple, firstChoice, otherVertex, A, B, C, U, V, W, D]
 
-lemma W_mem_firstEdge (f : TripleCode n) (i : Fin 1) : W i ∈ firstEdge f := by
+lemma W_mem_firstEdge (f : TripleCode n) : W ∈ firstEdge f := by
   simp [firstEdge, firstCommon]
 
 lemma families_disjoint (σ : Equiv.Perm (Fin n)) : Disjoint firstFamily.edges (secondFamily σ).edges := by
@@ -269,7 +253,7 @@ lemma extraEdge_prod (x : CycleVertex n → ℝ) : (∏ v ∈ extraEdge, x v) = 
 lemma extra_not_first : extraEdge ∉ (firstFamily (n := n)).edges := by
   intro h
   obtain ⟨f, hf, he⟩ := mem_image.mp h
-  have hw := W_mem_firstEdge f 0
+  have hw := W_mem_firstEdge f
   rw [he] at hw
   simp [extraEdge, W, U, V, D] at hw
 
@@ -277,8 +261,8 @@ lemma extra_not_second (σ : Equiv.Perm (Fin n)) : extraEdge ∉ (secondFamily �
   intro h
   obtain ⟨e, he, heq⟩ := mem_image.mp h
   obtain ⟨f, hf, rfl⟩ := mem_image.mp he
-  have hw : W 0 ∈ (firstEdge f).image (flipVertex σ).toEmbedding :=
-    mem_image.mpr ⟨W 0, W_mem_firstEdge f 0, flip_W σ 0⟩
+  have hw : W ∈ (firstEdge f).image (flipVertex σ).toEmbedding :=
+    mem_image.mpr ⟨W, W_mem_firstEdge f, flip_W σ⟩
   rw [heq] at hw
   simp [extraEdge, W, U, V, D] at hw
 
@@ -294,7 +278,7 @@ def cycleGraph (σ : Equiv.Perm (Fin n)) : UniformHypergraph (CycleVertex n) 5 w
       · exact (secondFamily σ).uniform e he
 
 theorem cycleGraph_polynomial (σ : Equiv.Perm (Fin n)) (x : CycleVertex n → ℝ) :
-    (cycleGraph σ).polynomial x = (∏ i, x (W i)) *
+    (cycleGraph σ).polynomial x = x W *
       (x U * (∑ i, x (A i) * (x (B i) + x C) * ((∑ j, x (B j)) - x (B i) + (∑ j, x (D j)))) +
        x V * (∑ i, x (B i) * (x (A (σ i)) + x C) * ((∑ j, x (A j)) - x (A (σ i)) + (∑ j, x (D j))))) +
       x U * x V * (∏ i, x (D i)) := by

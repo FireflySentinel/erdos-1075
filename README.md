@@ -1,6 +1,7 @@
 # Erdős Problem #1075: counterexamples for every $r\ge 5$
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22367904.svg)](https://doi.org/10.5281/zenodo.22367904)
+[![Lean](https://github.com/FireflySentinel/erdos-1075/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/FireflySentinel/erdos-1075/actions/workflows/lean.yml)
 
 Preprint giving **counterexamples** to
 [Erdős Problem #1075](https://www.erdosproblems.com/1075) for every $r\ge 5$, so the
@@ -12,10 +13,7 @@ open for $3\le r\le 4$.
 [Preprint PDF](PROOF.pdf) · [LaTeX source](PROOF.tex) ·
 [Lean formalization](Erdos1075/Main.lean) · [Build instructions](FORMALIZATION.md)
 
-This revision lowers the base uniformity to $r=5$.
-The published [v4](https://doi.org/10.5281/zenodo.22442696), 6 September 2026,
-contains the manuscript and Lean sources for $r\ge6$.
-Earlier versions established counterexamples for $r\ge16$.
+Version history (base uniformity): $16\to8\to6$ ([Zenodo v4](https://doi.org/10.5281/zenodo.22442696)) $\to5$ (current).
 
 Comments and corrections: [email](mailto:phoenix1203@uchicago.edu) or
 [issue](https://github.com/FireflySentinel/erdos-1075/issues).
@@ -27,10 +25,11 @@ sufficiently large $n$, every $r$-uniform hypergraph on $n$ vertices with at lea
 $(1+\epsilon)(n/r)^r$ edges contains a subgraph on $m$ vertices with at least $c_rm^r$
 edges, where $m=m(n)\to\infty$?
 
-Erdős proved the statement with $c_r=r^{-r}$ under the stronger hypothesis of at least
-$\epsilon n^r$ edges (*On extremal problems of graphs and generalized graphs*,
-Israel J. Math. **2** (1964), 183–190). Problem 1075 asks whether the constant can be
-pushed strictly above $r^{-r}$ at the smaller edge density.
+Erdős proved the statement with $c_r=r^{-r}$ assuming only at least
+$\epsilon n^r$ edges for any fixed $\epsilon>0$ (*On extremal problems of graphs and
+generalized graphs*, Israel J. Math. **2** (1964), 183–190). Problem 1075 asks whether
+the stronger assumption of at least $(1+\epsilon)(n/r)^r$ edges allows a constant
+strictly greater than $r^{-r}$.
 
 ## Main theorem
 
@@ -73,7 +72,7 @@ its content.
 ```bibtex
 @misc{gu2026erdos1075,
   author       = {Qiyuan Gu},
-  title        = {A counterexample to Erd\H{o}s Problem 1075},
+  title        = {Counterexamples to Erd\H{o}s Problem 1075},
   year         = {2026},
   doi          = {10.5281/zenodo.22367904},
   howpublished = {Preprint, Zenodo},

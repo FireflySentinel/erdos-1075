@@ -10,13 +10,12 @@ noncomputable def baseDensity : ℝ := 1 / 5 ^ 5
 lemma baseDensity_pos : 0 < baseDensity := by norm_num [baseDensity]
 
 /-- The homogeneous, scalar part of the five-uniform path bound. -/
-lemma path_product_bound (h q t d s ω δ P : ℝ)
+lemma path_product_bound (h q t d s dprod P : ℝ)
     (hh : 0 ≤ h) (hq : 0 ≤ q) (ht : 0 ≤ t) (hd : 0 ≤ d) (hd1 : d ≤ 1)
     (hs : 0 ≤ s) (hs1 : s ≤ 1) (hmass : h + q + t = 1)
-    (hωbound : ω ≤ h)
-    (hδbound : δ ≤ (t * d / 3) ^ 3)
-    (hP : 0 ≤ P) (hPbound : P ≤ q * t ^ 3 * (1 / 27 - s * (1 - s) * d ^ 3 / 10)) :
-    ω * P + q ^ 2 * s * (1 - s) * δ ≤ baseDensity := by
+    (hdprod : dprod ≤ (t * d / 3) ^ 3)
+    (hPbound : P ≤ q * t ^ 3 * (1 / 27 - s * (1 - s) * d ^ 3 / 10)) :
+    h * P + q ^ 2 * s * (1 - s) * dprod ≤ baseDensity := by
   let z := s * (1 - s) * d ^ 3
   have hs' : 0 ≤ 1 - s := by linarith
   have hz0 : 0 ≤ z := by dsimp [z]; positivity
@@ -41,10 +40,10 @@ lemma path_product_bound (h q t d s ω δ P : ℝ)
       _ ≤ 4 * ((2 * (q / 2) + 3 * (t / 3)) / (2 + 3)) ^ (2 + 3) := by
         exact mul_le_mul_of_nonneg_left h (by norm_num)
       _ = 4 * ((q + t) / 5) ^ 5 := by ring
-  have hfirst : ω * P ≤ baseDensity * pathShape h * (1 - 27 * z / 10) := by
+  have hfirst : h * P ≤ baseDensity * pathShape h * (1 - 27 * z / 10) := by
     calc
-      ω * P ≤ h * (q * t ^ 3 * (1 / 27 - z / 10)) :=
-        mul_le_mul hωbound hPbound hP (by positivity)
+      h * P ≤ h * (q * t ^ 3 * (1 / 27 - z / 10)) :=
+        mul_le_mul_of_nonneg_left hPbound hh
       _ = h * (q * t ^ 3 / 27) * (1 - 27 * z / 10) := by ring
       _ ≤ h * ((q + t) / 4) ^ 4 * (1 - 27 * z / 10) := by gcongr
       _ = baseDensity * pathShape h * (1 - 27 * z / 10) := by
@@ -52,9 +51,9 @@ lemma path_product_bound (h q t d s ω δ P : ℝ)
         rw [hqt]
         unfold baseDensity pathShape
         ring
-  have hsecond : q ^ 2 * s * (1 - s) * δ ≤ baseDensity * z * (4 * (1 - h) ^ 5) := by
+  have hsecond : q ^ 2 * s * (1 - s) * dprod ≤ baseDensity * z * (4 * (1 - h) ^ 5) := by
     calc
-      q ^ 2 * s * (1 - s) * δ ≤ q ^ 2 * s * (1 - s) * (t * d / 3) ^ 3 := by gcongr
+      q ^ 2 * s * (1 - s) * dprod ≤ q ^ 2 * s * (1 - s) * (t * d / 3) ^ 3 := by gcongr
       _ = (q ^ 2 * t ^ 3 / 3 ^ 3) * (s * (1 - s) * d ^ 3) := by ring
       _ ≤ (4 * ((q + t) / 5) ^ 5) * (s * (1 - s) * d ^ 3) := by
         apply mul_le_mul hqbound' _ (by positivity) (by positivity)
@@ -67,7 +66,7 @@ lemma path_product_bound (h q t d s ω δ P : ℝ)
         ring
   have hscalar := path_scalar_bound hh (show h ≤ 1 by linarith) hz0 hz1
   calc
-    ω * P + q ^ 2 * s * (1 - s) * δ ≤ baseDensity * pathShape h * (1 - 27 * z / 10) +
+    h * P + q ^ 2 * s * (1 - s) * dprod ≤ baseDensity * pathShape h * (1 - 27 * z / 10) +
         baseDensity * z * (4 * (1 - h) ^ 5) := add_le_add hfirst hsecond
     _ = baseDensity * (pathShape h + z * (4 * (1 - h) ^ 5 - 27 / 10 * pathShape h)) := by ring
     _ ≤ baseDensity * 1 := mul_le_mul_of_nonneg_left hscalar baseDensity_pos.le
@@ -98,30 +97,6 @@ lemma shiftedCubic_scale (L : ℕ) (a b : ℕ → ℝ) (c D k : ℝ) :
   apply sum_congr rfl
   intro i hi
   ring
-
-lemma cubicForm_nonneg (L : ℕ) (a b : ℕ → ℝ) (c D : ℝ)
-    (ha : ∀ i < L, 0 ≤ a i) (hb : ∀ i < L, 0 ≤ b i)
-    (hc : 0 ≤ c) (hD : 0 ≤ D) : 0 ≤ cubicForm L a b c D := by
-  apply sum_nonneg
-  intro i hi
-  have hi' := mem_range.mp hi
-  have hbi : b i ≤ ∑ j ∈ range L, b j :=
-    single_le_sum (f := b) (fun j hj => hb j (mem_range.mp hj)) hi
-  exact mul_nonneg (mul_nonneg (ha i hi') (add_nonneg (hb i hi') hc)) (by linarith)
-
-lemma shiftedCubic_nonneg (L : ℕ) (a b : ℕ → ℝ) (c D : ℝ)
-    (ha : ∀ i < L, 0 ≤ a i) (hb : ∀ i < L, 0 ≤ b i)
-    (hc : 0 ≤ c) (hD : 0 ≤ D) (hend : a L = 0) : 0 ≤ shiftedCubic L a b c D := by
-  apply sum_nonneg
-  intro i hi
-  have hi' := mem_range.mp hi
-  have hA : 0 ≤ ∑ j ∈ range L, a j := sum_nonneg fun j hj => ha j (mem_range.mp hj)
-  have hai : 0 ≤ a (i + 1) ∧ a (i + 1) ≤ ∑ j ∈ range L, a j := by
-    by_cases h : i + 1 < L
-    · exact ⟨ha _ h, single_le_sum (f := a) (fun j hj => ha j (mem_range.mp hj)) (mem_range.mpr h)⟩
-    · have heq : i + 1 = L := by omega
-      simpa [heq, hend] using hA
-  exact mul_nonneg (mul_nonneg (hb i hi') (add_nonneg hai.1 hc)) (by linarith [hai.2])
 
 lemma path_cubic_homogeneous (L : ℕ) (a b : ℕ → ℝ) (c D s t : ℝ)
     (ha : ∀ i < L, 0 ≤ a i) (hb : ∀ i < L, 0 ≤ b i)
@@ -164,14 +139,13 @@ lemma path_cubic_homogeneous (L : ℕ) (a b : ℕ → ℝ) (c D s t : ℝ)
     convert hout using 1 <;> first | rfl | (field_simp [htne])
 
 /-- The full weighted polynomial bound for every open path. -/
-theorem path_bound (L : ℕ) (a b : ℕ → ℝ) (c u v : ℝ)
-    (w : Fin 1 → ℝ) (d : Fin 3 → ℝ)
+theorem path_bound (L : ℕ) (a b : ℕ → ℝ) (c u v w : ℝ) (d : Fin 3 → ℝ)
     (ha : ∀ i < L, 0 ≤ a i) (hb : ∀ i < L, 0 ≤ b i)
     (hc : 0 ≤ c) (hu : 0 ≤ u) (hv : 0 ≤ v)
-    (hw : ∀ i, 0 ≤ w i) (hd : ∀ i, 0 ≤ d i) (hend : a L = 0)
+    (hw : 0 ≤ w) (hd : ∀ i, 0 ≤ d i) (hend : a L = 0)
     (hmass : (∑ i ∈ range L, a i) + (∑ i ∈ range L, b i) + c + u + v +
-      (∑ i, w i) + (∑ i, d i) = 1) :
-    (∏ i, w i) * (u * cubicForm L a b c (∑ i, d i) + v * shiftedCubic L a b c (∑ i, d i)) +
+      w + (∑ i, d i) = 1) :
+    w * (u * cubicForm L a b c (∑ i, d i) + v * shiftedCubic L a b c (∑ i, d i)) +
       u * v * (∏ i, d i) ≤ baseDensity := by
   let D := ∑ i, d i
   let t := (∑ i ∈ range L, a i) + (∑ i ∈ range L, b i) + c + D
@@ -200,9 +174,8 @@ theorem path_bound (L : ℕ) (a b : ℕ → ℝ) (c u v : ℝ)
     rcases ht.eq_or_lt with h | h
     · simp [← h]
     · exact (div_le_one h).mpr hDt
-  have hω := prod_le_mean_pow univ w univ_nonempty (fun i hi => hw i)
-  have hδ := prod_le_mean_pow univ d univ_nonempty (fun i hi => hd i)
-  simp only [card_univ, Fintype.card_fin, Nat.cast_ofNat] at hω hδ
+  have hdprod := prod_le_mean_pow univ d univ_nonempty (fun i hi => hd i)
+  simp only [card_univ, Fintype.card_fin, Nat.cast_ofNat] at hdprod
   have htD : t * (D / t) = D := by
     rcases ht.eq_or_lt with h | h
     · have hzero : D = 0 := by linarith
@@ -217,13 +190,11 @@ theorem path_bound (L : ℕ) (a b : ℕ → ℝ) (c u v : ℝ)
         field_simp [hq0]
       _ ≤ q * (t ^ 3 * (1 / 27 - (u / q) * (1 - u / q) * (D / t) ^ 3 / 10)) := mul_le_mul_of_nonneg_left hPc hq
       _ = _ := by ring
-  have hresult := path_product_bound (∑ i, w i) q t (D / t) (u / q)
-    (∏ i, w i) (∏ i, d i) (u * cubicForm L a b c D + v * shiftedCubic L a b c D)
-    (sum_nonneg fun i hi => hw i) hq ht hdn0 hdn1 hs0 hs1
-    (by dsimp [q, t, D]; linarith) (by simp)
-    (by simpa only [htD] using hδ)
-    (add_nonneg (mul_nonneg hu (cubicForm_nonneg L a b c D ha hb hc hD))
-      (mul_nonneg hv (shiftedCubic_nonneg L a b c D ha hb hc hD hend))) hPbound
+  have hresult := path_product_bound w q t (D / t) (u / q)
+    (∏ i, d i) (u * cubicForm L a b c D + v * shiftedCubic L a b c D)
+    hw hq ht hdn0 hdn1 hs0 hs1
+    (by dsimp [q, t, D]; linarith)
+    (by simpa only [htD] using hdprod) hPbound
   have huv : q ^ 2 * (u / q) * (1 - u / q) = u * v := by rw [hs_eq]; field_simp [hq0]
   simpa only [huv] using hresult
 
