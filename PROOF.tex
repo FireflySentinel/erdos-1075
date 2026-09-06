@@ -35,17 +35,17 @@ Erd\H{o}s asked whether, for every fixed \(r\ge3\), there is a constant
 sufficiently large \(r\)-uniform hypergraph on \(N\) vertices with
 at least \((1+\varepsilon)(N/r)^r\) edges contains
 a subgraph on \(m\to\infty\) vertices with at least \(c_rm^r\) edges.
-We give counterexamples for every \(r\ge6\). The base construction is
-a sequence of explicit \(6\)-uniform hypergraphs \(G_n\) whose
+We give counterexamples for every \(r\ge5\). The base construction is
+a sequence of explicit \(5\)-uniform hypergraphs \(G_n\) whose
 unnormalized Lagrangians satisfy
 \[
- 6^{-6}\left(1+\frac1{4(4n)^{4}}\right)
- \le\lambda(G_n)\le6^{-6}+\frac1{5!n}.
+ 5^{-5}\left(1+\frac1{4(3n)^{3}}\right)
+ \le\lambda(G_n)\le5^{-5}+\frac1{4!n}.
 \]
-Blow-ups give the counterexample for \(r=6\), and adjoining common
+Blow-ups give the counterexample for \(r=5\), and adjoining common
 vertices to every edge lifts it to all larger uniformities. Thus
 Problem~1075, as a statement for all \(r\ge3\), has a negative answer.
-The endpoint question remains open for \(3\le r\le5\), including the
+The endpoint question remains open for \(3\le r\le4\), including the
 case \(2/9\) for \(3\)-graphs.
 \end{abstract}
 
@@ -94,7 +94,7 @@ that finite-pattern framework \cite{LiuMubayi26}. The endpoint
 \(2/9\) for \(3\)-graphs remains open; Baber and Talbot proved, using
 flag algebras, the first jump intervals immediately above it
 \cite{BaberTalbot11}. The result below shows that the endpoint is a non-jump for
-every \(r\ge6\); the cases \(3\le r\le5\) remain open.
+every \(r\ge5\); the cases \(3\le r\le4\) remain open.
 
 The construction below is not an instance of Shaw's
 finite-pattern criterion. Its distinguished links between the two
@@ -104,22 +104,22 @@ Lagrangian of a growing sequence \(G_n\). Hence Shaw's
 Theorem~4.3 does not apply.
 
 \begin{theorem}\label{thm:main}
-For every \(\gamma>6^{-6}\), there is an \(\varepsilon>0\) and
-there are arbitrarily large \(6\)-uniform hypergraphs \(H\) such that
+For every \(\gamma>5^{-5}\), there is an \(\varepsilon>0\) and
+there are arbitrarily large \(5\)-uniform hypergraphs \(H\) such that
 \[
- e(H)\ge(1+\varepsilon)\bigl(v(H)/6\bigr)^{6},
+ e(H)\ge(1+\varepsilon)\bigl(v(H)/5\bigr)^{5},
  \qquad
- e(H[S])<\gamma|S|^{6}
+ e(H[S])<\gamma|S|^{5}
  \quad\text{for every nonempty }S\subseteq V(H).
 \]
 \end{theorem}
 
 The conclusion is stronger than the formulation of Problem~1075,
 since the bound holds for every nonempty vertex subset.
-Taking \(6^{-6}<\gamma<c_{6}\) in Theorem~\ref{thm:main}
-rules out any \(c_{6}>6^{-6}\). In the usual density normalization,
-it also implies that \(6!/6^{6}\) is a non-jump. The proof uses
-explicit finite hypergraphs whose Lagrangians approach \(6^{-6}\)
+Taking \(5^{-5}<\gamma<c_{5}\) in Theorem~\ref{thm:main}
+rules out any \(c_{5}>5^{-5}\). In the usual density normalization,
+it also implies that \(5!/5^{5}\) is a non-jump. The proof uses
+explicit finite hypergraphs whose Lagrangians approach \(5^{-5}\)
 from above. We use the standard unnormalized Lagrangian
 \cite{MotzkinStraus65,Keevash11},
 \begin{equation}\label{eq:lagrangian}
@@ -130,12 +130,12 @@ from above. We use the standard unnormalized Lagrangian
 without the factor \(r!\).
 
 \begin{proposition}\label{prop:sequence}
-For every integer \(n\ge2\), the \(6\)-uniform hypergraph \(G_n\)
-defined in Section~\ref{sec:construction} has \(2n+9\) vertices and
+For every integer \(n\ge2\), the \(5\)-uniform hypergraph \(G_n\)
+defined in Section~\ref{sec:construction} has \(2n+7\) vertices and
 satisfies
 \begin{equation}\label{eq:bounds}
- 6^{-6}\left(1+\frac1{4(4n)^{4}}\right)
- \le\lambda(G_n)\le6^{-6}+\frac1{5!n}.
+ 5^{-5}\left(1+\frac1{4(3n)^{3}}\right)
+ \le\lambda(G_n)\le5^{-5}+\frac1{4!n}.
 \end{equation}
 \end{proposition}
 
@@ -147,21 +147,21 @@ has
 \]
 so both cubic forms attain \(1/27\) even with \(D>0\), while the
 additional edge \(\{U,V\}\cup\D\) contributes a gain of order
-\(D^{4}\). Deleting one pair \(A_k,B_k\) opens the cycle; the
-terminal mismatch forces a loss of order \(D^3\), which dominates
-that gain. Consequently every open path \(T_L\) has Lagrangian
-exactly \(6^{-6}\), whereas the closed cycle has Lagrangian slightly
-above \(6^{-6}\).
+\(D^{3}\). Deleting one pair \(A_k,B_k\) opens the cycle; the
+terminal mismatch forces a loss of order \(D^3\) with a coefficient
+large enough to absorb that gain. Consequently every open path \(T_L\) has Lagrangian
+exactly \(5^{-5}\), whereas the closed cycle has Lagrangian slightly
+above \(5^{-5}\).
 
 \section{The cyclic construction}\label{sec:construction}
 
 Fix \(n\ge2\). Take pairwise distinct vertices
 \[
  A_i,B_i\quad(i\in\mathbb Z/n\mathbb Z),\qquad C,U,V,
- \qquad W_1,W_2,\qquad D_1,\ldots,D_{4}.
+ \qquad W_1,\qquad D_1,\ldots,D_{3}.
 \]
-Put \(\W=\{W_1,W_2\}\) and
-\(\D=\{D_1,\ldots,D_{4}\}\).
+Put \(\W=\{W_1\}\) and
+\(\D=\{D_1,\ldots,D_{3}\}\).
 On the vertex set \(\{A_i,B_i:i\in\mathbb Z/n\mathbb Z\}\cup
 \{C\}\cup\D\), define two three-uniform hypergraphs by
 \begin{align*}
@@ -180,19 +180,19 @@ All subscripts are read modulo \(n\). Define
  \cup\bigl\{\{U,V\}\cup\D\bigr\}.
  \end{split}
 \end{equation}
-Thus \(G_n\) is a simple \(6\)-uniform hypergraph.
+Thus \(G_n\) is a simple \(5\)-uniform hypergraph.
 
 Use lower-case letters for the weights of the corresponding vertices,
 and write
 \[
  A=\sum_i a_i,\qquad B=\sum_i b_i,\qquad
- D=\sum_{j=1}^{4}d_j,\qquad \omega=\prod_{j=1}^{2}w_j.
+ D=\sum_{j=1}^{3}d_j,\qquad \omega=w_1.
 \]
 The two cubic forms and the polynomial of \(G_n\) are
 \begin{align}
  P_1&=\sum_i a_i(b_i+c)(B-b_i+D),\label{eq:p1}\\
  P_2&=\sum_i b_i(a_{i+1}+c)(A-a_{i+1}+D),\label{eq:p2}\\
- P_{G_n}&=\omega(uP_1+vP_2)+uv\prod_{j=1}^{4}d_j.
+ P_{G_n}&=\omega(uP_1+vP_2)+uv\prod_{j=1}^{3}d_j.
  \label{eq:polynomial}
 \end{align}
 
@@ -205,28 +205,67 @@ The lower bound in \eqref{eq:bounds} holds.
 Assign the weights
 \begin{equation}\label{eq:weights}
  \begin{gathered}
- w_j=\frac1{6},\qquad u=v=\frac1{12},\qquad
- a_i=b_i=\frac1{6n},\\
- d_j=\frac1{24n},\qquad c=\frac{n-1}{6n}.
+ w_1=\frac1{5},\qquad u=v=\frac1{10},\qquad
+ a_i=b_i=\frac1{5n},\\
+ d_j=\frac1{15n},\qquad c=\frac{n-1}{5n}.
  \end{gathered}
 \end{equation}
 Their sum is one. Moreover,
 \[
- A=B=c+D=\frac1{6},\qquad
- b_i+c=B-b_i+D=a_{i+1}+c=A-a_{i+1}+D=\frac1{6}.
+ A=B=c+D=\frac1{5},\qquad
+ b_i+c=B-b_i+D=a_{i+1}+c=A-a_{i+1}+D=\frac1{5}.
 \]
-Thus \(P_1=P_2=6^{-3}\). The first term in
-\eqref{eq:polynomial} is \(6^{-6}\), and the second is
+Thus \(P_1=P_2=5^{-3}\). The first term in
+\eqref{eq:polynomial} is \(5^{-5}\), and the second is
 \[
- \frac1{144(24n)^{4}}
- =\frac{6^{-6}}{4(4n)^{4}}.\qedhere
+ \frac1{100(15n)^{3}}
+ =\frac{5^{-5}}{4(3n)^{3}}.\qedhere
 \]
 \end{proof}
 
 \section{A bound for open paths}\label{sec:paths}
 
-We first prove an inequality for the cubic forms obtained by opening
-the cycle.
+The path estimate uses the following inequality for finite sequences.
+
+\begin{lemma}\label{lem:energy}
+Let \(N\ge1\), and let \(x_0,\ldots,x_N\) be nonnegative real numbers
+such that \(x_N=0\) and \(\sum_{i=0}^{N-1}x_i\ge1/2\). Then
+\begin{equation}\label{eq:sequence-energy}
+ \sum_{i=0}^{N-1}x_i(1-x_{i+1})^2\ge\frac29.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Define
+\[
+ \psi(x)=
+ \begin{cases}
+ x-x^2/2,&0\le x\le1,\\
+ 1/2,&x>1.
+ \end{cases}
+\]
+For all \(x,y\ge0\),
+\begin{equation}\label{eq:potential-step}
+ \psi(x)-\psi(y)\le x(1-y)^2.
+\end{equation}
+For \(x,y\le1\), this follows from the identity
+\[
+ x(1-y)^2-\psi(x)+\psi(y)
+ =\frac{(x-2y+y^2)^2+y(1-y)^2(2-y)}2\ge0.
+\]
+If \(y\ge1\), the left side of \eqref{eq:potential-step} is
+nonpositive. If \(x>1>y\), it equals \((1-y)^2/2\), so the
+inequality holds in this case as well.
+
+If some \(x_j\ge1/3\), summing \eqref{eq:potential-step} from
+\(j\) to \(N-1\) gives
+\[
+ \sum_{i=0}^{N-1}x_i(1-x_{i+1})^2
+ \ge\psi(x_j)-\psi(0)\ge\frac5{18}>\frac29.
+\]
+Otherwise every \(x_i<1/3\), and the sum is at least
+\(\frac49\sum_{i=0}^{N-1}x_i\ge2/9\).
+\end{proof}
 
 \begin{lemma}\label{lem:cubic}
 Let \(L\ge1\), and let \(a_1,\ldots,a_L,b_1,\ldots,b_L,c,D\)
@@ -239,7 +278,7 @@ and suppose that \(A+B+c+D=1\). Define \(P_1,P_2\) by
 \eqref{eq:p1} and \eqref{eq:p2}, with sums over \(1\le i\le L\).
 Then, for every \(s\in[0,1]\),
 \begin{equation}\label{eq:cubic-loss}
- sP_1+(1-s)P_2\le\frac1{27}-\frac{s(1-s)D^3}{48}.
+ sP_1+(1-s)P_2\le\frac1{27}-\frac{s(1-s)D^3}{10}.
 \end{equation}
 \end{lemma}
 
@@ -247,12 +286,14 @@ Then, for every \(s\in[0,1]\),
 Set
 \[
  \delta_A=A-\frac13,\qquad\delta_B=B-\frac13,
+ \qquad S=|\delta_A|+|\delta_B|,
 \]
 and
-\begin{align*}
- \beta&=\frac{B+D-c}{2}=D+\frac{\delta_A}{2}+\delta_B,\\
- \alpha&=\frac{A+D-c}{2}=D+\delta_A+\frac{\delta_B}{2}.
-\end{align*}
+\[
+ \alpha=\frac{A+D-c}{2}=D+\delta_A+\frac{\delta_B}{2},
+ \qquad
+ \beta=\frac{B+D-c}{2}=D+\frac{\delta_A}{2}+\delta_B.
+\]
 Completing the square gives
 \begin{align}
  P_1&=\frac{A(1-A)^2}{4}-\sum_i a_i(b_i-\beta)^2,
@@ -260,95 +301,69 @@ Completing the square gives
  P_2&=\frac{B(1-B)^2}{4}-\sum_i b_i(a_{i+1}-\alpha)^2.
  \label{eq:square2}
 \end{align}
-If
+Write
 \[
  E=s\sum_i a_i(b_i-\beta)^2
  +(1-s)\sum_i b_i(a_{i+1}-\alpha)^2,
+ \qquad
+ \Delta=\frac1{27}-sP_1-(1-s)P_2.
 \]
-then \eqref{eq:square1}--\eqref{eq:square2} give the exact identity
-\begin{align}
- \frac1{27}-sP_1-(1-s)P_2
- ={}&\frac{s\delta_A^2(4/3-A)}4
- +\frac{(1-s)\delta_B^2(4/3-B)}4+E \notag\\
- \ge{}&\frac D3\bigl(s\delta_A^2+(1-s)\delta_B^2\bigr)+E,
- \label{eq:loss}
-\end{align}
-since \(A,B\le1-D\) and \(D\le1\) imply
+The exact identity
 \[
- \frac{4/3-A}{4},\ \frac{4/3-B}{4}
- \ge\frac{1/3+D}{4}\ge\frac D3.
+ \Delta=\frac{s\delta_A^2(4/3-A)}4
+ +\frac{(1-s)\delta_B^2(4/3-B)}4+E
 \]
-
-\smallskip\noindent\emph{Case 1: \(D=0\) or \(s\in\{0,1\}\).}
-The right side of \eqref{eq:cubic-loss} is then \(1/27\), so the
-claim follows immediately from \eqref{eq:loss}.
-
-\smallskip\noindent\emph{Case 2: one of
-\(|\delta_A|,|\delta_B|\) is at least \(D/4\).}
-Assume first that \(|\delta_A|\ge D/4\). Then
+and the bounds \(A,B\le1-D\), \(D\le1\) imply
 \[
- \frac{sD\delta_A^2}{3}
- \ge\frac{sD^3}{48}
- \ge\frac{s(1-s)D^3}{48}.
+ \Delta\ge\frac D3\bigl(s\delta_A^2+(1-s)\delta_B^2\bigr)+E.
 \]
-The case \(|\delta_B|\ge D/4\) is the same.
-
-\smallskip\noindent\emph{Case 3:
-\(|\delta_A|,|\delta_B|<D/4\).}
-Here
-\[
- D\le c+D=\frac13-\delta_A-\delta_B\le\frac13+\frac D2,
-\]
-so \(D\le2/3\). Consequently
-\begin{equation}\label{eq:alpha-beta}
- \alpha,\beta\ge\frac{5D}{8}>0.
+Indeed, \((4/3-A)/4\ge(1/3+D)/4\ge D/3\), and similarly for
+\(B\). By the weighted Cauchy--Schwarz inequality,
+\begin{equation}\label{eq:loss}
+ \Delta\ge\frac{s(1-s)DS^2}{3}+E.
 \end{equation}
-We also have \(A\ge\alpha/3\) and \(B\ge\beta/3\). Indeed,
-\(\alpha\le(A+D)/2\), while
-\[
- 5A-D\ge\frac53-\frac{9D}{4}\ge\frac16>0;
-\]
-the argument for \(B\) is identical.
 
-Consider the finite sequence
-\begin{equation}\label{eq:sequence}
+If \(S\ge11D/20\), then
+\[
+ \Delta\ge\frac{121}{1200}s(1-s)D^3
+ \ge\frac{s(1-s)D^3}{10},
+\]
+as required. Suppose therefore that \(S<11D/20\). Since
+\(D\le1/3+S\), we have
+\[
+ D\le\frac{20}{27},\qquad
+ A+B\ge\frac23-S\ge\frac7{27}>\frac14,
+ \qquad 0<D-S\le\alpha,\beta\le\frac12.
+\]
+Apply Lemma~\ref{lem:energy} to the sequence
+\[
  \frac{a_1}{\alpha},\frac{b_1}{\beta},\ldots,
  \frac{a_L}{\alpha},\frac{b_L}{\beta},0.
-\end{equation}
-Each successive pair \(z,z'\) contributes to \(E\) a term
-\[
- s\alpha\beta^2 z(z'-1)^2
- \quad\text{or}\quad
- (1-s)\beta\alpha^2 z(z'-1)^2,
 \]
-according as the first entry comes from an \(a_i\) or a \(b_i\).
-\smallskip\noindent\emph{Case 3a: some entry of
-\eqref{eq:sequence} is at least \(1/3\).}
-Because the last entry is zero, some successive pair satisfies
-\(z\ge1/3\) and \(z'<1/3\). Hence
-\begin{equation}\label{eq:transition}
- E\ge\frac4{27}\min\{s\alpha\beta^2,(1-s)\beta\alpha^2\}.
+Its sum is \(A/\alpha+B/\beta\ge2(A+B)>1/2\).
+Each successive pair \(x,y\) contributes to \(E\) a term
+\(s\alpha\beta^2x(1-y)^2\) or
+\((1-s)\beta\alpha^2x(1-y)^2\). Consequently
+\begin{equation}\label{eq:energy-loss}
+ E\ge\frac29\min\{s\alpha\beta^2,(1-s)\beta\alpha^2\}
+ \ge\frac29s(1-s)(D-S)^3.
 \end{equation}
-\smallskip\noindent\emph{Case 3b: all entries of
-\eqref{eq:sequence} are less than \(1/3\).}
-Then
+
+For completeness, for all \(S,m\ge0\) we have
+\begin{equation}\label{eq:absorption}
+ \frac{(S+m)S^2}{3}+\frac{2m^3}{9}\ge\frac{(S+m)^3}{10}.
+\end{equation}
+Multiplying the difference by \(90\) gives the nonnegative expression
 \begin{align*}
- E&\ge\frac49\bigl(s\beta^2A+(1-s)\alpha^2B\bigr)\\
- &\ge\frac4{27}\bigl(s\alpha\beta^2+(1-s)\beta\alpha^2\bigr),
+ &21S^3+3S^2m-27Sm^2+11m^3\\
+ &\quad=21\left(S-\frac{3m}{5}\right)^2\left(S+\frac{6m}{5}\right)
+ +3m\left(S-\frac{18m}{25}\right)^2+\frac{233m^3}{625}.
 \end{align*}
-which also implies \eqref{eq:transition}. Using
-\eqref{eq:alpha-beta}, we obtain in either case
-\[
- E\ge\frac4{27}\left(\frac58\right)^3
-       \min\{s,1-s\}D^3
- \ge\frac{s(1-s)D^3}{48}.
-\]
-The last inequality follows from
-\(\frac4{27}(\frac58)^3=125/3456>1/48\).
-Together with \eqref{eq:loss}, this proves the lemma.
+Taking \(m=D-S\) in \eqref{eq:absorption} and using
+\eqref{eq:loss}--\eqref{eq:energy-loss} proves \eqref{eq:cubic-loss}.
 \end{proof}
 
-For \(L\ge1\), define the \(6\)-uniform hypergraph \(T_L\)
+For \(L\ge1\), define the \(5\)-uniform hypergraph \(T_L\)
 as in \eqref{eq:edges}, with each index ranging over \(1,\ldots,L\)
 and with the last link in \(H_2\) replaced by the triples
 \[
@@ -358,15 +373,15 @@ The edge \(\{U,V\}\cup\D\) is retained.
 Its polynomial is \eqref{eq:polynomial} with \(a_{L+1}=0\).
 
 \begin{lemma}\label{lem:path}
-For every \(L\ge1\), we have \(\lambda(T_L)=6^{-6}\).
+For every \(L\ge1\), we have \(\lambda(T_L)=5^{-5}\).
 \end{lemma}
 
 \begin{proof}
-The lower bound follows by assigning weight \(1/6\) to the vertices
+The lower bound follows by assigning weight \(1/5\) to the vertices
 of any one edge and zero elsewhere. For the upper bound, take
 nonnegative vertex weights of total mass one, and put
 \[
- h=\sum_{j=1}^{2}w_j,\qquad q=u+v,\qquad t=A+B+c+D.
+ h=w_1,\qquad q=u+v,\qquad t=A+B+c+D.
 \]
 Thus \(h+q+t=1\). If \(q=0\) or \(t=0\), then \(P_{T_L}=0\).
 Otherwise put
@@ -376,61 +391,54 @@ Otherwise put
 Applying Lemma~\ref{lem:cubic} to the bottom weights divided by
 \(t\), and then using homogeneity, gives
 \[
- uP_1+vP_2\le qt^3\left(\frac1{27}-\frac z{48}\right).
+ uP_1+vP_2\le qt^3\left(\frac1{27}-\frac z{10}\right).
 \]
 The arithmetic--geometric mean inequality now yields
 \begin{equation}\label{eq:path-first}
  P_{T_L}\le
- \left(\frac h2\right)^2qt^3
-       \left(\frac1{27}-\frac z{48}\right)
- +q^2s(1-s)\left(\frac{td}{4}\right)^4.
+ hqt^3
+       \left(\frac1{27}-\frac z{10}\right)
+ +q^2s(1-s)\left(\frac{td}{3}\right)^3.
 \end{equation}
 Also,
 \begin{equation}\label{eq:amgm}
  \frac{qt^3}{27}\le\left(\frac{q+t}{4}\right)^4,
  \qquad
- \frac{q^2t^{4}}{4^{4}}\le4\left(\frac{q+t}{6}\right)^6.
+ \frac{q^2t^{3}}{3^{3}}\le4\left(\frac{q+t}{5}\right)^5.
 \end{equation}
 Define
 \[
- F(h)=\frac{729}{16}h^2(1-h)^4.
+ F(h)=\frac{3125}{256}h(1-h)^4.
 \]
-We have \(F(h)\le1\), with equality at \(h=1/3\).
-Since \(1-27z/48>0\), we may substitute \eqref{eq:amgm}
-into \eqref{eq:path-first}. Using \(d^{4}\le d^3\), we get
+We have \(F(h)\le1\), with equality at \(h=1/5\).
+Since \(1-27z/10>0\), we may substitute \eqref{eq:amgm}
+into \eqref{eq:path-first}. We get
 \begin{align}
- \frac{P_{T_L}}{6^{-6}}
- &\le F(h)\left(1-\frac9{16}z\right)
-        +4s(1-s)d^{4}(1-h)^6\notag\\
- &\le F(h)+z\left[4(1-h)^6-\frac9{16}F(h)\right].
+ \frac{P_{T_L}}{5^{-5}}
+ &\le F(h)\left(1-\frac{27}{10}z\right)
+        +4s(1-s)d^{3}(1-h)^5\notag\\
+ &=F(h)+z\left[4(1-h)^5-\frac{27}{10}F(h)\right].
  \label{eq:scalar}
 \end{align}
 
 It remains to show that
 \begin{equation}\label{eq:scalar-endpoint}
- \left(1-\frac9{64}\right)F(h)+(1-h)^6\le1
+ \left(1-\frac{27}{40}\right)F(h)+(1-h)^5\le1
  \qquad(0\le h\le1).
 \end{equation}
 Indeed, the last expression in \eqref{eq:scalar} is the convex
 combination
 \[
- (1-4z)F(h)+4z\left[\left(1-\frac9{64}\right)F(h)+(1-h)^6\right].
+ (1-4z)F(h)+4z\left[\left(1-\frac{27}{40}\right)F(h)+(1-h)^5\right].
 \]
 
-The endpoints of \eqref{eq:scalar-endpoint} are immediate. For
-\(0<h<1\), put \(x=h/(1-h)>0\). Expanding gives
-\begin{align*}
- \frac{(1+x)^6-1}{x^2}
- &=x^4+6x^3+15x^2+20x+15+6x^{-1}\\
- &\ge\frac{45}{4}+35x+6x^{-1}\\
- &\ge\frac{45}{4}+2\sqrt{210}
- >\frac{40095}{1024}.
-\end{align*}
-The first inequality follows from \(x^2\ge x-1/4\), and the
-second is AM--GM. The final comparison follows by squaring, since
-\(28575^2<840\cdot1024^2\).
-Multiplying by \(x^2/(1+x)^6\) proves \eqref{eq:scalar-endpoint},
-because \((729/16)(1-9/64)=40095/1024\).
+Since \((1-27/40)(3125/256)=8125/2048<5\), the binomial
+expansion gives
+\[
+ \left(1-\frac{27}{40}\right)F(h)+(1-h)^5
+ \le5h(1-h)^4+(1-h)^5
+ \le\bigl(h+(1-h)\bigr)^5=1.
+\]
 This completes the upper bound.
 \end{proof}
 
@@ -453,62 +461,62 @@ After deleting \(A_k,B_k\), the remaining polynomial is
  a'_j(b'_j+c)(B'-b'_j+D) \notag\\
  &+\omega v\sum_{j=1}^{n-1}
  b'_j(a'_{j+1}+c)(A'-a'_{j+1}+D)
- +uv\prod_{\ell=1}^{4}d_\ell \notag\\
+ +uv\prod_{\ell=1}^{3}d_\ell \notag\\
  ={}&P_{T_{n-1}}.
  \label{eq:deletion-identity}
 \end{align}
 Thus Lemma~\ref{lem:path} and homogeneity bound the total weight of the
 edges that remain by
 \[
- 6^{-6}(1-a_k-b_k)^{6}\le6^{-6}.
+ 5^{-5}(1-a_k-b_k)^{5}\le5^{-5}.
 \]
 
-For any simple \(6\)-uniform hypergraph and weights of total
+For any simple \(5\)-uniform hypergraph and weights of total
 mass one,
 \begin{equation}\label{eq:derivative}
  \frac{\partial P_H}{\partial x_v}
- \le\sum_{\substack{S\subseteq V(H)\setminus\{v\}\\|S|=5}}
+ \le\sum_{\substack{S\subseteq V(H)\setminus\{v\}\\|S|=4}}
         \prod_{w\in S}x_w
- \le\frac{(\sum_{w\ne v}x_w)^{5}}{5!}
- \le\frac1{5!}.
+ \le\frac{(\sum_{w\ne v}x_w)^{4}}{4!}
+ \le\frac1{4!}.
 \end{equation}
-Indeed, each product of five distinct weights occurs \(5!\)
+Indeed, each product of four distinct weights occurs \(4!\)
 times in the power expansion, and all other terms are nonnegative.
 The deleted edges consequently have total weight at most
 \[
  a_k\frac{\partial P_{G_n}}{\partial a_k}
  +b_k\frac{\partial P_{G_n}}{\partial b_k}
- \le\frac{a_k+b_k}{5!}\le\frac1{5!n}.
+ \le\frac{a_k+b_k}{4!}\le\frac1{4!n}.
 \]
 This proves \eqref{eq:bounds}.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:main}]
-Fix \(\gamma>6^{-6}\), and choose an integer \(n\ge2\) such that
+Fix \(\gamma>5^{-5}\), and choose an integer \(n\ge2\) such that
 \[
- 6^{-6}+\frac1{5!n}<\gamma.
+ 5^{-5}+\frac1{4!n}<\gamma.
 \]
 Keep \(n\) fixed, and set
 \[
- \varepsilon=\frac1{4(4n)^{4}}>0.
+ \varepsilon=\frac1{4(3n)^{3}}>0.
 \]
 \Needspace{9\baselineskip}
 For each positive integer \(M\), form a blow-up \(B_{n,M}\) of
 \(G_n\): replace each vertex by an independent class, and each
-edge by all transversal edges across its six classes.
+edge by all transversal edges across its five classes.
 Use the following class sizes, with one class for each listed vertex:
 \[
  \begin{array}{c|ccccc}
  \text{vertex}&W_j&U,V&A_i,B_i&C&D_j\\ \hline
- \text{class size}&4nM&2nM&4M&4(n-1)M&M
+ \text{class size}&6nM&3nM&6M&6(n-1)M&2M
  \end{array}.
 \]
-There are \(N=24nM\) vertices. These class sizes are proportional
+There are \(N=30nM\) vertices. These class sizes are proportional
 to the weights in \eqref{eq:weights}, and the computation in
 Lemma~\ref{lem:lower} gives the exact edge count
 \begin{equation}\label{eq:blowup-count}
- e(B_{n,M})=\bigl[(4n)^{6}+4n^2\bigr]M^{6}
- =(1+\varepsilon)(N/6)^{6}.
+ e(B_{n,M})=\bigl[(6n)^{5}+72n^2\bigr]M^{5}
+ =(1+\varepsilon)(N/5)^{5}.
 \end{equation}
 
 Let \(S\) be any nonempty set of \(m\) vertices of \(B_{n,M}\),
@@ -517,8 +525,8 @@ corresponding to \(v\in V(G_n)\). Then
 \[
  e(B_{n,M}[S])
  =\sum_{e\in E(G_n)}\prod_{v\in e}k_v
- =m^{6}P_{G_n}\bigl((k_v/m)_v\bigr)
- \le m^{6}\lambda(G_n)<\gamma m^{6}.
+ =m^{5}P_{G_n}\bigl((k_v/m)_v\bigr)
+ \le m^{5}\lambda(G_n)<\gamma m^{5}.
 \]
 Together with \eqref{eq:blowup-count} and \(M\to\infty\), this
 proves the theorem. A non-induced subgraph has no more edges than
@@ -526,7 +534,7 @@ the induced subgraph on the same vertex set.
 \end{proof}
 
 \begin{corollary}\label{cor:all-r}
-For every integer \(r\ge6\) and every \(\gamma>r^{-r}\), there is an
+For every integer \(r\ge5\) and every \(\gamma>r^{-r}\), there is an
 \(\varepsilon>0\) and there are arbitrarily large \(r\)-uniform
 hypergraphs \(H\) such that
 \[
@@ -535,39 +543,39 @@ hypergraphs \(H\) such that
  e(H[S])<\gamma|S|^r
  \quad\text{for every nonempty }S\subseteq V(H).
 \]
-In particular, Problem~1075 fails for every \(r\ge6\).
+In particular, Problem~1075 fails for every \(r\ge5\).
 \end{corollary}
 
 \begin{proof}
 This is the lifting step of Peng \cite{Peng09}; in the present
-normalization it has the following direct form. Let \(q=r-6\). For a
-\(6\)-uniform hypergraph \(G\), form an
+normalization it has the following direct form. Let \(q=r-5\). For a
+\(5\)-uniform hypergraph \(G\), form an
 \(r\)-uniform hypergraph \(G^{+q}\) by adjoining the same set of
 \(q\) new vertices to every edge. If the total weight on \(V(G)\) is
 \(t\), then the arithmetic--geometric mean inequality gives
 \[
- P_{G^{+q}}\le \lambda(G)t^{6}
+ P_{G^{+q}}\le \lambda(G)t^{5}
  \left(\frac{1-t}{q}\right)^q,
 \]
 with the usual interpretation when \(q=0\). The right side is
-maximized at \(t=6/r\), and equality is attained by taking an optimal
-weighting of \(G\), scaled by \(6/r\), and weight \(1/r\) on each new
+maximized at \(t=5/r\), and equality is attained by taking an optimal
+weighting of \(G\), scaled by \(5/r\), and weight \(1/r\) on each new
 vertex. Hence
 \begin{equation}\label{eq:suspension}
- \lambda(G^{+q})=\frac{6^{6}}{r^r}\lambda(G).
+ \lambda(G^{+q})=\frac{5^{5}}{r^r}\lambda(G).
 \end{equation}
 Applying \eqref{eq:suspension} to \(G_n\) and using
 Proposition~\ref{prop:sequence} gives
 \[
- r^{-r}\left(1+\frac1{4(4n)^{4}}\right)
+ r^{-r}\left(1+\frac1{4(3n)^{3}}\right)
  \le \lambda(G_n^{+q})
- \le r^{-r}+\frac{6^{6}}{r^r5!n}.
+ \le r^{-r}+\frac{5^{5}}{r^r4!n}.
 \]
 Choose \(n\) so that the upper bound is less than \(\gamma\).
 The blow-up argument in the proof of Theorem~\ref{thm:main}, using the
 rational weighting obtained by suspending \eqref{eq:weights}, then
 gives the stated \(r\)-uniform hypergraphs with
-\(\varepsilon=1/[4(4n)^{4}]\).
+\(\varepsilon=1/[4(3n)^{3}]\).
 \end{proof}
 
 \section*{Declaration of generative AI and AI-assisted technologies}

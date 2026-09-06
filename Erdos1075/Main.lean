@@ -7,43 +7,43 @@ namespace Erdos1075
 open Finset CycleVertex
 
 private lemma exists_cycle_bound_below (β : ℝ) (hβ : baseDensity < β) :
-    ∃ n : ℕ, 2 ≤ n ∧ baseDensity + 1 / ((5 : ℕ).factorial * (n : ℝ)) < β := by
+    ∃ n : ℕ, 2 ≤ n ∧ baseDensity + 1 / ((4 : ℕ).factorial * (n : ℝ)) < β := by
   have hδ : 0 < β - baseDensity := sub_pos.mpr hβ
-  obtain ⟨n, hn⟩ := exists_nat_gt (max (1 : ℝ) ((1 / (5 : ℕ).factorial) / (β - baseDensity)))
+  obtain ⟨n, hn⟩ := exists_nat_gt (max (1 : ℝ) ((1 / (4 : ℕ).factorial) / (β - baseDensity)))
   have hn1 : (1 : ℝ) < n := (le_max_left _ _).trans_lt hn
   have hn2 : 2 ≤ n := by exact_mod_cast hn1
   have hn0 : (0 : ℝ) < n := by linarith
-  have hlarge : (1 / (5 : ℕ).factorial) / (β - baseDensity) < (n : ℝ) := (le_max_right _ _).trans_lt hn
+  have hlarge : (1 / (4 : ℕ).factorial) / (β - baseDensity) < (n : ℝ) := (le_max_right _ _).trans_lt hn
   have hmul := (div_lt_iff₀ hδ).mp hlarge
-  have hsmall : (1 / (5 : ℕ).factorial) / (n : ℝ) < β - baseDensity :=
+  have hsmall : (1 / (4 : ℕ).factorial) / (n : ℝ) < β - baseDensity :=
     (div_lt_iff₀ hn0).mpr (by nlinarith only [hmul])
-  have heq : (1 / (5 : ℕ).factorial) / (n : ℝ) = 1 / ((5 : ℕ).factorial * (n : ℝ)) := by ring
+  have heq : (1 / (4 : ℕ).factorial) / (n : ℝ) = 1 / ((4 : ℕ).factorial * (n : ℝ)) := by ring
   rw [heq] at hsmall
   exact ⟨n, hn2, by linarith⟩
 
-/-- The complete counterexample theorem in uniformity `6 + q`. -/
-theorem counterexamples_six_add (q : ℕ) (γ : ℝ)
-    (hγ : 1 / ((6 + q : ℕ) : ℝ) ^ (6 + q) < γ) :
+/-- The complete counterexample theorem in uniformity `5 + q`. -/
+theorem counterexamples_five_add (q : ℕ) (γ : ℝ)
+    (hγ : 1 / ((5 + q : ℕ) : ℝ) ^ (5 + q) < γ) :
     ∃ ε : ℝ, 0 < ε ∧ ∀ N₀ : ℕ,
-      ∃ N ≥ N₀, ∃ H : UniformHypergraph (Fin N) (6 + q),
-        (1 + ε) * ((N : ℝ) / ((6 + q : ℕ) : ℝ)) ^ (6 + q) ≤ (H.edges.card : ℝ) ∧
-        ∀ S : Finset (Fin N), S.Nonempty → ((H.inducedEdges S).card : ℝ) < γ * (S.card : ℝ) ^ (6 + q) := by
-  have hr : (0 : ℝ) < (6 + q : ℕ) := by positivity
-  have hrpow : (0 : ℝ) < ((6 + q : ℕ) : ℝ) ^ (6 + q) := pow_pos hr _
-  have h6pow : (0 : ℝ) < (6 : ℝ) ^ 6 := by norm_num
-  let β := γ * ((6 + q : ℕ) : ℝ) ^ (6 + q) / (6 : ℝ) ^ 6
+      ∃ N ≥ N₀, ∃ H : UniformHypergraph (Fin N) (5 + q),
+        (1 + ε) * ((N : ℝ) / ((5 + q : ℕ) : ℝ)) ^ (5 + q) ≤ (H.edges.card : ℝ) ∧
+        ∀ S : Finset (Fin N), S.Nonempty → ((H.inducedEdges S).card : ℝ) < γ * (S.card : ℝ) ^ (5 + q) := by
+  have hr : (0 : ℝ) < (5 + q : ℕ) := by positivity
+  have hrpow : (0 : ℝ) < ((5 + q : ℕ) : ℝ) ^ (5 + q) := pow_pos hr _
+  have h5pow : (0 : ℝ) < (5 : ℝ) ^ 5 := by norm_num
+  let β := γ * ((5 + q : ℕ) : ℝ) ^ (5 + q) / (5 : ℝ) ^ 5
   have hβ : baseDensity < β := by
     have hmul := (div_lt_iff₀ hrpow).mp hγ
-    exact (div_lt_div_iff_of_pos_right h6pow).mpr hmul
+    exact (div_lt_div_iff_of_pos_right h5pow).mpr hmul
   obtain ⟨n, hn, hnβ⟩ := exists_cycle_bound_below β hβ
   have : NeZero n := ⟨by omega⟩
-  let c := baseDensity + 1 / ((5 : ℕ).factorial * (n : ℝ))
-  let α := c * (6 : ℝ) ^ 6 / ((6 + q : ℕ) : ℝ) ^ (6 + q)
+  let c := baseDensity + 1 / ((4 : ℕ).factorial * (n : ℝ))
+  let α := c * (5 : ℝ) ^ 5 / ((5 + q : ℕ) : ℝ) ^ (5 + q)
   have hc : 0 ≤ c := by
     dsimp [c]
     exact add_nonneg baseDensity_pos.le (by positivity)
   have hαγ : α < γ := by
-    have hmul := mul_lt_mul_of_pos_right hnβ h6pow
+    have hmul := mul_lt_mul_of_pos_right hnβ h5pow
     have hdiv := div_lt_div_of_pos_right hmul hrpow
     convert hdiv using 1 <;> first | rfl | (dsimp [α, c, β]; field_simp)
   refine ⟨witnessExcess n, witnessExcess_pos n (by omega), ?_⟩
@@ -56,14 +56,14 @@ theorem counterexamples_six_add (q : ℕ) (γ : ℝ)
   exact (cycleGraph (finRotate n)).suspension_bound (by norm_num) q c hc
     (fun x hx hmass => cycle_upper_bound x hx hmass) x hx hmass
 
-/-- Counterexamples to Erdős Problem 1075 for every r ≥ 6. -/
-theorem erdos1075_counterexamples (r : ℕ) (hr : 6 ≤ r) (γ : ℝ)
+/-- Counterexamples to Erdős Problem 1075 for every r ≥ 5. -/
+theorem erdos1075_counterexamples (r : ℕ) (hr : 5 ≤ r) (γ : ℝ)
     (hγ : 1 / (r : ℝ) ^ r < γ) :
     ∃ ε : ℝ, 0 < ε ∧ ∀ N₀ : ℕ,
       ∃ N ≥ N₀, ∃ H : UniformHypergraph (Fin N) r,
         (1 + ε) * ((N : ℝ) / (r : ℝ)) ^ r ≤ (H.edges.card : ℝ) ∧
         ∀ S : Finset (Fin N), S.Nonempty → ((H.inducedEdges S).card : ℝ) < γ * (S.card : ℝ) ^ r := by
   obtain ⟨q, rfl⟩ := Nat.exists_eq_add_of_le hr
-  exact counterexamples_six_add q γ hγ
+  exact counterexamples_five_add q γ hγ
 
 end Erdos1075
