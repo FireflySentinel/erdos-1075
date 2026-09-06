@@ -5,16 +5,16 @@ namespace Erdos1075
 
 open Finset
 
-noncomputable def baseDensity : ℝ := 1 / 16 ^ 16
+noncomputable def baseDensity : ℝ := 1 / 8 ^ 8
 
 lemma baseDensity_pos : 0 < baseDensity := by norm_num [baseDensity]
 
-/-- The homogeneous, scalar part of the sixteen-uniform path bound. -/
+/-- The homogeneous, scalar part of the eight-uniform path bound. -/
 lemma path_product_bound (h q t d s ω δ P : ℝ)
     (hh : 0 ≤ h) (hq : 0 ≤ q) (ht : 0 ≤ t) (hd : 0 ≤ d) (hd1 : d ≤ 1)
     (hs : 0 ≤ s) (hs1 : s ≤ 1) (hmass : h + q + t = 1)
-    (hωbound : ω ≤ (h / 12) ^ 12)
-    (hδbound : δ ≤ (t * d / 14) ^ 14)
+    (hωbound : ω ≤ (h / 4) ^ 4)
+    (hδbound : δ ≤ (t * d / 6) ^ 6)
     (hP : 0 ≤ P) (hPbound : P ≤ q * t ^ 3 * (1 / 27 - s * (1 - s) * d ^ 3 / 1200)) :
     ω * P + q ^ 2 * s * (1 - s) * δ ≤ baseDensity := by
   let z := s * (1 - s) * d ^ 3
@@ -33,36 +33,36 @@ lemma path_product_bound (h q t d s ω δ P : ℝ)
   have hqbound : q * t ^ 3 / 27 ≤ ((q + t) / 4) ^ 4 := by
     have h := pow_mul_pow_le_weighted_mean q (t / 3) 1 3 hq (by positivity) (by norm_num)
     convert h using 1 <;> ring
-  have hqbound' : q ^ 2 * t ^ 14 / 14 ^ 14 ≤ 4 * ((q + t) / 16) ^ 16 := by
-    have h := pow_mul_pow_le_weighted_mean (q / 2) (t / 14) 2 14
+  have hqbound' : q ^ 2 * t ^ 6 / 6 ^ 6 ≤ 4 * ((q + t) / 8) ^ 8 := by
+    have h := pow_mul_pow_le_weighted_mean (q / 2) (t / 6) 2 6
       (by positivity) (by positivity) (by norm_num)
     calc
-      q ^ 2 * t ^ 14 / 14 ^ 14 = 4 * ((q / 2) ^ 2 * (t / 14) ^ 14) := by ring
-      _ ≤ 4 * ((2 * (q / 2) + 14 * (t / 14)) / (2 + 14)) ^ (2 + 14) := by exact mul_le_mul_of_nonneg_left h (by norm_num)
-      _ = 4 * ((q + t) / 16) ^ 16 := by ring
-  have hd14 : d ^ 14 ≤ d ^ 3 := by
-    calc d ^ 14 = d ^ 3 * d ^ 11 := by ring
-         _ ≤ d ^ 3 * 1 ^ 11 := by gcongr
+      q ^ 2 * t ^ 6 / 6 ^ 6 = 4 * ((q / 2) ^ 2 * (t / 6) ^ 6) := by ring
+      _ ≤ 4 * ((2 * (q / 2) + 6 * (t / 6)) / (2 + 6)) ^ (2 + 6) := by exact mul_le_mul_of_nonneg_left h (by norm_num)
+      _ = 4 * ((q + t) / 8) ^ 8 := by ring
+  have hd6 : d ^ 6 ≤ d ^ 3 := by
+    calc d ^ 6 = d ^ 3 * d ^ 3 := by ring
+         _ ≤ d ^ 3 * 1 ^ 3 := by gcongr
          _ = d ^ 3 := by ring
   have hfirst : ω * P ≤ baseDensity * pathShape h * (1 - 9 * z / 400) := by
     calc
-      ω * P ≤ (h / 12) ^ 12 * (q * t ^ 3 * (1 / 27 - z / 1200)) :=
+      ω * P ≤ (h / 4) ^ 4 * (q * t ^ 3 * (1 / 27 - z / 1200)) :=
         mul_le_mul hωbound hPbound hP (by positivity)
-      _ = (h / 12) ^ 12 * (q * t ^ 3 / 27) * (1 - 9 * z / 400) := by ring
-      _ ≤ (h / 12) ^ 12 * ((q + t) / 4) ^ 4 * (1 - 9 * z / 400) := by gcongr
+      _ = (h / 4) ^ 4 * (q * t ^ 3 / 27) * (1 - 9 * z / 400) := by ring
+      _ ≤ (h / 4) ^ 4 * ((q + t) / 4) ^ 4 * (1 - 9 * z / 400) := by gcongr
       _ = baseDensity * pathShape h * (1 - 9 * z / 400) := by
         have hqt : q + t = 1 - h := by linarith
         rw [hqt]
         unfold baseDensity pathShape
         ring
-  have hsecond : q ^ 2 * s * (1 - s) * δ ≤ baseDensity * z * (4 * (1 - h) ^ 16) := by
+  have hsecond : q ^ 2 * s * (1 - s) * δ ≤ baseDensity * z * (4 * (1 - h) ^ 8) := by
     calc
-      q ^ 2 * s * (1 - s) * δ ≤ q ^ 2 * s * (1 - s) * (t * d / 14) ^ 14 := by gcongr
-      _ = (q ^ 2 * t ^ 14 / 14 ^ 14) * (s * (1 - s) * d ^ 14) := by ring
-      _ ≤ (4 * ((q + t) / 16) ^ 16) * (s * (1 - s) * d ^ 3) := by
+      q ^ 2 * s * (1 - s) * δ ≤ q ^ 2 * s * (1 - s) * (t * d / 6) ^ 6 := by gcongr
+      _ = (q ^ 2 * t ^ 6 / 6 ^ 6) * (s * (1 - s) * d ^ 6) := by ring
+      _ ≤ (4 * ((q + t) / 8) ^ 8) * (s * (1 - s) * d ^ 3) := by
         apply mul_le_mul hqbound' _ (by positivity) (by positivity)
         gcongr
-      _ = baseDensity * z * (4 * (1 - h) ^ 16) := by
+      _ = baseDensity * z * (4 * (1 - h) ^ 8) := by
         have hqt : q + t = 1 - h := by linarith
         rw [hqt]
         unfold baseDensity
@@ -71,8 +71,8 @@ lemma path_product_bound (h q t d s ω δ P : ℝ)
   have hscalar := path_scalar_bound hh (show h ≤ 1 by linarith) hz0 hz1
   calc
     ω * P + q ^ 2 * s * (1 - s) * δ ≤ baseDensity * pathShape h * (1 - 9 * z / 400) +
-        baseDensity * z * (4 * (1 - h) ^ 16) := add_le_add hfirst hsecond
-    _ = baseDensity * (pathShape h + z * (4 * (1 - h) ^ 16 - 9 / 400 * pathShape h)) := by ring
+        baseDensity * z * (4 * (1 - h) ^ 8) := add_le_add hfirst hsecond
+    _ = baseDensity * (pathShape h + z * (4 * (1 - h) ^ 8 - 9 / 400 * pathShape h)) := by ring
     _ ≤ baseDensity * 1 := mul_le_mul_of_nonneg_left hscalar baseDensity_pos.le
     _ = baseDensity := mul_one _
 
@@ -168,7 +168,7 @@ lemma path_cubic_homogeneous (L : ℕ) (a b : ℕ → ℝ) (c D s t : ℝ)
 
 /-- The full weighted polynomial bound for every open path. -/
 theorem path_bound (L : ℕ) (a b : ℕ → ℝ) (c u v : ℝ)
-    (w : Fin 12 → ℝ) (d : Fin 14 → ℝ)
+    (w : Fin 4 → ℝ) (d : Fin 6 → ℝ)
     (ha : ∀ i < L, 0 ≤ a i) (hb : ∀ i < L, 0 ≤ b i)
     (hc : 0 ≤ c) (hu : 0 ≤ u) (hv : 0 ≤ v)
     (hw : ∀ i, 0 ≤ w i) (hd : ∀ i, 0 ≤ d i) (hend : a L = 0)

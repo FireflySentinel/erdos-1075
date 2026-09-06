@@ -1,18 +1,20 @@
-# Erdős Problem #1075: counterexamples for every $r\ge 16$
+# Erdős Problem #1075: counterexamples for every $r\ge 8$
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22367904.svg)](https://doi.org/10.5281/zenodo.22367904)
 
 Preprint giving **counterexamples** to
-[Erdős Problem #1075](https://www.erdosproblems.com/1075) for every $r\ge 16$, so the
+[Erdős Problem #1075](https://www.erdosproblems.com/1075) for every $r\ge 8$, so the
 problem as stated for all $r\ge 3$ has a negative answer. The endpoint question remains
-open for $3\le r\le 15$.
+open for $3\le r\le 7$.
 
 **Qiyuan Gu**, University of Chicago, <phoenix1203@uchicago.edu>
 
 [Preprint PDF](PROOF.pdf) · [LaTeX source](PROOF.tex) ·
 [Lean formalization](Erdos1075/Main.lean) · [Build instructions](FORMALIZATION.md)
 
-Published version: [v2](https://doi.org/10.5281/zenodo.22380117), 5 September 2026.
+This revision lowers the base uniformity to $r=8$.
+The published [v2](https://doi.org/10.5281/zenodo.22380117), 5 September 2026,
+established counterexamples for $r\ge16$.
 
 Comments and corrections: [email](mailto:phoenix1203@uchicago.edu) or
 [issue](https://github.com/FireflySentinel/erdos-1075/issues).
@@ -31,20 +33,20 @@ pushed strictly above $r^{-r}$ at the smaller edge density.
 
 ## Main theorem
 
-**Theorem 1.** For every $\gamma>16^{-16}$ there is an $\varepsilon>0$ and there are
-arbitrarily large $16$-uniform hypergraphs $H$ such that
+**Theorem 1.** For every $\gamma>8^{-8}$ there is an $\varepsilon>0$ and there are
+arbitrarily large $8$-uniform hypergraphs $H$ such that
 
-$$e(H)\ge(1+\varepsilon)\left(\frac{v(H)}{16}\right)^{16},
-\qquad e(H[S])<\gamma|S|^{16}\ \text{ for every nonempty } S\subseteq V(H).$$
+$$e(H)\ge(1+\varepsilon)\left(\frac{v(H)}{8}\right)^{8},
+\qquad e(H[S])<\gamma|S|^{8}\ \text{ for every nonempty } S\subseteq V(H).$$
 
-So no $c_{16}>16^{-16}$ can work. **Corollary 2** lifts this to every $r\ge 16$ by
-adjoining $r-16$ common vertices to every edge (Peng's lifting step), so Problem 1075, as a
+So no $c_{8}>8^{-8}$ can work. **Corollary 6** lifts this to every $r\ge 8$ by
+adjoining $r-8$ common vertices to every edge (Peng's lifting step), so Problem 1075, as a
 statement for all $r\ge 3$, has a negative answer.
 
 The proof constructs explicit finite hypergraphs $G_n$ whose unnormalized Lagrangians
 satisfy
 
-$$16^{-16}\left(1+\frac{1}{4(14n)^{14}}\right)\le\lambda(G_n)\le 16^{-16}+\frac{1}{15!\,n},$$
+$$8^{-8}\left(1+\frac{1}{4(6n)^{6}}\right)\le\lambda(G_n)\le 8^{-8}+\frac{1}{7!\,n},$$
 
 and takes blow-ups. The construction uses two families of bipartite links arranged around
 a cycle; a quantitative inequality for the corresponding open paths gives the upper bound.
@@ -52,7 +54,7 @@ a cycle; a quantitative inequality for the corresponding open paths gives the up
 ## Relation to earlier work
 
 In the usual density normalization, the result makes the endpoint
-$r!/r^r$ a non-jump for every $r\ge16$. Earlier non-jump constructions and
+$r!/r^r$ a non-jump for every $r\ge8$. Earlier non-jump constructions and
 Peng's lifting theorem are discussed in §1 of the preprint. The cyclic
 construction falls outside Shaw's finite-pattern criterion; see §1 for
 the comparison.

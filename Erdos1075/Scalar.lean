@@ -35,69 +35,49 @@ lemma prod_le_mean_pow {ι : Type*} (s : Finset ι) (x : ι → ℝ)
     (div_nonneg (sum_nonneg hx) hcard.le) hcard).mp h
   simpa only [Real.rpow_natCast] using h'
 
-noncomputable def pathShape (h : ℝ) : ℝ := (4 * h / 3) ^ 12 * (4 * (1 - h)) ^ 4
+noncomputable def pathShape (h : ℝ) : ℝ := (2 * h) ^ 4 * (2 * (1 - h)) ^ 4
 
 lemma pathShape_nonneg (h : ℝ) : 0 ≤ pathShape h := by
   unfold pathShape
   positivity
 
 lemma pathShape_le_one {h : ℝ} (h0 : 0 ≤ h) (h1 : h ≤ 1) : pathShape h ≤ 1 := by
-  have hmean := pow_mul_pow_le_weighted_mean (4 * h / 3) (4 * (1 - h)) 12 4
+  have hmean := pow_mul_pow_le_weighted_mean (2 * h) (2 * (1 - h)) 4 4
     (by positivity) (by positivity) (by norm_num)
   norm_num only [Nat.cast_ofNat, Nat.reduceAdd] at hmean
-  have heq : ((12 : ℝ) * (4 * h / 3) + 4 * (4 * (1 - h))) / 16 = 1 := by ring
+  have heq : ((4 : ℝ) * (2 * h) + 4 * (2 * (1 - h))) / 8 = 1 := by ring
   rw [heq, one_pow] at hmean
   exact hmean
 
-lemma pathShape_le_self {h : ℝ} (h0 : 0 ≤ h) (hhalf : h ≤ 1 / 2) :
-    pathShape h ≤ h := by
-  have h1 : h ≤ 1 := by linarith
-  have hprod0 : 0 ≤ h * (1 - h) := mul_nonneg h0 (sub_nonneg.mpr h1)
-  have hprod : h * (1 - h) ≤ 1 / 4 := by nlinarith [sq_nonneg (h - 1 / 2)]
-  have h7 : h ^ 7 ≤ (1 / 2 : ℝ) ^ 7 := by gcongr
-  have h4 : (h * (1 - h)) ^ 4 ≤ (1 / 4 : ℝ) ^ 4 := by gcongr
-  have hmul : h ^ 7 * (h * (1 - h)) ^ 4 ≤ (1 / 2 : ℝ) ^ 7 * (1 / 4 : ℝ) ^ 4 := by
-    exact mul_le_mul h7 h4 (by positivity) (by positivity)
+/-- A homogeneous polynomial certificate for the scalar estimate at uniformity eight. -/
+lemma scalar_polynomial_nonneg (h t : ℝ) (hh : 0 ≤ h) (ht : 0 ≤ t) :
+    0 ≤ (h + t) ^ 8 - t ^ 8 - 6364 / 25 * h ^ 4 * t ^ 4 := by
+  have hquad : 0 ≤ 1500 * h ^ 2 - 2889 * h * t + 1400 * t ^ 2 := by
+    nlinarith [sq_nonneg (3000 * h - 2889 * t), sq_nonneg t]
   calc
-    pathShape h = h * ((4 / 3 : ℝ) ^ 12 * 4 ^ 4 *
-        (h ^ 7 * (h * (1 - h)) ^ 4)) := by unfold pathShape; ring
-    _ ≤ h * ((4 / 3 : ℝ) ^ 12 * 4 ^ 4 * ((1 / 2 : ℝ) ^ 7 * (1 / 4 : ℝ) ^ 4)) := by
-      gcongr
-    _ ≤ h * 1 := by gcongr; norm_num
-    _ = h := mul_one h
+    0 ≤ h ^ 4 * (h - t) ^ 2 * (h ^ 2 + 2 * h * t + 3 * t ^ 2) +
+        28 * h ^ 2 * t ^ 2 * (h ^ 2 - t ^ 2) ^ 2 +
+        8 * h * t * (h ^ 3 - t ^ 3) ^ 2 +
+        h ^ 3 * t ^ 3 / 25 * (1500 * h ^ 2 - 2889 * h * t + 1400 * t ^ 2) := by
+      positivity
+    _ = (h + t) ^ 8 - t ^ 8 - 6364 / 25 * h ^ 4 * t ^ 4 := by ring
 
-lemma pathShape_large_h {h : ℝ} (hhalf : 1 / 2 ≤ h) (h1 : h ≤ 1) :
-    4 * (1 - h) ^ 16 ≤ 9 / 400 * pathShape h := by
-  have h0 : 0 ≤ h := by linarith
-  have hy : 0 ≤ 1 - h := sub_nonneg.mpr h1
-  have hyh : 1 - h ≤ h := by linarith
-  have hp : (1 - h) ^ 12 ≤ h ^ 12 := by gcongr
-  calc
-    4 * (1 - h) ^ 16 = 4 * (1 - h) ^ 12 * (1 - h) ^ 4 := by ring
-    _ ≤ 4 * h ^ 12 * (1 - h) ^ 4 := by gcongr
-    _ ≤ ((9 / 400 : ℝ) * (4 / 3) ^ 12 * 4 ^ 4) * h ^ 12 * (1 - h) ^ 4 := by
-      gcongr
-      norm_num
-    _ = 9 / 400 * pathShape h := by unfold pathShape; ring
+lemma path_endpoint_bound {h : ℝ} (h0 : 0 ≤ h) (h1 : h ≤ 1) :
+    pathShape h * (1 - 9 / 1600) + (1 - h) ^ 8 ≤ 1 := by
+  have hp := scalar_polynomial_nonneg h (1 - h) h0 (sub_nonneg.mpr h1)
+  have hsum : h + (1 - h) = 1 := by ring
+  rw [hsum, one_pow] at hp
+  unfold pathShape
+  nlinarith only [hp]
 
 /-- The final scalar inequality in the open-path Lagrangian argument. -/
 theorem path_scalar_bound {h z : ℝ} (h0 : 0 ≤ h) (h1 : h ≤ 1)
     (hz0 : 0 ≤ z) (hz1 : z ≤ 1 / 4) :
-    pathShape h + z * (4 * (1 - h) ^ 16 - 9 / 400 * pathShape h) ≤ 1 := by
-  by_cases hh : 1 / 2 ≤ h
-  · have hbr := pathShape_large_h hh h1
-    have hmul := mul_nonpos_of_nonneg_of_nonpos hz0 (sub_nonpos.mpr hbr)
-    linarith only [hmul, pathShape_le_one h0 h1]
-  · have hf := pathShape_le_self h0 (le_of_lt (lt_of_not_ge hh))
-    have hy : 0 ≤ 1 - h := sub_nonneg.mpr h1
-    have hypow : (1 - h) ^ 16 ≤ 1 - h := by
-      calc
-        (1 - h) ^ 16 = (1 - h) * (1 - h) ^ 15 := by ring
-        _ ≤ (1 - h) * 1 ^ 15 := by gcongr; linarith
-        _ = 1 - h := by ring
-    have hm := mul_le_mul_of_nonneg_right hz1 (show 0 ≤ 4 * (1 - h) ^ 16 by positivity)
-    have hn : 0 ≤ z * (9 / 400 * pathShape h) := by
-      exact mul_nonneg hz0 (mul_nonneg (by norm_num) (pathShape_nonneg h))
-    nlinarith only [hf, hypow, hm, hn]
+    pathShape h + z * (4 * (1 - h) ^ 8 - 9 / 400 * pathShape h) ≤ 1 := by
+  have hfirst := mul_le_mul_of_nonneg_left (pathShape_le_one h0 h1)
+    (show 0 ≤ 1 - 4 * z by linarith)
+  have hsecond := mul_le_mul_of_nonneg_left (path_endpoint_bound h0 h1)
+    (show 0 ≤ 4 * z by positivity)
+  nlinarith only [hfirst, hsecond]
 
 end Erdos1075

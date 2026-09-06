@@ -7,7 +7,7 @@ open Finset
 
 /-- The seven named types of vertices in the manuscript. -/
 abbrev CycleVertex (n : ℕ) :=
-  Fin n ⊕ (Fin n ⊕ (Unit ⊕ (Unit ⊕ (Unit ⊕ (Fin 12 ⊕ Fin 14)))))
+  Fin n ⊕ (Fin n ⊕ (Unit ⊕ (Unit ⊕ (Unit ⊕ (Fin 4 ⊕ Fin 6)))))
 
 instance (n : ℕ) : DecidableEq (CycleVertex n) := instDecidableEqSum
 
@@ -22,8 +22,8 @@ def B (i : Fin n) : CycleVertex n := Sum.inr (Sum.inl i)
 def C : CycleVertex n := Sum.inr (Sum.inr (Sum.inl ()))
 def U : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inl ())))
 def V : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl ()))))
-def W (i : Fin 12) : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl i)))))
-def D (i : Fin 14) : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr i)))))
+def W (i : Fin 4) : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl i)))))
+def D (i : Fin 6) : CycleVertex n := Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr i)))))
 
 lemma sum_weights (x : CycleVertex n → ℝ) :
     (∑ v, x v) = (∑ i, x (A i)) + (∑ i, x (B i)) + x C + x U + x V +
@@ -41,13 +41,13 @@ def commonD : Finset (CycleVertex n) := univ.image D
 @[simp] lemma mem_commonD (v : CycleVertex n) : v ∈ commonD ↔ ∃ i, D i = v := by
   simp [commonD]
 
-lemma card_commonW : (commonW : Finset (CycleVertex n)).card = 12 := by
+lemma card_commonW : (commonW : Finset (CycleVertex n)).card = 4 := by
   rw [commonW, card_image_of_injective]
   · simp
   · intro i j h
     simpa [W] using h
 
-lemma card_commonD : (commonD : Finset (CycleVertex n)).card = 14 := by
+lemma card_commonD : (commonD : Finset (CycleVertex n)).card = 6 := by
   rw [commonD, card_image_of_injective]
   · simp
   · intro i j h
@@ -55,7 +55,7 @@ lemma card_commonD : (commonD : Finset (CycleVertex n)).card = 14 := by
 
 def firstChoice (i : Fin n) (b : Bool) : CycleVertex n := if b then B i else C
 
-abbrev OtherChoice (i : Fin n) := {j : Fin n // j ≠ i} ⊕ Fin 14
+abbrev OtherChoice (i : Fin n) := {j : Fin n // j ≠ i} ⊕ Fin 6
 
 def otherVertex (i : Fin n) : OtherChoice i → CycleVertex n
   | Sum.inl j => B j.val
@@ -155,12 +155,12 @@ lemma firstTriple_disjoint_common (f : TripleCode n) :
 
 def firstEdge (f : TripleCode n) : Finset (CycleVertex n) := firstCommon ∪ firstTriple f
 
-lemma firstCommon_card : (firstCommon : Finset (CycleVertex n)).card = 13 := by
+lemma firstCommon_card : (firstCommon : Finset (CycleVertex n)).card = 5 := by
   rw [firstCommon, card_insert_of_notMem]
   · rw [card_commonW]
   · simp [U, W]
 
-lemma firstEdge_card (f : TripleCode n) : (firstEdge f).card = 16 := by
+lemma firstEdge_card (f : TripleCode n) : (firstEdge f).card = 8 := by
   rw [firstEdge, card_union_of_disjoint (firstTriple_disjoint_common f), firstCommon_card, firstTriple_card]
 
 lemma firstEdge_injective : Function.Injective (firstEdge (n := n)) := by
@@ -179,7 +179,7 @@ lemma firstEdge_prod (f : TripleCode n) (x : CycleVertex n → ℝ) :
       simpa [W] using h
   · simp [U, W]
 
-def firstFamily : UniformHypergraph (CycleVertex n) 16 where
+def firstFamily : UniformHypergraph (CycleVertex n) 8 where
   edges := univ.image firstEdge
   uniform := by
     intro e he
@@ -220,10 +220,10 @@ def flipVertex (σ : Equiv.Perm (Fin n)) : Equiv.Perm (CycleVertex n) where
 @[simp] lemma flip_C (σ : Equiv.Perm (Fin n)) : flipVertex σ C = C := rfl
 @[simp] lemma flip_U (σ : Equiv.Perm (Fin n)) : flipVertex σ U = V := rfl
 @[simp] lemma flip_V (σ : Equiv.Perm (Fin n)) : flipVertex σ V = U := rfl
-@[simp] lemma flip_W (σ : Equiv.Perm (Fin n)) (i : Fin 12) : flipVertex σ (W i) = W i := rfl
-@[simp] lemma flip_D (σ : Equiv.Perm (Fin n)) (i : Fin 14) : flipVertex σ (D i) = D i := rfl
+@[simp] lemma flip_W (σ : Equiv.Perm (Fin n)) (i : Fin 4) : flipVertex σ (W i) = W i := rfl
+@[simp] lemma flip_D (σ : Equiv.Perm (Fin n)) (i : Fin 6) : flipVertex σ (D i) = D i := rfl
 
-def secondFamily (σ : Equiv.Perm (Fin n)) : UniformHypergraph (CycleVertex n) 16 :=
+def secondFamily (σ : Equiv.Perm (Fin n)) : UniformHypergraph (CycleVertex n) 8 :=
   firstFamily.map (flipVertex σ).toEmbedding
 
 lemma secondFamily_polynomial (σ : Equiv.Perm (Fin n)) (x : CycleVertex n → ℝ) :
@@ -241,7 +241,7 @@ lemma V_not_mem_firstEdge (f : TripleCode n) : V ∉ firstEdge f := by
   rcases f with ⟨i, b, y⟩
   cases b <;> cases y <;> simp [firstEdge, firstCommon, firstTriple, firstChoice, otherVertex, A, B, C, U, V, W, D]
 
-lemma W_mem_firstEdge (f : TripleCode n) (i : Fin 12) : W i ∈ firstEdge f := by
+lemma W_mem_firstEdge (f : TripleCode n) (i : Fin 4) : W i ∈ firstEdge f := by
   simp [firstEdge, firstCommon]
 
 lemma families_disjoint (σ : Equiv.Perm (Fin n)) : Disjoint firstFamily.edges (secondFamily σ).edges := by
@@ -257,7 +257,7 @@ lemma families_disjoint (σ : Equiv.Perm (Fin n)) : Disjoint firstFamily.edges (
 
 def extraEdge : Finset (CycleVertex n) := insert U (insert V commonD)
 
-lemma extraEdge_card : (extraEdge : Finset (CycleVertex n)).card = 16 := by
+lemma extraEdge_card : (extraEdge : Finset (CycleVertex n)).card = 8 := by
   simp [extraEdge, card_insert_of_notMem, card_commonD, U, V, D]
 
 lemma extraEdge_prod (x : CycleVertex n → ℝ) : (∏ v ∈ extraEdge, x v) = x U * x V * (∏ i, x (D i)) := by
@@ -282,8 +282,8 @@ lemma extra_not_second (σ : Equiv.Perm (Fin n)) : extraEdge ∉ (secondFamily �
   rw [heq] at hw
   simp [extraEdge, W, U, V, D] at hw
 
-/-- The finite, simple sixteen-uniform template, with an arbitrary linking permutation. -/
-def cycleGraph (σ : Equiv.Perm (Fin n)) : UniformHypergraph (CycleVertex n) 16 where
+/-- The finite, simple eight-uniform template, with an arbitrary linking permutation. -/
+def cycleGraph (σ : Equiv.Perm (Fin n)) : UniformHypergraph (CycleVertex n) 8 where
   edges := insert extraEdge (firstFamily.edges ∪ (secondFamily σ).edges)
   uniform := by
     intro e he
