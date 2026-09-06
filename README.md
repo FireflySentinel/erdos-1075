@@ -8,21 +8,16 @@ Preprint giving **counterexamples** to
 problem as stated for all $r\ge 3$ has a negative answer. The endpoint question remains
 open for $3\le r\le 4$.
 
-**Qiyuan Gu**, University of Chicago, <phoenix1203@uchicago.edu>
-
-[Preprint PDF](PROOF.pdf)
+[Preprint PDF](paper/PROOF.pdf)
 
 ## Build and check
-
-The toolchain is Lean `v4.33.0-rc2`; `lake-manifest.json` pins mathlib to
-`51e6992efd06126df61a496bebf8f49482a4e129`.
 
 With [Elan](https://github.com/leanprover/elan) installed, run from the repository root:
 
 ```sh
 lake exe cache get
 lake build
-lake env lean Check.lean
+lake env lean checks/Check.lean
 LEAN_NUM_THREADS=2 lake env leanchecker Erdos1075
 ```
 
@@ -30,7 +25,7 @@ LEAN_NUM_THREADS=2 lake env leanchecker Erdos1075
 
 [`Erdos1075.erdos1075_counterexamples`](Erdos1075/Main.lean) formalizes
 Theorem 1 and its extension to every `r ≥ 5` in the
-[current manuscript](PROOF.tex).
+[current manuscript](paper/PROOF.tex).
 
 For every natural number `r ≥ 5` and real `γ > 1 / r^r`, there is `ε > 0`
 such that, for every `N₀`, there are `N ≥ N₀` and a finite `r`-uniform
