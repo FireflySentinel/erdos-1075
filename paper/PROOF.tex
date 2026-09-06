@@ -81,11 +81,12 @@ at least \(\alpha+c\); otherwise it is a \emph{non-jump}
 \([0,\alpha_r)\) is a jump for \(r\)-graphs \cite{Erdos71}. Thus
 Problem~1075 is the endpoint question at \(\alpha_r\).
 Frankl and R\"odl disproved the earlier jumping constant conjecture by
-constructing non-jumps for every \(r\ge3\) \cite{FranklRodl84}.
+constructing non-jumps for every \(r\ge3\)
+\cite[Theorem~1.2]{FranklRodl84}.
 Frankl, Peng, R\"odl and Talbot later showed that
 \((5/2)r!/r^r\) is a non-jump for every \(r\ge3\) \cite{FPRT07},
 and Peng proved the lifting theorem that carries a non-jump of the form
-\(c\,r!/r^r\) to all larger uniformities \cite{Peng09}. Yan and Peng
+\(c\,r!/r^r\) to all larger uniformities \cite[Theorem~1]{Peng09}. Yan and Peng
 proved that \(12/25\) is a non-jump for \(3\)-graphs, yielding
 \((54/25)r!/r^r\) for every \(r\ge3\) by lifting \cite{YanPeng23}.
 
@@ -125,14 +126,14 @@ Taking \(5^{-5}<\gamma<c_{5}\) in Theorem~\ref{thm:main}
 rules out any \(c_{5}>5^{-5}\). In the usual density normalization,
 it also implies that \(5!/5^{5}\) is a non-jump. The proof uses
 explicit finite hypergraphs whose Lagrangians approach \(5^{-5}\)
-from above. We use the standard unnormalized Lagrangian
-\cite{MotzkinStraus65,Keevash11},
+from above. We use the unnormalized Lagrangian of
+\cite[Section~2]{FranklRodl84},
 \begin{equation}\label{eq:lagrangian}
  P_H(x)=\sum_{e\in E(H)}\prod_{v\in e}x_v,
  \qquad
  \lambda(H)=\max_{\substack{x_v\ge0\\\sum_vx_v=1}}P_H(x),
 \end{equation}
-without the factor \(r!\).
+without the factor \(r!\); see also \cite{MotzkinStraus65,Keevash11}.
 
 \begin{proposition}\label{prop:sequence}
 For every integer \(n\ge2\), the \(5\)-uniform hypergraph \(G_n\)
@@ -553,8 +554,9 @@ In particular, Problem~1075 fails for every \(r\ge5\).
 \end{corollary}
 
 \begin{proof}
-This is the lifting step of Peng \cite{Peng09}; in the present
-normalization it has the following direct form. Let \(q=r-5\). For a
+We implement Peng's lifting construction
+\cite[proof of Theorem~1, p.~763]{Peng09} by adjoining vertices before
+taking a blow-up. Let \(q=r-5\). For a
 \(5\)-uniform hypergraph \(G\), form an
 \(r\)-uniform hypergraph \(G^{+q}\) by adjoining the same set of
 \(q\) new vertices to every edge. If the total weight on \(V(G)\) is
