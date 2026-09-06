@@ -13,11 +13,6 @@ open for $3\le r\le 4$.
 [Preprint PDF](PROOF.pdf) · [LaTeX source](PROOF.tex) ·
 [Lean formalization](Erdos1075/Main.lean) · [Build instructions](FORMALIZATION.md)
 
-Version history (base uniformity): $16\to8\to6$ ([Zenodo v4](https://doi.org/10.5281/zenodo.22442696)) $\to5$ (current).
-
-Comments and corrections: [email](mailto:phoenix1203@uchicago.edu) or
-[issue](https://github.com/FireflySentinel/erdos-1075/issues).
-
 ## The problem
 
 Let $r\ge 3$. Is there a constant $c_r>r^{-r}$ such that, for any $\epsilon>0$ and all
@@ -59,26 +54,12 @@ Peng's lifting theorem are discussed in §1 of the preprint. The cyclic
 construction falls outside Shaw's finite-pattern criterion; see §1 for
 the comparison.
 
-## Declaration of generative AI and AI-assisted technologies
+## AI use disclosure
 
-OpenAI Codex (GPT-6 Astra) was used to generate the mathematical proofs,
-draft the manuscript, and write the Lean formalization. GPT-5.6 Sol and
-Claude Opus 5 were used only for editorial review of the exposition. The
-author reviewed the final manuscript and takes full responsibility for
-its content.
-
-## Citation
-
-```bibtex
-@misc{gu2026erdos1075,
-  author       = {Qiyuan Gu},
-  title        = {Counterexamples to Erd\H{o}s Problem 1075},
-  year         = {2026},
-  doi          = {10.5281/zenodo.22367904},
-  howpublished = {Preprint, Zenodo},
-  note         = {Erd\H{o}s Problem 1075}
-}
-```
-
-Problem statement quoted from T. F. Bloom, *Erdős Problem #1075*,
-<https://www.erdosproblems.com/1075>.
+GPT-6 Astra was used to generate the mathematical proofs, draft the manuscript,
+and perform the lean formalization. GPT-5.6 Sol and Claude Opus 5 were used only
+for editorial review of the exposition. GPT-6 Astra was run in a research
+environment containing earlier results produced by GPT-5.6 Sol and Claude Opus 5,
+but those earlier results did not contribute to the final mathematical arguments.
+The author reviewed the final manuscript and takes full responsibility for its
+content.
