@@ -10,8 +10,7 @@ open for $3\le r\le 4$.
 
 **Qiyuan Gu**, University of Chicago, <phoenix1203@uchicago.edu>
 
-[Preprint PDF](PROOF.pdf) · [LaTeX source](PROOF.tex) ·
-[Lean formalization](Erdos1075/Main.lean) · [Build instructions](FORMALIZATION.md)
+[Preprint PDF](PROOF.pdf)
 
 ## The problem
 
@@ -53,6 +52,19 @@ $r!/r^r$ a non-jump for every $r\ge5$. Earlier non-jump constructions and
 Peng's lifting theorem are discussed in §1 of the preprint. The cyclic
 construction falls outside Shaw's finite-pattern criterion; see §1 for
 the comparison.
+
+## Build and check
+
+With [Elan](https://github.com/leanprover/elan) installed, run from the repository root:
+
+```sh
+lake exe cache get
+lake build
+lake env lean Check.lean
+LEAN_NUM_THREADS=2 lake env leanchecker Erdos1075
+```
+
+See [FORMALIZATION.md](FORMALIZATION.md) for the exact statement and proof correspondence.
 
 ## AI use disclosure
 

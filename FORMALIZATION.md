@@ -4,6 +4,10 @@
 Theorem 1 and its extension to every `r ≥ 5` in the
 [current manuscript](PROOF.tex).
 
+For build and verification commands, see the [README](README.md#build-and-check).
+The toolchain is Lean `v4.33.0-rc2`; `lake-manifest.json` pins mathlib to
+`51e6992efd06126df61a496bebf8f49482a4e129`.
+
 ## Exact statement
 
 For every natural number `r ≥ 5` and real `γ > 1 / r^r`, there is `ε > 0`
@@ -19,20 +23,6 @@ Density expressions are real-valued, and `ε` is fixed before `N₀`.
 `UniformHypergraph` represents edges as finite sets; `inducedEdges H S`
 selects those contained in `S`. Any subgraph on `S` has at most this many
 edges, so the induced-subgraph bound implies the bound in the original problem.
-
-## Build and check
-
-With [Elan](https://github.com/leanprover/elan) installed, run:
-
-```sh
-lake exe cache get
-lake build
-lake env lean Check.lean
-LEAN_NUM_THREADS=2 lake env leanchecker Erdos1075
-```
-
-The toolchain is Lean `v4.33.0-rc2`; `lake-manifest.json` pins mathlib to
-`51e6992efd06126df61a496bebf8f49482a4e129`.
 
 ## Proof correspondence
 
