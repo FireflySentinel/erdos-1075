@@ -5,8 +5,6 @@ Preprint giving **counterexamples** to
 problem as stated for all $r\ge 3$ has a negative answer. The endpoint question remains
 open for $3\le r\le 4$.
 
-[Preprint PDF](paper/PROOF.pdf)
-
 ## Build and check
 
 With [Elan](https://github.com/leanprover/elan) installed, run from the repository root:
