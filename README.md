@@ -19,8 +19,7 @@ LEAN_NUM_THREADS=2 lake env leanchecker Erdos1075
 ## Exact statement
 
 [`Erdos1075.erdos1075_counterexamples`](Erdos1075/Main.lean) formalizes
-Theorem 1 and its extension to every `r ≥ 5` in the
-[current manuscript](paper/PROOF.tex).
+Theorem 1 and its extension to every `r ≥ 5`.
 
 For every natural number `r ≥ 5` and real `γ > 1 / r^r`, there is `ε > 0`
 such that, for every `N₀`, there are `N ≥ N₀` and a finite `r`-uniform
