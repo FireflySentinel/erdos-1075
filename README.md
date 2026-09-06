@@ -12,9 +12,9 @@ open for $3\le r\le 5$.
 [Preprint PDF](PROOF.pdf) · [LaTeX source](PROOF.tex) ·
 [Lean formalization](Erdos1075/Main.lean) · [Build instructions](FORMALIZATION.md)
 
-This revision lowers the base uniformity to $r=6$.
-The published [v2](https://doi.org/10.5281/zenodo.22380117), 5 September 2026,
-established counterexamples for $r\ge16$.
+Published version: [v4](https://doi.org/10.5281/zenodo.22442696), 6 September 2026,
+manuscript and Lean sources. Earlier versions established the counterexamples for
+$r\ge16$.
 
 Comments and corrections: [email](mailto:phoenix1203@uchicago.edu) or
 [issue](https://github.com/FireflySentinel/erdos-1075/issues).
