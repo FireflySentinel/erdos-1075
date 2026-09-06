@@ -1,18 +1,11 @@
 import Mathlib.Analysis.MeanInequalities
 import Mathlib.Tactic
 
-/-!
-# The open-path cubic inequality
-
-This file formalizes Lemma 4 of `PROOF.tex`, manuscript v2 at commit
-`a8853af27b2b35fdf0bf08c0363ab2d451632845`.
--/
-
 namespace Erdos1075
 
 open Finset
 
-/- A finite path must cross one of the two thresholds before its terminal value. -/
+/-- A finite path must cross one of the two thresholds before its terminal value. -/
 lemma path_threshold {L : ℕ} {a b : ℕ → ℝ} {α β : ℝ}
     (hend : a L < α)
     (hlarge : ∃ i < L, α ≤ a i ∨ β ≤ b i) :
@@ -128,7 +121,7 @@ lemma path_square_energy (L : ℕ) (a b : ℕ → ℝ) (α β s : ℝ)
     nlinarith
 
 lemma large_deviation_loss {δ D s : ℝ} (hD : 0 ≤ D) (hD1 : D ≤ 1)
-    (hs : 0 ≤ s) (_hs1 : s ≤ 1) (hδ : D / 10 ≤ |δ|) :
+    (hs : 0 ≤ s) (hδ : D / 10 ≤ |δ|) :
     s * (1 - s) * D ^ 3 / 1200 ≤ s * δ ^ 2 / 12 := by
   have hsq := mul_self_le_mul_self (show 0 ≤ D / 10 by positivity) hδ
   rw [← sq, ← sq, sq_abs] at hsq
@@ -222,10 +215,10 @@ theorem path_cubic_bound (L : ℕ) (a b : ℕ → ℝ) (c D s : ℝ)
   have hpa : 0 ≤ s * (A - 1 / 3) ^ 2 / 12 := by positivity
   have hpb : 0 ≤ (1 - s) * (B - 1 / 3) ^ 2 / 12 := by positivity
   by_cases hDa : D / 10 ≤ |A - 1 / 3|
-  · have h := large_deviation_loss hD hD1 hs hs1 hDa
+  · have h := large_deviation_loss hD hD1 hs hDa
     linarith only [hbase, h, hpb, he]
   by_cases hDb : D / 10 ≤ |B - 1 / 3|
-  · have h := large_deviation_loss hD hD1 hs' (show 1 - s ≤ 1 by linarith) hDb
+  · have h := large_deviation_loss hD hD1 hs' hDb
     have h' : (1 - s) * (1 - (1 - s)) * D ^ 3 = s * (1 - s) * D ^ 3 := by ring
     rw [h'] at h
     linarith only [hbase, h, hpa, he]

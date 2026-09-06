@@ -1,6 +1,8 @@
-import Erdos1075.Scalar
-import Mathlib.Data.Fintype.BigOperators
 import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.Data.Fintype.BigOperators
+import Mathlib.Data.Fintype.EquivFin
+import Mathlib.Data.Real.Basic
+import Mathlib.Tactic
 
 namespace Erdos1075
 
@@ -26,7 +28,7 @@ lemma polynomial_nonneg (H : UniformHypergraph V r) (x : V → ℝ)
   exact sum_nonneg fun e he => prod_nonneg fun v hv => hx v
 
 lemma polynomial_scale (H : UniformHypergraph V r) (x : V → ℝ) (c : ℝ) :
-    H.polynomial (fun v => c*x v) = c^r*H.polynomial x := by
+    H.polynomial (fun v => c * x v) = c ^ r * H.polynomial x := by
   unfold polynomial
   rw [mul_sum]
   apply sum_congr rfl
@@ -43,7 +45,7 @@ def map {W : Type*} [DecidableEq W] (H : UniformHypergraph V r) (f : V ↪ W) :
   edges := H.edges.image (fun e => e.image f)
   uniform := by
     intro e he
-    obtain ⟨e',he',rfl⟩ := mem_image.mp he
+    obtain ⟨e', he', rfl⟩ := mem_image.mp he
     rw [card_image_of_injective _ f.injective]
     exact H.uniform e' he'
 
@@ -72,7 +74,7 @@ lemma edgeEnum_image (H : UniformHypergraph V r) (e : H.edges) :
   · rintro ⟨i, rfl⟩
     exact ((Fintype.equivFinOfCardEq (α := e.val) (by simpa using H.uniform e.val e.property)).symm i).property
   · intro hv
-    let j : e.val := ⟨v,hv⟩
+    let j : e.val := ⟨v, hv⟩
     refine ⟨(Fintype.equivFinOfCardEq (α := e.val) (by simpa using H.uniform e.val e.property)) j, ?_⟩
     simp [edgeEnum, j]
 
@@ -86,22 +88,6 @@ lemma prod_edgeEnum (H : UniformHypergraph V r) (e : H.edges) (x : V → ℝ) :
     (∏ i, x (H.edgeEnum e i)) = ∏ v ∈ e.val, x v := by
   rw [← H.edgeEnum_image e, prod_image]
   exact fun i hi j hj hij => H.edgeEnum_injective e hij
-
-variable [Fintype V]
-
-/-- A uniform monomial sum is bounded by the corresponding power of total mass. -/
-lemma polynomial_le_mass_pow (H : UniformHypergraph V r) (x : V → ℝ)
-    (hx : ∀ v, 0 ≤ x v) : H.polynomial x ≤ (∑ v, x v)^r := by
-  classical
-  rw [Fintype.sum_pow]
-  calc
-    H.polynomial x = ∑ e : H.edges, ∏ i, x (H.edgeEnum e i) := by
-      simp only [H.prod_edgeEnum]
-      exact (sum_attach H.edges (fun e => ∏ v ∈ e, x v)).symm
-    _ ≤ ∑ f : Fin r → V, ∏ i, x (f i) := by
-      rw [← sum_image (s := univ) (g := H.edgeEnum) (f := fun f : Fin r → V => ∏ i, x (f i))
-        (fun e he f hf h => H.edgeEnum_map_injective h)]
-      exact sum_le_sum_of_subset_of_nonneg (subset_univ _) (fun f hf hnot => prod_nonneg fun i hi => hx (f i))
 
 end UniformHypergraph
 

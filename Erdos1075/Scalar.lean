@@ -1,4 +1,5 @@
-import Erdos1075.Cubic
+import Mathlib.Analysis.MeanInequalities
+import Mathlib.Tactic
 
 namespace Erdos1075
 

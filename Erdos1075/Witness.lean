@@ -1,5 +1,4 @@
 import Erdos1075.Construction
-import Erdos1075.Blowup
 
 namespace Erdos1075
 
@@ -9,24 +8,24 @@ open Finset CycleVertex
 def classSize (n : ℕ) : CycleVertex n → ℕ
   | Sum.inl _ => 14
   | Sum.inr (Sum.inl _) => 14
-  | Sum.inr (Sum.inr (Sum.inl _)) => 14*(n-1)
-  | Sum.inr (Sum.inr (Sum.inr (Sum.inl _))) => 7*n
-  | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl _)))) => 7*n
-  | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl _))))) => 14*n
+  | Sum.inr (Sum.inr (Sum.inl _)) => 14 * (n - 1)
+  | Sum.inr (Sum.inr (Sum.inr (Sum.inl _))) => 7 * n
+  | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl _)))) => 7 * n
+  | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inl _))))) => 14 * n
   | Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr (Sum.inr _))))) => 1
 
-lemma classSize_sum (n : ℕ) (hn : 1 ≤ n) : (∑ v,classSize n v) = 224*n := by
-  simp [CycleVertex,Fintype.sum_sum_type,classSize]
+lemma classSize_sum (n : ℕ) (hn : 1 ≤ n) : (∑ v, classSize n v) = 224 * n := by
+  simp [CycleVertex, Fintype.sum_sum_type, classSize]
   omega
 
 lemma classSize_polynomial (n : ℕ) (hn : 1 ≤ n) (σ : Equiv.Perm (Fin n)) :
-    (cycleGraph σ).polynomial (fun v => (classSize n v : ℝ)) = (14*(n:ℝ))^16+49*(n:ℝ)^2 := by
+    (cycleGraph σ).polynomial (fun v => (classSize n v : ℝ)) = (14 * (n : ℝ)) ^ 16 + 49 * (n : ℝ) ^ 2 := by
   rw [cycleGraph_polynomial]
-  simp only [A,B,C,U,V,W,D,classSize,Nat.cast_mul,Nat.cast_ofNat,Nat.cast_one,Nat.cast_sub hn,
-    sum_const,prod_const,card_univ,Fintype.card_fin,nsmul_eq_mul]
+  simp only [A, B, C, U, V, W, D, classSize, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_one, Nat.cast_sub hn,
+    sum_const, prod_const, card_univ, Fintype.card_fin, nsmul_eq_mul]
   ring
 
-noncomputable def witnessExcess (n : ℕ) : ℝ := 1/(4*(14*(n:ℝ))^14)
+noncomputable def witnessExcess (n : ℕ) : ℝ := 1 / (4 * (14 * (n : ℝ)) ^ 14)
 
 lemma witnessExcess_pos (n : ℕ) (hn : 1 ≤ n) : 0 < witnessExcess n := by
   have : (0 : ℝ) < n := by exact_mod_cast hn
@@ -35,9 +34,9 @@ lemma witnessExcess_pos (n : ℕ) (hn : 1 ≤ n) : 0 < witnessExcess n := by
 
 lemma classSize_polynomial_density (n : ℕ) (hn : 1 ≤ n) (σ : Equiv.Perm (Fin n)) :
     (cycleGraph σ).polynomial (fun v => (classSize n v : ℝ)) =
-      (1+witnessExcess n)*((224*(n:ℝ))/16)^16 := by
+      (1 + witnessExcess n) * ((224 * (n : ℝ)) / 16) ^ 16 := by
   rw [classSize_polynomial n hn σ]
-  have hn0 : (n:ℝ) ≠ 0 := by exact_mod_cast (by omega : n ≠ 0)
+  have hn0 : (n : ℝ) ≠ 0 := by exact_mod_cast (by omega : n ≠ 0)
   unfold witnessExcess
   field_simp
   ring
