@@ -35,35 +35,32 @@ lemma prod_le_mean_pow {ι : Type*} (s : Finset ι) (x : ι → ℝ)
     (div_nonneg (sum_nonneg hx) hcard.le) hcard).mp h
   simpa only [Real.rpow_natCast] using h'
 
-noncomputable def pathShape (h : ℝ) : ℝ := (2 * h) ^ 4 * (2 * (1 - h)) ^ 4
+noncomputable def pathShape (h : ℝ) : ℝ := (3 * h) ^ 2 * (3 * (1 - h) / 2) ^ 4
 
 lemma pathShape_nonneg (h : ℝ) : 0 ≤ pathShape h := by
   unfold pathShape
   positivity
 
 lemma pathShape_le_one {h : ℝ} (h0 : 0 ≤ h) (h1 : h ≤ 1) : pathShape h ≤ 1 := by
-  have hmean := pow_mul_pow_le_weighted_mean (2 * h) (2 * (1 - h)) 4 4
+  have hmean := pow_mul_pow_le_weighted_mean (3 * h) (3 * (1 - h) / 2) 2 4
     (by positivity) (by positivity) (by norm_num)
   norm_num only [Nat.cast_ofNat, Nat.reduceAdd] at hmean
-  have heq : ((4 : ℝ) * (2 * h) + 4 * (2 * (1 - h))) / 8 = 1 := by ring
+  have heq : ((2 : ℝ) * (3 * h) + 4 * (3 * (1 - h) / 2)) / 6 = 1 := by ring
   rw [heq, one_pow] at hmean
   exact hmean
 
-/-- A homogeneous polynomial certificate for the scalar estimate at uniformity eight. -/
+/-- A homogeneous polynomial certificate for the scalar estimate at uniformity six. -/
 lemma scalar_polynomial_nonneg (h t : ℝ) (hh : 0 ≤ h) (ht : 0 ≤ t) :
-    0 ≤ (h + t) ^ 8 - t ^ 8 - 6364 / 25 * h ^ 4 * t ^ 4 := by
-  have hquad : 0 ≤ 1500 * h ^ 2 - 2889 * h * t + 1400 * t ^ 2 := by
-    nlinarith [sq_nonneg (3000 * h - 2889 * t), sq_nonneg t]
+    0 ≤ (h + t) ^ 6 - t ^ 6 - 40095 / 1024 * h ^ 2 * t ^ 4 := by
+  have hquad : 0 ≤ 35 * h ^ 2 - 28575 / 1024 * h * t + 6 * t ^ 2 := by
+    nlinarith [sq_nonneg (70 * h - 28575 / 1024 * t), sq_nonneg t]
   calc
-    0 ≤ h ^ 4 * (h - t) ^ 2 * (h ^ 2 + 2 * h * t + 3 * t ^ 2) +
-        28 * h ^ 2 * t ^ 2 * (h ^ 2 - t ^ 2) ^ 2 +
-        8 * h * t * (h ^ 3 - t ^ 3) ^ 2 +
-        h ^ 3 * t ^ 3 / 25 * (1500 * h ^ 2 - 2889 * h * t + 1400 * t ^ 2) := by
-      positivity
-    _ = (h + t) ^ 8 - t ^ 8 - 6364 / 25 * h ^ 4 * t ^ 4 := by ring
+    0 ≤ h ^ 6 + 6 * h ^ 5 * t + 15 * h ^ 2 * t ^ 2 * (h - t / 2) ^ 2 +
+        h * t ^ 3 * (35 * h ^ 2 - 28575 / 1024 * h * t + 6 * t ^ 2) := by positivity
+    _ = (h + t) ^ 6 - t ^ 6 - 40095 / 1024 * h ^ 2 * t ^ 4 := by ring
 
 lemma path_endpoint_bound {h : ℝ} (h0 : 0 ≤ h) (h1 : h ≤ 1) :
-    pathShape h * (1 - 9 / 1600) + (1 - h) ^ 8 ≤ 1 := by
+    pathShape h * (1 - 9 / 64) + (1 - h) ^ 6 ≤ 1 := by
   have hp := scalar_polynomial_nonneg h (1 - h) h0 (sub_nonneg.mpr h1)
   have hsum : h + (1 - h) = 1 := by ring
   rw [hsum, one_pow] at hp
@@ -73,7 +70,7 @@ lemma path_endpoint_bound {h : ℝ} (h0 : 0 ≤ h) (h1 : h ≤ 1) :
 /-- The final scalar inequality in the open-path Lagrangian argument. -/
 theorem path_scalar_bound {h z : ℝ} (h0 : 0 ≤ h) (h1 : h ≤ 1)
     (hz0 : 0 ≤ z) (hz1 : z ≤ 1 / 4) :
-    pathShape h + z * (4 * (1 - h) ^ 8 - 9 / 400 * pathShape h) ≤ 1 := by
+    pathShape h + z * (4 * (1 - h) ^ 6 - 9 / 16 * pathShape h) ≤ 1 := by
   have hfirst := mul_le_mul_of_nonneg_left (pathShape_le_one h0 h1)
     (show 0 ≤ 1 - 4 * z by linarith)
   have hsecond := mul_le_mul_of_nonneg_left (path_endpoint_bound h0 h1)

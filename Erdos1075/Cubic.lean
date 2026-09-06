@@ -120,35 +120,29 @@ lemma path_square_energy (L : ℕ) (a b : ℕ → ℝ) (α β s : ℝ)
     have hpos : 0 ≤ (1 - s) * β * α ^ 2 := by positivity
     nlinarith
 
-lemma large_deviation_loss {δ D s : ℝ} (hD : 0 ≤ D) (hD1 : D ≤ 1)
-    (hs : 0 ≤ s) (hδ : D / 10 ≤ |δ|) :
-    s * (1 - s) * D ^ 3 / 1200 ≤ s * δ ^ 2 / 12 := by
-  have hsq := mul_self_le_mul_self (show 0 ≤ D / 10 by positivity) hδ
+lemma large_deviation_loss {δ D s : ℝ} (hD : 0 ≤ D)
+    (hs : 0 ≤ s) (hδ : D / 4 ≤ |δ|) :
+    s * (1 - s) * D ^ 3 / 48 ≤ s * D * δ ^ 2 / 3 := by
+  have hsq := mul_self_le_mul_self (show 0 ≤ D / 4 by positivity) hδ
   rw [← sq, ← sq, sq_abs] at hsq
-  have hmul := mul_le_mul_of_nonneg_left hsq hs
-  have hDpow : D ^ 3 ≤ D ^ 2 := by
-    nlinarith [mul_nonneg (sq_nonneg D) (show 0 ≤ 1 - D by linarith)]
-  have hprod : (1 - s) * D ^ 3 ≤ D ^ 2 := by
-    have : 0 ≤ s * D ^ 3 := by positivity
-    nlinarith
-  have hprod' := mul_le_mul_of_nonneg_left hprod hs
-  nlinarith
+  have hmul := mul_le_mul_of_nonneg_left hsq (mul_nonneg hs hD)
+  nlinarith [mul_nonneg (sq_nonneg s) (pow_nonneg hD 3)]
 
 lemma near_balanced_energy {α β s D E : ℝ} (hD : 0 ≤ D)
     (hs : 0 ≤ s) (hs1 : s ≤ 1)
-    (hα : 17 * D / 20 ≤ α) (hβ : 17 * D / 20 ≤ β)
+    (hα : 5 * D / 8 ≤ α) (hβ : 5 * D / 8 ≤ β)
     (he : 4 / 27 * min (s * α * β ^ 2) ((1 - s) * β * α ^ 2) ≤ E) :
-    s * (1 - s) * D ^ 3 / 1200 ≤ E := by
+    s * (1 - s) * D ^ 3 / 48 ≤ E := by
   have hα0 : 0 ≤ α := by linarith
   have hβ0 : 0 ≤ β := by linarith
   have hs' : 0 ≤ 1 - s := by linarith
-  have hprod₁ : (17 * D / 20) ^ 3 ≤ α * β ^ 2 := by
+  have hprod₁ : (5 * D / 8) ^ 3 ≤ α * β ^ 2 := by
     calc
-      (17 * D / 20) ^ 3 = (17 * D / 20) * (17 * D / 20) ^ 2 := by ring
+      (5 * D / 8) ^ 3 = (5 * D / 8) * (5 * D / 8) ^ 2 := by ring
       _ ≤ α * β ^ 2 := by gcongr
-  have hprod₂ : (17 * D / 20) ^ 3 ≤ β * α ^ 2 := by
+  have hprod₂ : (5 * D / 8) ^ 3 ≤ β * α ^ 2 := by
     calc
-      (17 * D / 20) ^ 3 = (17 * D / 20) * (17 * D / 20) ^ 2 := by ring
+      (5 * D / 8) ^ 3 = (5 * D / 8) * (5 * D / 8) ^ 2 := by ring
       _ ≤ β * α ^ 2 := by gcongr
   have hmul₁ := mul_le_mul_of_nonneg_left hprod₁ hs
   have hmul₂ := mul_le_mul_of_nonneg_left hprod₂ hs'
@@ -157,7 +151,7 @@ lemma near_balanced_energy {α β s D E : ℝ} (hD : 0 ≤ D)
   have hss₂ : s * (1 - s) ≤ 1 - s := by nlinarith [sq_nonneg (1 - s)]
   have ht₁ := mul_le_mul_of_nonneg_right hss₁ (show 0 ≤ D ^ 3 by positivity)
   have ht₂ := mul_le_mul_of_nonneg_right hss₂ (show 0 ≤ D ^ 3 by positivity)
-  have hmin : 4913 / 8000 * (s * (1 - s) * D ^ 3) ≤
+  have hmin : 125 / 512 * (s * (1 - s) * D ^ 3) ≤
       min (s * α * β ^ 2) ((1 - s) * β * α ^ 2) := by
     apply le_min
     · nlinarith only [hmul₁, ht₁]
@@ -173,7 +167,7 @@ theorem path_cubic_bound (L : ℕ) (a b : ℕ → ℝ) (c D s : ℝ)
     s * (∑ i ∈ range L, a i * (b i + c) * ((∑ j ∈ range L, b j) - b i + D)) +
       (1 - s) * (∑ i ∈ range L, b i * (a (i + 1) + c) *
         ((∑ j ∈ range L, a j) - a (i + 1) + D)) ≤
-        1 / 27 - s * (1 - s) * D ^ 3 / 1200 := by
+        1 / 27 - s * (1 - s) * D ^ 3 / 48 := by
   let A := ∑ i ∈ range L, a i
   let B := ∑ i ∈ range L, b i
   let α := (A + D - c) / 2
@@ -202,38 +196,40 @@ theorem path_cubic_bound (L : ℕ) (a b : ℕ → ℝ) (c D s : ℝ)
         (1 - s) * (B - 1 / 3) ^ 2 * (4 / 3 - B) / 4 + E := by
     dsimp [E]
     ring
-  have hla : s * (A - 1 / 3) ^ 2 / 12 ≤
+  have hla : s * D * (A - 1 / 3) ^ 2 / 3 ≤
       s * (A - 1 / 3) ^ 2 * (4 / 3 - A) / 4 := by
-    nlinarith only [mul_nonneg (mul_nonneg hs (sq_nonneg (A - 1 / 3))) (sub_nonneg.mpr hA1)]
-  have hlb : (1 - s) * (B - 1 / 3) ^ 2 / 12 ≤
+    have hcoef : 0 ≤ 4 / 3 - A - 4 * D / 3 := by linarith
+    nlinarith only [mul_nonneg (mul_nonneg hs (sq_nonneg (A - 1 / 3))) hcoef]
+  have hlb : (1 - s) * D * (B - 1 / 3) ^ 2 / 3 ≤
       (1 - s) * (B - 1 / 3) ^ 2 * (4 / 3 - B) / 4 := by
-    nlinarith only [mul_nonneg (mul_nonneg hs' (sq_nonneg (B - 1 / 3))) (sub_nonneg.mpr hB1)]
-  have hbase : s * (A - 1 / 3) ^ 2 / 12 + (1 - s) * (B - 1 / 3) ^ 2 / 12 + E ≤
+    have hcoef : 0 ≤ 4 / 3 - B - 4 * D / 3 := by linarith
+    nlinarith only [mul_nonneg (mul_nonneg hs' (sq_nonneg (B - 1 / 3))) hcoef]
+  have hbase : s * D * (A - 1 / 3) ^ 2 / 3 + (1 - s) * D * (B - 1 / 3) ^ 2 / 3 + E ≤
       1 / 27 - (s * (A * (1 - A) ^ 2 / 4 - E₁) +
         (1 - s) * (B * (1 - B) ^ 2 / 4 - E₂)) := by
     linarith only [hid, hla, hlb]
-  have hpa : 0 ≤ s * (A - 1 / 3) ^ 2 / 12 := by positivity
-  have hpb : 0 ≤ (1 - s) * (B - 1 / 3) ^ 2 / 12 := by positivity
-  by_cases hDa : D / 10 ≤ |A - 1 / 3|
-  · have h := large_deviation_loss hD hD1 hs hDa
+  have hpa : 0 ≤ s * D * (A - 1 / 3) ^ 2 / 3 := by positivity
+  have hpb : 0 ≤ (1 - s) * D * (B - 1 / 3) ^ 2 / 3 := by positivity
+  by_cases hDa : D / 4 ≤ |A - 1 / 3|
+  · have h := large_deviation_loss hD hs hDa
     linarith only [hbase, h, hpb, he]
-  by_cases hDb : D / 10 ≤ |B - 1 / 3|
-  · have h := large_deviation_loss hD hD1 hs' hDb
+  by_cases hDb : D / 4 ≤ |B - 1 / 3|
+  · have h := large_deviation_loss hD hs' hDb
     have h' : (1 - s) * (1 - (1 - s)) * D ^ 3 = s * (1 - s) * D ^ 3 := by ring
     rw [h'] at h
     linarith only [hbase, h, hpa, he]
   have hDa' := abs_lt.mp (lt_of_not_ge hDa)
   have hDb' := abs_lt.mp (lt_of_not_ge hDb)
   have hDpos : 0 < D := by linarith [abs_nonneg (A - 1 / 3)]
-  have hDsmall : D ≤ 5 / 12 := by linarith
-  have hαl : 17 * D / 20 ≤ α := by dsimp [α]; linarith
-  have hβl : 17 * D / 20 ≤ β := by dsimp [β]; linarith
-  have hαu : α ≤ 23 * D / 20 := by dsimp [α]; linarith
-  have hβu : β ≤ 23 * D / 20 := by dsimp [β]; linarith
+  have hDsmall : D ≤ 2 / 3 := by linarith
+  have hαl : 5 * D / 8 ≤ α := by dsimp [α]; linarith
+  have hβl : 5 * D / 8 ≤ β := by dsimp [β]; linarith
+  have hαu : α ≤ 11 * D / 8 := by dsimp [α]; linarith
+  have hβu : β ≤ 11 * D / 8 := by dsimp [β]; linarith
   have hαpos : 0 < α := by linarith
   have hβpos : 0 < β := by linarith
-  have hA : α / 3 ≤ A := by linarith
-  have hB : β / 3 ≤ B := by linarith
+  have hA : α / 3 ≤ A := by dsimp [α]; linarith
+  have hB : β / 3 ≤ B := by dsimp [β]; linarith
   have henergy := path_square_energy L a b α β s hαpos hβpos hs hs1 ha hb hend hA hB
   have h := near_balanced_energy hD hs hs1 hαl hβl henergy
   change _ ≤ E at h

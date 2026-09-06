@@ -69,7 +69,7 @@ lemma cycle_zero_bound_mass_le {n : ℕ} [NeZero n] (x : CycleVertex n → ℝ) 
 /-- The manuscript's uniform upper bound for the cyclic templates. -/
 theorem cycle_upper_bound {n : ℕ} [NeZero n] (x : CycleVertex n → ℝ)
     (hx : ∀ v, 0 ≤ x v) (hmass : (∑ v, x v) = 1) :
-    (cycleGraph (finRotate n)).polynomial x ≤ baseDensity + 1 / ((7 : ℕ).factorial * (n : ℝ)) := by
+    (cycleGraph (finRotate n)).polynomial x ≤ baseDensity + 1 / ((5 : ℕ).factorial * (n : ℝ)) := by
   have hn : (0 : ℝ) < n := by exact_mod_cast NeZero.pos n
   have hAsum : (∑ i, x (A i)) ≤ 1 := by
     rw [← hmass]
@@ -97,10 +97,10 @@ theorem cycle_upper_bound {n : ℕ} [NeZero n] (x : CycleVertex n → ℝ)
     rw [show (∑ v, y v) = (∑ v, x v) - x (A k) + 0 by exact sum_update_real x (A k) 0]
     linarith [hx (A k)]
   have hybound := cycle_zero_bound_mass_le y k hy hymass (by simp [y])
-  have hdel := (cycleGraph (finRotate n)).polynomial_zeroAt_bound (r := 7) (A k) x hx hmass.le
-  have hlast : x (A k) / (7 : ℕ).factorial ≤ 1 / ((7 : ℕ).factorial * (n : ℝ)) := by
+  have hdel := (cycleGraph (finRotate n)).polynomial_zeroAt_bound (r := 5) (A k) x hx hmass.le
+  have hlast : x (A k) / (5 : ℕ).factorial ≤ 1 / ((5 : ℕ).factorial * (n : ℝ)) := by
     calc
-      x (A k) / (7 : ℕ).factorial ≤ (1 / n) / (7 : ℕ).factorial := div_le_div_of_nonneg_right hk (by positivity)
+      x (A k) / (5 : ℕ).factorial ≤ (1 / n) / (5 : ℕ).factorial := div_le_div_of_nonneg_right hk (by positivity)
       _ = _ := by ring
   exact hdel.trans (add_le_add hybound hlast)
 
