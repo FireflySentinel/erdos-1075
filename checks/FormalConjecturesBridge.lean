@@ -24,7 +24,7 @@ def HasDensityIncrement (r : ℕ) : Prop :=
         c * (S.card : ℝ) ^ r ≤ ((E.filter (fun e => e ⊆ S)).card : ℝ)
 
 
-/-- Bridge for `erdos_1075.variants.r_ge_five` in the proposed community statement. -/
+/-- The density-increment assertion fails for every uniformity $r\geq5$. -/
 theorem erdos_1075.variants.r_ge_five :
     ∀ r : ℕ, 5 ≤ r → ¬HasDensityIncrement r := by
   intro r hr h
@@ -40,7 +40,7 @@ theorem erdos_1075.variants.r_ge_five :
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos1075.erdos_1075.variants.r_ge_five
 
-/-- Bridge for `erdos_1075` in the proposed community statement. -/
+/-- The density-increment assertion does not hold for all $r\geq3$. -/
 theorem erdos_1075 :
     ¬∀ r : ℕ, 3 ≤ r → HasDensityIncrement r := by
   intro h
