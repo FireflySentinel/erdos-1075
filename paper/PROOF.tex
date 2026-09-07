@@ -147,6 +147,14 @@ satisfies
 \end{equation}
 \end{proposition}
 
+The construction seeks a density gain that requires the entire cycle.
+The two alternating matchings allow the balancing conditions to hold
+simultaneously around a closed cycle, leaving room for an additional
+edge to increase the Lagrangian. Opening the cycle creates a terminal
+mismatch that absorbs this gain. Since a long cycle always has a
+vertex of small weight, the passage from a cycle to a path also gives
+an upper bound approaching the same threshold.
+
 The mechanism is visible at the level of the cubic forms. After
 normalizing the bottom mass, the balanced weighting on the closed cycle
 has
@@ -598,6 +606,22 @@ At \(r=3\), the formal gain edge would contain only one vertex
 of \(\D\), giving a linear term, and the four-vertex core edges
 cannot be retained in a \(3\)-uniform hypergraph.
 The endpoint question for \(r=3,4\) remains open.
+
+Together with Erd\H{o}s's theorem that every number below \(r!/r^r\)
+is a jump \cite{Erdos71}, Corollary~\ref{cor:all-r} identifies
+\(r!/r^r\) as the smallest non-jump for every \(r\ge5\).
+This leaves a natural question: are all numbers in \([r!/r^r,1)\)
+non-jumps, or do jumps occur again above the first non-jump?
+The possibility of a single transition from jumps to non-jumps
+remains consistent with the result.
+
+For \(r=3\), Liu and Mubayi conjecture that every number in
+\([0,4/9)\) is a jump and every number in \([4/9,1)\) is a non-jump
+\cite[Conjecture~1.2]{LiuMubayi26}.
+If this conjecture holds, the smallest non-jump for \(3\)-graphs
+would be twice the Erd\H{o}s threshold, whereas for every \(r\ge5\)
+it equals that threshold. Understanding whether this difference
+between uniformities occurs is a natural next question.
 
 \section*{Use of generative AI}
 
