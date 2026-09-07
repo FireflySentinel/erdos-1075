@@ -586,10 +586,21 @@ gives the stated \(r\)-uniform hypergraphs with
 \(\varepsilon=1/[4(3n)^{3}]\).
 \end{proof}
 
+The direct construction with \(r-4\) common \(W\)-vertices and
+\(r-2\) vertices in \(\D\) has gain of order \(D^{r-2}\);
+at \(r=5\) this matches the cubic open-path loss, and
+Lemma~\ref{lem:path} shows that the constants suffice to absorb it.
+At \(r=4\), the quadratic gain dominates this cubic loss for small
+positive \(D\), so the same open-path bound no longer controls the gain.
+At \(r=3\), the formal gain edge would contain only one vertex
+of \(\D\), giving a linear term, and the four-vertex core edges
+cannot be retained in a \(3\)-uniform hypergraph.
+The endpoint question for \(r=3,4\) remains open.
+
 \section*{Use of generative AI}
 
 GPT-6 Astra was used to generate the mathematical proofs, draft the manuscript,
-and perform the lean formalization. GPT-5.6 Sol and Claude Opus 5 were used only
+and perform the Lean formalization. GPT-5.6 Sol and Claude Opus 5 were used only
 for editorial review of the exposition. GPT-6 Astra was run in a research
 environment containing earlier results produced by GPT-5.6 Sol and Claude Opus 5,
 but those earlier results did not contribute to the final mathematical arguments.
