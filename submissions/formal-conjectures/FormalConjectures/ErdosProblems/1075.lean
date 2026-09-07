@@ -52,7 +52,7 @@ $m=m(n)\to \infty$ as $n\to \infty$.
 Gu [Gu26] gives counterexamples for every $r\geq5$. An induced subgraph has at
 least as many edges as any subgraph on the same vertex set.
 -/
-@[category research solved, AMS 5, formal_proof using lean4 at "https://github.com/FireflySentinel/erdos-1075/blob/2910c83a757d951eea37a228cc763243d4e998d8/Erdos1075/Main.lean"]
+@[category research solved, AMS 5, formal_proof using lean4 at "https://github.com/FireflySentinel/erdos-1075/blob/25a8630842853b70873e4c0a72b85d403413972b/checks/FormalConjecturesBridge.lean#L49"]
 theorem erdos_1075 :
     ¬∀ r : ℕ, 3 ≤ r → HasDensityIncrement r := by
   sorry
@@ -60,7 +60,7 @@ theorem erdos_1075 :
 /--
 The density-increment assertion is false for every $r\geq5$ [Gu26].
 -/
-@[category research solved, AMS 5, formal_proof using lean4 at "https://github.com/FireflySentinel/erdos-1075/blob/2910c83a757d951eea37a228cc763243d4e998d8/Erdos1075/Main.lean"]
+@[category research solved, AMS 5, formal_proof using lean4 at "https://github.com/FireflySentinel/erdos-1075/blob/25a8630842853b70873e4c0a72b85d403413972b/checks/FormalConjecturesBridge.lean#L33"]
 theorem erdos_1075.variants.r_ge_five :
     ∀ r : ℕ, 5 ≤ r → ¬HasDensityIncrement r := by
   sorry

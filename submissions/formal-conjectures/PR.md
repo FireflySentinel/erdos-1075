@@ -7,13 +7,13 @@ The assertion quantified over every r >= 3 is false, with counterexamples for ev
 
 Formalization choices:
 
+- The source states an assertion, so the main theorem uses its negation, following CONTRIBUTING.md.
 - Edges are a finite set of finite vertex sets, each of cardinality r.
 - For every prescribed subgraph order m, the conclusion holds at all sufficiently large n. This expresses the required divergence of the subgraph order.
 - Counting all edges contained in a vertex set is equivalent to asking for some subgraph on that set. The bridge uses the proved counterexamples with m = 1.
 
-The external proof attributes link to the [proved results](https://github.com/FireflySentinel/erdos-1075/blob/2910c83a757d951eea37a228cc763243d4e998d8/Erdos1075/Main.lean).
-`checks/FormalConjecturesBridge.lean` in the proof repository proves the linked
-statements using the proposed definitions. Its axiom guards allow only
+The external proof attributes link to each declaration in the [proof bridge](https://github.com/FireflySentinel/erdos-1075/blob/25a8630842853b70873e4c0a72b85d403413972b/checks/FormalConjecturesBridge.lean#L49).
+The theorem types use the proposed definitions; the axiom guards allow only
 `propext`, `Classical.choice`, and `Quot.sound`.
 
 Validation: `lake --wfail build 'FormalConjectures.ErdosProblems.«1075»'`
