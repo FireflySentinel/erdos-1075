@@ -45,12 +45,8 @@ edges, so the induced-subgraph bound implies the bound in the original problem.
 | Lifting to higher uniformities | [Suspension.lean](Erdos1075/Suspension.lean), `suspension_bound` |
 | Theorem 1 and all quantifiers combined | [Main.lean](Erdos1075/Main.lean), `erdos1075_counterexamples` |
 
-## Community statements
-
-[Prepared contributions](submissions/README.md) include the Formal Conjectures
-statement, a [proved bridge](checks/FormalConjecturesBridge.lean), and the proposed
-Erdős database update. Run `python3 submissions/check_bridge.py` to check that
-the definitions and linked theorem types agree.
+The [proof bridge](checks/FormalConjecturesBridge.lean) derives the corresponding
+problem statements and is included in `lake test`.
 
 ## Use of generative AI
 

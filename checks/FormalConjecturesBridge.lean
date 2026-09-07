@@ -1,14 +1,9 @@
 import Erdos1075
 
-/-! # Bridges to the proposed Formal Conjectures statements
+/-! # Explicit statements for Erdős Problem 1075
 
-The definitions and theorem types are copied from
-`submissions/formal-conjectures/FormalConjectures/ErdosProblems/1075.lean`.
-The upstream base is google-deepmind/formal-conjectures at
-`2c817e975be7a95478b72a8429155ca568e1a3de`.
-Only contribution attributes and the identity elaborator `answer` are omitted.
-`submissions/check_bridge.py` verifies this correspondence.
-This file imports the proved results, not the upstream statement placeholders.
+The hypergraph counterexamples refute the density-increment assertion for every
+$r\geq5$, and hence its universal form.
 -/
 
 noncomputable section
