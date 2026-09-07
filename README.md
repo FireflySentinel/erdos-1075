@@ -13,6 +13,7 @@ With [Elan](https://github.com/leanprover/elan) installed, run from the reposito
 lake exe cache get
 lake build
 lake env lean checks/Check.lean
+lake env lean -DwarningAsError=true checks/FormalConjecturesBridge.lean
 LEAN_NUM_THREADS=2 lake env leanchecker Erdos1075
 ```
 
@@ -44,6 +45,13 @@ edges, so the induced-subgraph bound implies the bound in the original problem.
 | Cycle upper bound `5^(-5) + 1 / (4! n)` | [CycleBound.lean](Erdos1075/CycleBound.lean), `cycle_upper_bound` |
 | Lifting to higher uniformities | [Suspension.lean](Erdos1075/Suspension.lean), `suspension_bound` |
 | Theorem 1 and all quantifiers combined | [Main.lean](Erdos1075/Main.lean), `erdos1075_counterexamples` |
+
+## Community statements
+
+[Prepared contributions](submissions/README.md) include the Formal Conjectures
+statement, a [proved bridge](checks/FormalConjecturesBridge.lean), and the proposed
+Erdős database update. Run `python3 submissions/check_bridge.py` to check that
+the definitions and linked theorem types agree.
 
 ## Use of generative AI
 
