@@ -145,14 +145,6 @@ satisfies
 \end{equation}
 \end{proposition}
 
-The construction seeks a density gain that requires the entire cycle.
-The two alternating matchings allow the balancing conditions to hold
-simultaneously around a closed cycle, leaving room for an additional
-edge to increase the Lagrangian. Opening the cycle creates a terminal
-mismatch that absorbs this gain. Since a long cycle always has a
-vertex of small weight, the passage from a cycle to a path also gives
-an upper bound approaching the same threshold.
-
 The mechanism is visible at the level of the cubic forms. After
 normalizing the bottom mass, the balanced weighting on the closed cycle
 has
@@ -165,7 +157,9 @@ additional edge \(\{U,V\}\cup\D\) contributes a gain of order
 terminal mismatch forces a loss of order \(D^3\) with a coefficient
 large enough to absorb that gain. Consequently every open path \(T_L\) has Lagrangian
 exactly \(5^{-5}\), whereas the closed cycle has Lagrangian slightly
-above \(5^{-5}\).
+above \(5^{-5}\). Since a long cycle always has a
+vertex of small weight, the passage from a cycle to a path also gives
+an upper bound approaching the same threshold.
 
 \section{The cyclic construction}\label{sec:construction}
 
@@ -594,6 +588,8 @@ gives the stated \(r\)-uniform hypergraphs with
 \(\varepsilon=1/[4(3n)^{3}]\).
 \end{proof}
 
+\section*{Concluding remarks}
+
 The direct construction with \(r-4\) common \(W\)-vertices and
 \(r-2\) vertices in \(\D\) has gain of order \(D^{r-2}\);
 at \(r=5\) this matches the cubic open-path loss, and
@@ -601,14 +597,14 @@ Lemma~\ref{lem:path} shows that the constants suffice to absorb it.
 At \(r=4\), the quadratic gain dominates this cubic loss for small
 positive \(D\), so the same open-path bound no longer controls the gain.
 At \(r=3\), the formal gain edge would contain only one vertex
-of \(\D\), giving a linear term, and the four-vertex core edges
-cannot be retained in a \(3\)-uniform hypergraph.
+of \(\D\), giving a linear term, and the link edges \(\{U\}\cup e\)
+themselves have four vertices.
 The endpoint question for \(r=3,4\) remains open.
 
 Together with Erd\H{o}s's theorem that every number below \(r!/r^r\)
 is a jump \cite{Erdos71}, Corollary~\ref{cor:all-r} identifies
 \(r!/r^r\) as the smallest non-jump for every \(r\ge5\).
-This leaves a natural question: are all numbers in \([r!/r^r,1)\)
+This leaves a natural question for \(r\ge5\): are all numbers in \([r!/r^r,1)\)
 non-jumps, or do jumps occur again above the first non-jump?
 The possibility of a single transition from jumps to non-jumps
 remains consistent with the result.
@@ -620,6 +616,12 @@ If this conjecture holds, the smallest non-jump for \(3\)-graphs
 would be twice the Erd\H{o}s threshold, whereas for every \(r\ge5\)
 it equals that threshold. Understanding whether this difference
 between uniformities occurs is a natural next question.
+
+\section*{Acknowledgments}
+
+The author thanks Dhruv Mubayi for comments on an earlier version, in
+particular for raising the question of jumps above \(r!/r^r\), and
+Xizhi Liu for correspondence.
 
 \section*{Declaration of generative AI and AI-assisted technologies in the writing process}
 
