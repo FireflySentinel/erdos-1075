@@ -1,6 +1,6 @@
 # Erdős Problem #1075: counterexamples for every $r\ge 5$
 
-[Preprint](paper/PROOF.pdf) giving **counterexamples** to
+Lean 4 formalization giving **counterexamples** to
 [Erdős Problem #1075](https://www.erdosproblems.com/1075) for every $r\ge 5$.
 
 ## Build and check
