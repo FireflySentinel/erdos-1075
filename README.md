@@ -1,9 +1,7 @@
 # Erdős Problem #1075: counterexamples for every $r\ge 5$
 
-Preprint giving **counterexamples** to
-[Erdős Problem #1075](https://www.erdosproblems.com/1075) for every $r\ge 5$, so the
-problem as stated for all $r\ge 3$ has a negative answer. The endpoint question remains
-open for $3\le r\le 4$.
+[Preprint](paper/PROOF.pdf) giving **counterexamples** to
+[Erdős Problem #1075](https://www.erdosproblems.com/1075) for every $r\ge 5$.
 
 ## Build and check
 
@@ -18,22 +16,13 @@ LEAN_NUM_THREADS=2 lake env leanchecker Erdos1075
 
 ## Exact statement
 
-[`Erdos1075.erdos1075_counterexamples`](Erdos1075/Main.lean) formalizes
-Theorem 1 and its extension to every `r ≥ 5`.
+The [main theorem](Erdos1075/Main.lean) gives, for every $r\ge5$ and
+$\gamma>r^{-r}$, an $\varepsilon>0$ and arbitrarily large $r$-uniform
+hypergraphs $H$ with
 
-For every natural number `r ≥ 5` and real `γ > 1 / r^r`, there is `ε > 0`
-such that, for every `N₀`, there are `N ≥ N₀` and a finite `r`-uniform
-hypergraph `H` on `Fin N` satisfying
+$$e(H)\ge(1+\varepsilon)(v(H)/r)^r,\qquad e(H[S])<\gamma|S|^r$$
 
-```text
-(1 + ε) * (N / r)^r ≤ |E(H)|
-∀ S ≠ ∅, |E(H[S])| < γ * |S|^r.
-```
-
-Density expressions are real-valued, and `ε` is fixed before `N₀`.
-`UniformHypergraph` represents edges as finite sets; `inducedEdges H S`
-selects those contained in `S`. Any subgraph on `S` has at most this many
-edges, so the induced-subgraph bound implies the bound in the original problem.
+for every nonempty $S\subseteq V(H)$.
 
 ## Proof correspondence
 
@@ -50,6 +39,6 @@ problem statements and is included in `lake test`.
 
 ## Use of generative AI
 
-The proofs, the first draft, and the Lean formalization were generated
-with GPT-6 Astra; GPT-5.6 Sol and Claude Opus 5 were used for editorial
-review. The author checked the arguments and is responsible for the content.
+GPT-6 Astra proposed the argument and generated the Lean formalization.
+GPT-5.6 Sol and Claude Opus 5 were used for editorial review.
+The author completed the manuscript and is responsible for the content.
