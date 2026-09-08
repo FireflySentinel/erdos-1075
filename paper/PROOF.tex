@@ -643,39 +643,11 @@ would be twice the Erd\H{o}s threshold, whereas for every \(r\ge5\)
 it equals that threshold. Whether this dichotomy between \(r=3\) and
 \(r\ge5\) is real, and what happens at \(r=4\), is a natural next question.
 
-\section*{Data and code availability}\label{sec:code}
+\section*{Code availability}
 
-The Lean source, manuscript source and build instructions are publicly
-available at \url{https://github.com/FireflySentinel/erdos-1075}.
-
-The formalization cited here is
-\href{https://github.com/FireflySentinel/erdos-1075/tree/109e271d0badd1496f4267e254ed21ddcb4a1653}
-{commit \texttt{109e271d0bad}}, using Lean~4.33.0 and Mathlib~4.33.0.
-It covers the explicit hypergraphs and integer class sizes, the potential,
-cubic and scalar estimates used in Lemmas~\ref{lem:energy}--\ref{lem:path},
-the cycle bound in Proposition~\ref{prop:sequence}, and the blow-up and
-lifting arguments proving Theorem~\ref{thm:main} and
-Corollary~\ref{cor:all-r}.
-The final theorem, \texttt{erdos1075\_counterexamples}, is in namespace
-\texttt{Erdos1075} in \texttt{Erdos1075/Main.lean}.
-The repository README maps the proof steps to their Lean declarations.
-
-The project contains no \texttt{sorry} or additional axioms.
-For the final theorem, \texttt{\#print axioms} reports exactly
-\[
- \texttt{[propext, Classical.choice, Quot.sound]}.
-\]
-These are Lean's standard axioms of propositional extensionality, choice
-and quotient soundness.
-The cited revision passed
-\href{https://github.com/FireflySentinel/erdos-1075/actions/runs/34267964771}
-{continuous integration}, including compilation, the axiom checks and
-kernel replay with \texttt{leanchecker}.
-No empirical datasets were generated or analyzed.
-
-\section*{Funding}
-
-The author received no specific funding for this work.
+The Lean 4 formalization of Theorem~\ref{thm:main} and
+Corollary~\ref{cor:all-r}, together with build instructions, is available at
+\url{https://github.com/FireflySentinel/erdos-1075}.
 
 \section*{Acknowledgments}
 
