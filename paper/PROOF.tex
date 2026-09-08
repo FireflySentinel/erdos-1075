@@ -17,7 +17,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \numberwithin{equation}{section}
-\newcommand{\D}{\mathcal D}
+\newcommand{\Z}{\mathcal Z}
 
 \title{Counterexamples to Erd\H{o}s Problem 1075}
 \author{Qiyuan Gu\\
@@ -42,10 +42,8 @@ unnormalized Lagrangians satisfy
  \le\lambda(G_n)\le5^{-5}+\frac1{4!n}.
 \]
 Blow-ups give the counterexample for \(r=5\), and adjoining common
-vertices to every edge lifts it to all larger uniformities. Thus
-Problem~1075, as a statement for all \(r\ge3\), has a negative answer.
-The endpoint question remains open for \(3\le r\le4\), including the
-case \(2/9\) for \(3\)-graphs.
+vertices to every edge lifts it to all larger uniformities.
+Problem~1075 fails for every \(r\ge5\); the cases \(r=3,4\) remain open.
 The proof is formalized and verified in Lean 4; generative AI was used
 in developing the arguments.
 \end{abstract}
@@ -95,14 +93,16 @@ proved that \(12/25\) is a non-jump for \(3\)-graphs, yielding
 For \(r\ge4\), Shaw proved that \(2r!/r^r\) is a non-jump and is
 the smallest non-jump obtainable from his finite-pattern formulation of
 the Frankl--R\"odl method \cite[Theorems~4.3 and~4.4(ii)]{Shaw26}.
+For \(r\ge5\), the result below gives the non-jump \(\alpha_r\),
+half this threshold, by bounding the full Lagrangian of a growing
+sequence of hypergraphs.
 For \(r=3\), the corresponding threshold is
 \(6(5\sqrt5-2)/121\) \cite[Theorem~4.4(i)]{Shaw26}.
 Liu and Mubayi subsequently proved that \(4/9\) is a non-jump for
 \(3\)-graphs, below this threshold \cite{LiuMubayi26}. The endpoint
 \(2/9\) for \(3\)-graphs remains open; Baber and Talbot proved, using
 flag algebras, jump intervals above it, the first beginning at \(0.2299\)
-\cite{BaberTalbot11}. The result below shows that the endpoint is a non-jump for
-every \(r\ge5\); the cases \(3\le r\le4\) remain open.
+\cite{BaberTalbot11}.
 
 \begin{theorem}\label{thm:main}
 For every \(\gamma>5^{-5}\), there is an \(\varepsilon>0\) and
@@ -115,8 +115,6 @@ there are arbitrarily large \(5\)-uniform hypergraphs \(H\) such that
 \]
 \end{theorem}
 
-For every nonempty vertex set \(S\), any subgraph on \(S\) has at most
-\(e(H[S])\) edges, so the theorem bounds all subgraphs on that vertex set.
 Taking \(5^{-5}<\gamma<c_{5}\) in Theorem~\ref{thm:main}
 rules out any \(c_{5}>5^{-5}\). In the usual density normalization,
 it also implies that \(5!/5^{5}\) is a non-jump. The proof uses
@@ -130,10 +128,6 @@ from above. We use the unnormalized Lagrangian of
 \end{equation}
 without the factor \(r!\); see also \cite{MotzkinStraus65,Keevash11}.
 
-Since \(\alpha_r\) lies below that threshold, the construction here is
-not an instance of Shaw's criterion; instead we bound the full Lagrangian
-of a growing sequence \(G_n\).
-
 \begin{proposition}\label{prop:sequence}
 For every integer \(n\ge2\), the \(5\)-uniform hypergraph \(G_n\)
 defined in Section~\ref{sec:construction} has \(2n+7\) vertices and
@@ -144,21 +138,15 @@ satisfies
 \end{equation}
 \end{proposition}
 
-The mechanism is visible at the level of the cubic forms. After
-normalizing the bottom mass, the balanced weighting on the closed cycle
-has
-\[
- b_i+c=B-b_i+D=a_{i+1}+c=A-a_{i+1}+D=\frac13,
-\]
-so both cubic forms attain \(1/27\) even with \(D>0\), while the
-additional edge \(\{U,V\}\cup\D\) contributes a gain of order
-\(D^{3}\). Deleting one vertex \(A_k\) opens the cycle; the
-terminal mismatch forces a loss of order \(D^3\) with a coefficient
-large enough to absorb that gain. Consequently every open path \(T_L\) has Lagrangian
-exactly \(5^{-5}\), whereas the closed cycle has Lagrangian slightly
-above \(5^{-5}\). Since a long cycle always has a
-vertex of small weight, the passage from a cycle to a path also gives
-an upper bound approaching the same threshold.
+The construction in Section~\ref{sec:construction} couples two cubic forms
+around a cycle. A balanced weighting attains equality in both cubic bounds,
+and an additional edge raises the Lagrangian above \(5^{-5}\).
+Deleting a cycle vertex produces an open path: Lemma~\ref{lem:cubic}
+gives a cubic loss, and Lemma~\ref{lem:path} shows that this loss absorbs
+the additional edge's contribution. Thus every open path has Lagrangian
+exactly \(5^{-5}\), while the closed cycles lie strictly above it.
+Deleting a vertex of small weight gives the upper bound in
+Proposition~\ref{prop:sequence}.
 
 \section{The cyclic construction}\label{sec:construction}
 
@@ -167,23 +155,23 @@ Fix \(n\ge2\). Take pairwise distinct vertices
  A_i,B_i\quad(i\in\mathbb Z/n\mathbb Z),\qquad C,U,V,
  \qquad W,\qquad D_1,D_2,D_3.
 \]
-Put \(\D=\{D_1,D_2,D_3\}\).
+Put \(\Z=\{D_1,D_2,D_3\}\).
 On the vertex set \(\{A_i,B_i:i\in\mathbb Z/n\mathbb Z\}\cup
-\{C\}\cup\D\), define two three-uniform hypergraphs by
+\{C\}\cup\Z\), define two three-uniform hypergraphs by
 \begin{align*}
  E(H_1)&=\bigcup_i
  \bigl\{\{A_i,X,Y\}:X\in\{B_i,C\},\
- Y\in\{B_j:j\ne i\}\cup\D\bigr\},\\
+ Y\in\{B_j:j\ne i\}\cup\Z\bigr\},\\
  E(H_2)&=\bigcup_i
  \bigl\{\{B_i,X,Y\}:X\in\{A_{i+1},C\},\
- Y\in\{A_j:j\ne i+1\}\cup\D\bigr\}.
+ Y\in\{A_j:j\ne i+1\}\cup\Z\bigr\}.
 \end{align*}
 All subscripts are read modulo \(n\). Define
 \begin{equation}\label{eq:edges}
  \begin{split}
  E(G_n)={}&\bigl\{\{W,U\}\cup e:e\in E(H_1)\bigr\}\\
  &\cup\bigl\{\{W,V\}\cup e:e\in E(H_2)\bigr\}
- \cup\bigl\{\{U,V\}\cup\D\bigr\}.
+ \cup\bigl\{\{U,V\}\cup\Z\bigr\}.
  \end{split}
 \end{equation}
 The three families are distinguished by their intersections with \(\{U,V\}\).
@@ -380,9 +368,9 @@ For \(L\ge1\), define the \(5\)-uniform hypergraph \(T_L\)
 as in \eqref{eq:edges}, with each index ranging over \(1,\ldots,L\)
 and with the last link in \(H_2\) replaced by the triples
 \[
- \{B_L,C,Y\},\qquad Y\in\{A_1,\ldots,A_L\}\cup\D.
+ \{B_L,C,Y\},\qquad Y\in\{A_1,\ldots,A_L\}\cup\Z.
 \]
-The edge \(\{U,V\}\cup\D\) is retained.
+The edge \(\{U,V\}\cup\Z\) is retained.
 Its polynomial is \eqref{eq:polynomial} with \(a_{L+1}=0\).
 
 \begin{lemma}\label{lem:path}
@@ -544,6 +532,9 @@ Together with \eqref{eq:blowup-count} and \(M\to\infty\), this
 proves the theorem.
 \end{proof}
 
+The construction above supplies the case \(r=5\); higher uniformities
+follow by lifting.
+
 \begin{corollary}\label{cor:all-r}
 For every integer \(r\ge5\) and every \(\gamma>r^{-r}\), there is an
 \(\varepsilon>0\) and there are arbitrarily large \(r\)-uniform
@@ -604,8 +595,8 @@ Letting \(M\to\infty\) proves the claim.
 \section*{Concluding remarks}
 
 The construction extends to any \(r\ge4\) with \(r-4\) common vertices
-in place of \(W\) and \(r-2\) vertices in \(\D\).
-The edge \(\{U,V\}\cup\D\) then contributes a term of order
+in place of \(W\) and \(r-2\) vertices in \(\Z\).
+The edge \(\{U,V\}\cup\Z\) then contributes a term of order
 \(D^{r-2}\), while the open-path loss in Lemma~\ref{lem:cubic}
 is cubic in \(D\). For \(r\ge6\) the loss dominates for small \(D\);
 at \(r=5\) the two orders coincide and Lemma~\ref{lem:path} shows
@@ -702,7 +693,7 @@ B.~R. Shaw,
 \href{https://doi.org/10.1016/j.ejc.2026.104400}
 {Minimal hypergraph non-jumps},
 \emph{European J. Combin.} \textbf{137} (2026), 104400;
-first circulated as arXiv:2506.09620 (2025).
+\href{https://arxiv.org/abs/2506.09620}{arXiv:2506.09620}.
 
 \bibitem{LiuMubayi26}
 X.~Liu and D.~Mubayi,
