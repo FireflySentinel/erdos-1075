@@ -29,7 +29,7 @@ University of Chicago\\
 \maketitle
 
 \begin{abstract}
-Erd\H{o}s asked whether, for every fixed \(r\ge3\), there is a constant
+Erd\H{o}s conjectured that, for every fixed \(r\ge3\), there is a constant
 \(c_r>r^{-r}\) such that, for every \(\varepsilon>0\), every
 sufficiently large \(r\)-uniform hypergraph on \(N\) vertices with
 at least \((1+\varepsilon)(N/r)^r\) edges contains
@@ -46,8 +46,7 @@ vertices to every edge lifts it to all larger uniformities. Thus
 Problem~1075, as a statement for all \(r\ge3\), has a negative answer.
 The endpoint question remains open for \(3\le r\le4\), including the
 case \(2/9\) for \(3\)-graphs.
-The complete proof is formalized and verified in Lean 4; generative AI was used
-in developing the arguments and the manuscript.
+The proof is formalized and verified in Lean 4.
 \end{abstract}
 
 \section{Introduction}
@@ -92,23 +91,17 @@ and Peng proved the lifting theorem that carries a non-jump of the form
 proved that \(12/25\) is a non-jump for \(3\)-graphs, yielding
 \((54/25)r!/r^r\) for every \(r\ge3\) by lifting \cite{YanPeng23}.
 
-Shaw recently proved that \(2r!/r^r\) is a non-jump for every
-\(r\ge4\), and that for \(r\ge4\) no smaller non-jump can be obtained
-from his finite-pattern formulation of the Frankl--R\"odl method
-\cite[Theorems~4.3 and~4.4]{Shaw26}. Liu and Mubayi subsequently proved
-that \(4/9\) is a non-jump for \(3\)-graphs \cite{LiuMubayi26}; this
-lies below the threshold \(6(5\sqrt5-2)/121\) in Shaw's
-Theorem~4.4(i). The endpoint
+For \(r\ge4\), Shaw proved that \(2r!/r^r\) is a non-jump and is
+the smallest non-jump obtainable from his finite-pattern formulation of
+the Frankl--R\"odl method \cite[Theorems~4.3 and~4.4(ii)]{Shaw26}.
+For \(r=3\), the corresponding threshold is
+\(6(5\sqrt5-2)/121\) \cite[Theorem~4.4(i)]{Shaw26}.
+Liu and Mubayi subsequently proved that \(4/9\) is a non-jump for
+\(3\)-graphs, below this threshold \cite{LiuMubayi26}. The endpoint
 \(2/9\) for \(3\)-graphs remains open; Baber and Talbot proved, using
 flag algebras, jump intervals above it, the first beginning at \(0.2299\)
 \cite{BaberTalbot11}. The result below shows that the endpoint is a non-jump for
 every \(r\ge5\); the cases \(3\le r\le4\) remain open.
-
-The construction below is not an instance of Shaw's
-finite-pattern criterion. Its distinguished links between the two
-vertex families follow the matching \(A_iB_i\) and the shifted matching
-\(B_iA_{i+1}\) around a cycle, and the proof controls the full
-Lagrangian of a growing sequence \(G_n\).
 
 \begin{theorem}\label{thm:main}
 For every \(\gamma>5^{-5}\), there is an \(\varepsilon>0\) and
@@ -121,9 +114,8 @@ there are arbitrarily large \(5\)-uniform hypergraphs \(H\) such that
 \]
 \end{theorem}
 
-The conclusion is stronger than the formulation of Problem~1075,
-since the bound holds for every nonempty vertex subset, and any
-subgraph on that vertex set has at most as many edges as the induced subgraph.
+For every nonempty vertex set \(S\), any subgraph on \(S\) has at most
+\(e(H[S])\) edges, so the theorem bounds all subgraphs on that vertex set.
 Taking \(5^{-5}<\gamma<c_{5}\) in Theorem~\ref{thm:main}
 rules out any \(c_{5}>5^{-5}\). In the usual density normalization,
 it also implies that \(5!/5^{5}\) is a non-jump. The proof uses
@@ -136,6 +128,22 @@ from above. We use the unnormalized Lagrangian of
  \lambda(H)=\max_{\substack{x_v\ge0\\\sum_vx_v=1}}P_H(x),
 \end{equation}
 without the factor \(r!\); see also \cite{MotzkinStraus65,Keevash11}.
+
+Shaw's criterion \cite[Theorem~3.1]{Shaw26} uses a finite \(r\)-pattern
+\(P\), whose edges may repeat vertices, and a vertex \(v\) with positive
+weight in a maximizing weighting \(x\), such that
+\(\lambda(\mathrm{FR}_v(P))=\lambda(P)<1\).
+For a simple \(P\), the construction \(\mathrm{FR}_v(P)\) replaces
+\(v\) by \(r\) clones and adds the edge consisting of those clones.
+Splitting \(x_v\) equally among them preserves the weight of the old
+edges and gives
+\[
+ \lambda(\mathrm{FR}_v(P))
+ \ge\lambda(P)+(x_v/r)^r>\lambda(P).
+\]
+Thus the equality condition fails for each of the simple hypergraphs
+\(G_n\) used here. Instead, we bound their full Lagrangians as \(n\)
+tends to infinity.
 
 \begin{proposition}\label{prop:sequence}
 For every integer \(n\ge2\), the \(5\)-uniform hypergraph \(G_n\)
@@ -189,10 +197,14 @@ All subscripts are read modulo \(n\). Define
  \cup\bigl\{\{U,V\}\cup\D\bigr\}.
  \end{split}
 \end{equation}
-Every edge has five distinct vertices. The three families are
-distinguished by their intersections with \(\{U,V\}\), and within
-each of the first two families the triple \(e\) determines the edge
-uniquely. Thus \(G_n\) is a simple \(5\)-uniform hypergraph.
+Each triple in \(H_1\) has a unique \(A\)-vertex, which determines
+\(i\); the disjoint sets of choices for \(X\) and \(Y\) then determine
+both vertices uniquely. The same argument applies to \(H_2\), using its
+unique \(B\)-vertex. Thus these parameterizations count each triple once.
+Every edge of \(G_n\) has five distinct vertices, and the three edge
+families are distinguished by their intersections with \(\{U,V\}\).
+Hence \(G_n\) is a simple \(5\)-uniform hypergraph, with no repeated
+terms in the polynomial below.
 
 Use lower-case letters for the weights of the corresponding vertices,
 and write
@@ -286,8 +298,11 @@ be nonnegative numbers. Put
  A=\sum_{i=1}^L a_i,\qquad B=\sum_{i=1}^L b_i,
  \qquad a_{L+1}=0,
 \]
-and suppose that \(A+B+c+D=1\). Define \(P_1,P_2\) by
-\eqref{eq:p1} and \eqref{eq:p2}, with sums over \(1\le i\le L\).
+and suppose that \(A+B+c+D=1\). Define the path forms
+\[
+ P_1=\sum_{i=1}^L a_i(b_i+c)(B-b_i+D),\qquad
+ P_2=\sum_{i=1}^L b_i(a_{i+1}+c)(A-a_{i+1}+D).
+\]
 Then, for every \(s\in[0,1]\),
 \begin{equation}\label{eq:cubic-loss}
  sP_1+(1-s)P_2\le\frac1{27}-\frac{s(1-s)D^3}{10}.
@@ -340,7 +355,8 @@ If \(S\ge11D/20\), then
  \Delta\ge\frac{121}{1200}s(1-s)D^3
  \ge\frac{s(1-s)D^3}{10},
 \]
-as required. Suppose therefore that \(S<11D/20\). Since
+as required. This includes \(D=0\), since \(S\ge0\).
+Suppose therefore that \(S<11D/20\), which implies \(D>0\). Since
 \(D\le1/3+S\), we have
 \[
  D\le\frac{20}{27},\qquad
@@ -433,17 +449,16 @@ into \eqref{eq:path-first}. We get
  \label{eq:scalar}
 \end{align}
 
-It remains to show that
+Since \(0\le4z\le1\), the last expression in \eqref{eq:scalar} is
+the convex combination
+\[
+ (1-4z)F(h)+4z\left[\left(1-\frac{27}{40}\right)F(h)+(1-h)^5\right].
+\]
+As \(F(h)\le1\), it suffices to prove
 \begin{equation}\label{eq:scalar-endpoint}
  \left(1-\frac{27}{40}\right)F(h)+(1-h)^5\le1
  \qquad(0\le h\le1).
 \end{equation}
-Indeed, the last expression in \eqref{eq:scalar} is the convex
-combination
-\[
- (1-4z)F(h)+4z\left[\left(1-\frac{27}{40}\right)F(h)+(1-h)^5\right].
-\]
-
 Since \((1-27/40)(3125/256)=8125/2048<5\), the binomial
 expansion gives
 \[
@@ -584,10 +599,21 @@ Proposition~\ref{prop:sequence} gives
  \le r^{-r}+\frac{5^{5}}{r^r4!n}.
 \]
 Choose \(n\) so that the upper bound is less than \(\gamma\).
-The blow-up argument in the proof of Theorem~\ref{thm:main}, using the
-rational weighting obtained by suspending \eqref{eq:weights}, then
-gives the stated \(r\)-uniform hypergraphs with
-\(\varepsilon=1/[4(3n)^{3}]\).
+For each positive integer \(M\), multiply every class size in the proof
+of Theorem~\ref{thm:main} by \(5\), and give each of the \(q\) new
+vertices a class of size \(30nM\). These are integer class sizes for
+a blow-up \(H\) of \(G_n^{+q}\), with
+\[
+ \begin{split}
+ N&=30nrM,\\
+ e(H)&=5^5\bigl[(6n)^5+72n^2\bigr](30n)^{r-5}M^r
+      =(1+\varepsilon)(N/r)^r,
+ \end{split}
+ \qquad \varepsilon=\frac1{4(3n)^3}.
+\]
+The induced-subgraph argument in the proof of Theorem~\ref{thm:main}
+gives \(e(H[S])\le\lambda(G_n^{+q})|S|^r<\gamma|S|^r\).
+Letting \(M\to\infty\) proves the claim.
 \end{proof}
 
 \section*{Concluding remarks}
@@ -596,8 +622,8 @@ The direct construction with \(r-4\) common \(W\)-vertices and
 \(r-2\) vertices in \(\D\) has gain of order \(D^{r-2}\);
 at \(r=5\) this matches the cubic open-path loss, and
 Lemma~\ref{lem:path} shows that the constants suffice to absorb it.
-At \(r=4\), the quadratic gain dominates this cubic loss for small
-positive \(D\), so the same open-path bound no longer controls the gain.
+The analogous power count at \(r=4\) is heuristic: a quadratic gain
+would have to be absorbed by a cubic loss as \(D\downarrow0\).
 At \(r=3\) the template does not exist, since a link edge
 \(\{U\}\cup e\) already has four vertices.
 The endpoint question for \(r=3,4\) remains open.
@@ -605,10 +631,9 @@ The endpoint question for \(r=3,4\) remains open.
 Together with Erd\H{o}s's theorem that every number below \(r!/r^r\)
 is a jump \cite{Erdos71}, Corollary~\ref{cor:all-r} identifies
 \(r!/r^r\) as the smallest non-jump for every \(r\ge5\).
-This leaves a natural question for \(r\ge5\): are all numbers in \([r!/r^r,1)\)
+Mubayi raised in correspondence the question of whether this is the
+only transition for \(r\ge5\): are all numbers in \([r!/r^r,1)\)
 non-jumps, or do jumps occur again above the first non-jump?
-The possibility of a single transition from jumps to non-jumps,
-raised by Mubayi in correspondence, is consistent with the result.
 
 For \(r=3\), Liu and Mubayi conjecture that every number in
 \([0,4/9)\) is a jump and every number in \([4/9,1)\) is a non-jump
@@ -617,6 +642,40 @@ If this conjecture holds, the smallest non-jump for \(3\)-graphs
 would be twice the Erd\H{o}s threshold, whereas for every \(r\ge5\)
 it equals that threshold. Whether this dichotomy between \(r=3\) and
 \(r\ge5\) is real, and what happens at \(r=4\), is a natural next question.
+
+\section*{Data and code availability}\label{sec:code}
+
+The Lean source, manuscript source and build instructions are publicly
+available at \url{https://github.com/FireflySentinel/erdos-1075}.
+
+The formalization cited here is
+\href{https://github.com/FireflySentinel/erdos-1075/tree/109e271d0badd1496f4267e254ed21ddcb4a1653}
+{commit \texttt{109e271d0bad}}, using Lean~4.33.0 and Mathlib~4.33.0.
+It covers the explicit hypergraphs and integer class sizes, the potential,
+cubic and scalar estimates used in Lemmas~\ref{lem:energy}--\ref{lem:path},
+the cycle bound in Proposition~\ref{prop:sequence}, and the blow-up and
+lifting arguments proving Theorem~\ref{thm:main} and
+Corollary~\ref{cor:all-r}.
+The final theorem, \texttt{erdos1075\_counterexamples}, is in namespace
+\texttt{Erdos1075} in \texttt{Erdos1075/Main.lean}.
+The repository README maps the proof steps to their Lean declarations.
+
+The project contains no \texttt{sorry} or additional axioms.
+For the final theorem, \texttt{\#print axioms} reports exactly
+\[
+ \texttt{[propext, Classical.choice, Quot.sound]}.
+\]
+These are Lean's standard axioms of propositional extensionality, choice
+and quotient soundness.
+The cited revision passed
+\href{https://github.com/FireflySentinel/erdos-1075/actions/runs/34267964771}
+{continuous integration}, including compilation, the axiom checks and
+kernel replay with \texttt{leanchecker}.
+No empirical datasets were generated or analyzed.
+
+\section*{Funding}
+
+The author received no specific funding for this work.
 
 \section*{Acknowledgments}
 
@@ -627,13 +686,12 @@ correspondence.
 
 \section*{Declaration of generative AI and AI-assisted technologies in the writing process}
 
-GPT-6 Astra was used to generate the mathematical proofs, draft the manuscript,
-and perform the Lean formalization. GPT-5.6 Sol and Claude Opus 5 were used for
-editorial review. GPT-6 Astra was run in a research
-environment containing earlier results produced by GPT-5.6 Sol and Claude Opus 5,
-but those earlier results did not contribute to the final mathematical arguments.
-The author reviewed the final manuscript and takes full responsibility for its
-content.
+GPT-6 Astra proposed the cyclic construction and the Lagrangian estimates,
+and generated the manuscript and the Lean formalization.
+GPT-5.6 Sol and Claude Opus 5 were used for editorial review.
+The mathematical arguments, the Lean formalization and its correspondence
+with the manuscript were checked by the author, who takes responsibility
+for the content.
 
 \begin{thebibliography}{99}
 
