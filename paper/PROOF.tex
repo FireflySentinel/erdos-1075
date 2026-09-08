@@ -46,7 +46,8 @@ vertices to every edge lifts it to all larger uniformities. Thus
 Problem~1075, as a statement for all \(r\ge3\), has a negative answer.
 The endpoint question remains open for \(3\le r\le4\), including the
 case \(2/9\) for \(3\)-graphs.
-The proof is formalized and verified in Lean 4.
+The proof is formalized and verified in Lean 4; generative AI was used
+in developing the arguments.
 \end{abstract}
 
 \section{Introduction}
@@ -129,21 +130,9 @@ from above. We use the unnormalized Lagrangian of
 \end{equation}
 without the factor \(r!\); see also \cite{MotzkinStraus65,Keevash11}.
 
-Shaw's criterion \cite[Theorem~3.1]{Shaw26} uses a finite \(r\)-pattern
-\(P\), whose edges may repeat vertices, and a vertex \(v\) with positive
-weight in a maximizing weighting \(x\), such that
-\(\lambda(\mathrm{FR}_v(P))=\lambda(P)<1\).
-For a simple \(P\), the construction \(\mathrm{FR}_v(P)\) replaces
-\(v\) by \(r\) clones and adds the edge consisting of those clones.
-Splitting \(x_v\) equally among them preserves the weight of the old
-edges and gives
-\[
- \lambda(\mathrm{FR}_v(P))
- \ge\lambda(P)+(x_v/r)^r>\lambda(P).
-\]
-Thus the equality condition fails for each of the simple hypergraphs
-\(G_n\) used here. Instead, we bound their full Lagrangians as \(n\)
-tends to infinity.
+Since \(\alpha_r\) lies below that threshold, the construction here is
+not an instance of Shaw's criterion; instead we bound the full Lagrangian
+of a growing sequence \(G_n\).
 
 \begin{proposition}\label{prop:sequence}
 For every integer \(n\ge2\), the \(5\)-uniform hypergraph \(G_n\)
@@ -197,14 +186,10 @@ All subscripts are read modulo \(n\). Define
  \cup\bigl\{\{U,V\}\cup\D\bigr\}.
  \end{split}
 \end{equation}
-Each triple in \(H_1\) has a unique \(A\)-vertex, which determines
-\(i\); the disjoint sets of choices for \(X\) and \(Y\) then determine
-both vertices uniquely. The same argument applies to \(H_2\), using its
-unique \(B\)-vertex. Thus these parameterizations count each triple once.
-Every edge of \(G_n\) has five distinct vertices, and the three edge
-families are distinguished by their intersections with \(\{U,V\}\).
-Hence \(G_n\) is a simple \(5\)-uniform hypergraph, with no repeated
-terms in the polynomial below.
+The three families are distinguished by their intersections with \(\{U,V\}\).
+Within \(H_1\) the unique \(A\)-vertex determines \(i\) and the disjoint
+ranges of \(X\) and \(Y\) determine the rest, and similarly for \(H_2\)
+with the \(B\)-vertex; hence \(G_n\) is a simple \(5\)-uniform hypergraph.
 
 Use lower-case letters for the weights of the corresponding vertices,
 and write
@@ -618,12 +603,14 @@ Letting \(M\to\infty\) proves the claim.
 
 \section*{Concluding remarks}
 
-The direct construction with \(r-4\) common \(W\)-vertices and
-\(r-2\) vertices in \(\D\) has gain of order \(D^{r-2}\);
-at \(r=5\) this matches the cubic open-path loss, and
-Lemma~\ref{lem:path} shows that the constants suffice to absorb it.
-The analogous power count at \(r=4\) is heuristic: a quadratic gain
-would have to be absorbed by a cubic loss as \(D\downarrow0\).
+The construction extends to any \(r\ge4\) with \(r-4\) common vertices
+in place of \(W\) and \(r-2\) vertices in \(\D\).
+The edge \(\{U,V\}\cup\D\) then contributes a term of order
+\(D^{r-2}\), while the open-path loss in Lemma~\ref{lem:cubic}
+is cubic in \(D\). For \(r\ge6\) the loss dominates for small \(D\);
+at \(r=5\) the two orders coincide and Lemma~\ref{lem:path} shows
+that the constants suffice. At \(r=4\) the count goes the other way,
+a quadratic gain against a cubic loss, so the open-path bound fails.
 At \(r=3\) the template does not exist, since a link edge
 \(\{U\}\cup e\) already has four vertices.
 The endpoint question for \(r=3,4\) remains open.
@@ -639,8 +626,8 @@ For \(r=3\), Liu and Mubayi conjecture that every number in
 \([0,4/9)\) is a jump and every number in \([4/9,1)\) is a non-jump
 \cite[Conjecture~1.2]{LiuMubayi26}.
 If this conjecture holds, the smallest non-jump for \(3\)-graphs
-would be twice the Erd\H{o}s threshold, whereas for every \(r\ge5\)
-it equals that threshold. Whether this dichotomy between \(r=3\) and
+would be \(2\alpha_3\), whereas for every \(r\ge5\)
+it equals \(\alpha_r\). Whether this dichotomy between \(r=3\) and
 \(r\ge5\) is real, and what happens at \(r=4\), is a natural next question.
 
 \section*{Code availability}
