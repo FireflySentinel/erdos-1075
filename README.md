@@ -14,16 +14,6 @@ lake test
 LEAN_NUM_THREADS=2 lake env leanchecker Erdos1075
 ```
 
-## Exact statement
-
-The [main theorem](Erdos1075/Main.lean) gives, for every $r\ge5$ and
-$\gamma>r^{-r}$, an $\varepsilon>0$ and arbitrarily large $r$-uniform
-hypergraphs $H$ with
-
-$$e(H)\ge(1+\varepsilon)(v(H)/r)^r,\qquad e(H[S])<\gamma|S|^r$$
-
-for every nonempty $S\subseteq V(H)$.
-
 ## Proof correspondence
 
 | Manuscript component | Lean source |
